@@ -1,0 +1,46 @@
+ErrorDocument 404 http://localhost/mojogurupuwa/404.php
+
+ServerSignature Off
+
+#Default Language Settings
+DefaultLanguage en
+
+#Disable directory listing 
+Options All -Indexes
+
+# Force download of files
+#<FilesMatch "\.(doc|docx|xls|csv|txt|pdf)$">
+# ForceType application/octet-stream
+# Header set Content-Disposition attachment
+#</FilesMatch>
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} off
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{REQUEST_FILENAME}\.php -f
+
+RewriteRule ^([^/]+)/?$ $1.php [NC,L]
+
+RewriteRule ^course/([0-9]+)/([^/]+)/?$ course.php?id=$1 [NC,L]
+
+RewriteRule ^courses/([^/]+)/?$ courses.php?class=$1 [NC,L]
+
+RewriteRule ^courses/([^/]+)/([0-9]+)/?$ courses.php?page=$2 [NC,L]
+
+RewriteRule ^courses/([^/]+)/([^/]+)/([0-9]+)/?$ courses.php?class=$1&page=$3 [NC,L]
+
+RewriteRule ^courses/category/([0-9]+)/([^/]+)/?$ courses.php?category=$1&catSlugName=$2 [NC,L]
+
+RewriteRule ^courses/category/([0-9]+)/([^/]+)/([^/]+)/([0-9]+)/?$ courses.php?category=$1&catSlugName=$2&page=$4 [NC,L]
+
+RewriteRule ^category/([0-9]+)/([^/]+)/?$ category.php?id=$1 [NC,L]
+
+RewriteRule ^event/([0-9]+)/([^/]+)/?$ event.php?id=$1 [NC,L]
+
+RewriteRule ^member/([0-9]+)/([^/]+)/?$ member.php?id=$1 [NC,L]
+
+RewriteRule ^client/([0-9]+)/([^/]+)/?$ client.php?id=$1 [NC,L]
+
