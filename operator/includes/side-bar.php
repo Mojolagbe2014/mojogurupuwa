@@ -35,9 +35,14 @@
                             <li> <a href="manage-presentations">Manage Presentations</a> </li>
                         </ul>
                     </li>  
+                    <li> <a href="#"><i class="fa fa-file-text fa-2x"></i> Resume/CV Manager<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li> <a href="manage-resumes">Manage Resumes/CV</a> </li>
+                        </ul>
+                    </li>
                     <li> <a href="#"><i class="fa fa-certificate fa-2x"></i> Patents Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-brochures">Manage Brochures</a> </li>
+                            <li> <a href="manage-brochures">Manage Patents</a> </li>
                         </ul>
                     </li>
                     <li> <a href="#"><i class="fa fa-user fa-2x"></i> Subscribers<span class="fa arrow"></span></a>
