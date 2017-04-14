@@ -173,7 +173,7 @@ class Publication implements ContentManipulator{
      * @return JSON JSON encoded success or failure message
      */
     public function update() {
-        $sql = "UPDATE publication SET name = '{$this->name}', image = '{$this->image}', short_name = '{$this->shortName}', category = '{$this->category}', start_date = '{$this->startDate}', end_date = '{$this->endDate}', code = '{$this->code}', description = '{$this->description}', media = '{$this->media}', amount = '{$this->amount}', currency = '{$this->currency}' WHERE id = $this->id ";
+        $sql = "UPDATE publication SET name = '{$this->name}', image = '{$this->image}', category = '{$this->category}', date_published = '{$this->datePublished}', description = '{$this->description}', media = '{$this->media}' WHERE id = $this->id ";
         if(!empty($this->id)){
             $result = $this->dbObj->query($sql);
             if($result !== false){ $json = array("status" => 1, "msg" => "Done, publication successfully updated!"); }
