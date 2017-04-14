@@ -51,8 +51,8 @@ $errorArr = array(); //Array of errors
                                         <div class="controls">
                                             <select name="isCompleted" id="isCompleted" data-placeholder="Is project completed" class="form-control" required="required">
                                                 <option value=""> -- Select project completion -- </option>
-                                                <option value="true">Yes</option>
-                                                <option value="false">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>

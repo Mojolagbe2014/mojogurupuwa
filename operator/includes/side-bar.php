@@ -20,7 +20,7 @@
                     <li> <a href="#"><i class="fa fa-folder-open fa-2x"></i> Research Projects Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="add-project">Add Research Project</a> </li>
-                            <li> <a href="manage-courses">Manage Research  Projects</a> </li>
+                            <li> <a href="manage-projects">Manage Research  Projects</a> </li>
                         </ul>
                     </li>  
                     <li> <a href="#"><i class="fa fa-file fa-2x"></i> Brochure Manager<span class="fa arrow"></span></a>
