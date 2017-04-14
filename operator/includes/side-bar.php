@@ -17,13 +17,20 @@
                             <li> <a href="manage-categories">Manage Categories</a> </li>
                         </ul>
                     </li>
-                    <li> <a href="#"><i class="fa fa-folder-open fa-2x"></i> Research Projects Manager<span class="fa arrow"></span></a>
+                    <li> <a href="#"><i class="fa fa-book fa-2x"></i> Publications Manager<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="add-publication">Add Publication</a> </li>
+                            <li> <a href="manage-publications">Manage Publications</a> </li>
+                        </ul>
+                    </li>  
+                    <li> <a href="#"><i class="fa fa-folder-open fa-2x"></i>Research Projects Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="add-project">Add Research Project</a> </li>
                             <li> <a href="manage-projects">Manage Research  Projects</a> </li>
                         </ul>
                     </li>  
-                    <li> <a href="#"><i class="fa fa-file fa-2x"></i> Brochure Manager<span class="fa arrow"></span></a>
+                    
+                    <li> <a href="#"><i class="fa fa-certificate fa-2x"></i> Patents Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="manage-brochures">Manage Brochures</a> </li>
                         </ul>
