@@ -52,9 +52,9 @@ $(document).ready(function(){
         return false;
     });
     
-    loadAllCoursesCategories();
-    function loadAllCoursesCategories(){
-        dataTable = $('#coursecategorylist').DataTable( {
+    loadAllPublicationsCategories();
+    function loadAllPublicationsCategories(){
+        dataTable = $('#publicationcategorylist').DataTable( {
             columnDefs: [ {
                 orderable: false,
                 className: 'select-checkbox',
@@ -73,9 +73,9 @@ $(document).ready(function(){
                 type: "post",  // method  , by default get
                 data: {fetchCategories:'true'},
                 error: function(){  // error handling
-                        $("#coursecategorylist-error").html("");
-                        $("#coursecategorylist").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
-                        $("#coursecategorylist_processing").css("display","none");
+                        $("#publicationcategorylist-error").html("");
+                        $("#publicationcategorylist").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                        $("#publicationcategorylist_processing").css("display","none");
 
                 }
             }
@@ -93,11 +93,11 @@ $(document).ready(function(){
     //Handler for multiple selection
     $('.multi-delete-admin').click(function(){
         if(confirm("Are you sure you want to delete selected admins?")) {
-            if($('#multi-action-box').prop("checked") || $('#coursecategorylist :checkbox:checked').length > 0) {
-                var atLeastOneIsChecked = $('#coursecategorylist :checkbox:checked').length > 0;
+            if($('#multi-action-box').prop("checked") || $('#publicationcategorylist :checkbox:checked').length > 0) {
+                var atLeastOneIsChecked = $('#publicationcategorylist :checkbox:checked').length > 0;
                 if (atLeastOneIsChecked !== false) {
-                    $('#coursecategorylist :checkbox:checked').each(function(){
-                        deleteCourseCategory($(this).attr('data-id'), $(this).attr('data-image'));
+                    $('#publicationcategorylist :checkbox:checked').each(function(){
+                        deletePublicationCategory($(this).attr('data-id'), $(this).attr('data-image'));
                     });
                 }
                 else alert("No row selected. You must select atleast a row.");
@@ -107,13 +107,13 @@ $(document).ready(function(){
     });
     
     $(document).on('click', '.delete-category', function() {
-        if(confirm("Are you sure you want to delete this category? Category Name: '"+$(this).attr('data-name')+"'")) deleteCourseCategory($(this).attr('data-id'),$(this).attr('data-image'));
+        if(confirm("Are you sure you want to delete this category? Category Name: '"+$(this).attr('data-name')+"'")) deletePublicationCategory($(this).attr('data-id'),$(this).attr('data-image'));
     });
     $(document).on('click', '.edit-category', function() {
-        if(confirm("Are you sure you want to edit this category? Category Name: '"+$(this).attr('data-name')+"'")) editCourseCategory($(this).attr('data-id'), $(this).attr('data-name'), $(this).attr('data-description'), $(this).attr('data-image'));
+        if(confirm("Are you sure you want to edit this category? Category Name: '"+$(this).attr('data-name')+"'")) editPublicationCategory($(this).attr('data-id'), $(this).attr('data-name'), $(this).attr('data-description'), $(this).attr('data-image'));
     });
     
-    function deleteCourseCategory(id,image){
+    function deletePublicationCategory(id,image){
         $.ajax({
             url: "../REST/manage-categories.php",
             type: 'POST',
@@ -150,8 +150,8 @@ $(document).ready(function(){
         });
     }
     
-    function editCourseCategory(id, name, description, image){//,
-        $('form #addNewCategory').val('editCourseCategory');
+    function editPublicationCategory(id, name, description, image){//,
+        $('form #addNewCategory').val('editPublicationCategory');
         $('form #multi-action-catAddEdit').text('Update Category');
         $(document).scrollTo('form#CreateCategory');
         var formVar = {id:id, name:name, description:description, image:image};

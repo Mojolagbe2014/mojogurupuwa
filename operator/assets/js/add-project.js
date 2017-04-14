@@ -4,44 +4,32 @@ $(document).ready(function(){
         onClose: function(){ $('#endDate').datepicker( "option", "minDate", new Date($(this).datepicker( "getDate" )) ); }
     });
     $( "#endDate" ).datepicker({ dateFormat: "yy-mm-dd",appendText: "(yyyy-mm-dd)", changeMonth: true, changeYear: true });
-   //alert(true);
-    //Fetch all the categories
+   
+    //Fetch all the sponsors
     $.ajax({
-        url: "../REST/fetch-categories.php",
+        url: "../REST/fetch-sponsors.php",
         type: 'POST',
         cache: false,
         success : function(data, status) {
-            $('#category').empty();
+            $('#sponsor').empty();
             if(data.status === 0 ){ 
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Category loading error. '+data.msg+'</div>');
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Sponsor loading error. '+data.msg+'</div>');
             }
             if(data.status === 2 ){ 
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>No category available</div>');
-                 $('#category').append('<option value="">-- No category available --</option>');
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>No sponsor available</div>');
+                 $('#sponsor').append('<option value="">-- No sponsors available --</option>');
             }
             else if(data.status ===1 && data.info.length > 0){
-                $('#category').append('<option value="">-- Select a category.. --</option>');
+                $('#sponsor').append('<option value="">-- Select a sponsor.. --</option>');
                 $.each(data.info, function(i, item) {
-                    $('#category').append('<option value="'+item.id+'">'+item.name+'</option>');
+                    $('#sponsor').append('<option value="'+item.id+'">'+item.name+'</option>');
                 });
             } 
 
         }
     });
     
-    //Fetch all currencies
-    $.ajax({
-        url: "common-currencies.json",
-        type: 'POST',
-        cache: false,
-        success : function(data, status) {
-            $.each(data, function(i, item) {
-                $('#currency').append('<option value="'+item.code+'" title="'+item.name+'">'+item.code+' ('+item.symbol+')</option>');
-            });
-        }
-    });
-    
-    $("form#CreateCourse").submit(function(e){ 
+    $("form#CreateProject").submit(function(e){ 
         e.stopPropagation();
         e.preventDefault();
         $(document).scrollTo('div.panel h3');

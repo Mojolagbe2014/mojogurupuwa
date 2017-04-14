@@ -13,7 +13,7 @@ $errorArr = array(); //Array of errors
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manage Course Categories  - Impact Training &amp; Management Consulting</title>
+    <title>Manage Publication Categories  - Prof. Vladimir Okhmatovski's Research Group</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/custom.css" rel="stylesheet" />
@@ -35,11 +35,11 @@ $errorArr = array(); //Array of errors
                     <div class="col-md-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3>All Course Categories</h3>
+                                <h3>All Publication Categories</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table id="coursecategorylist" class="table table-striped table-bordered table-hover">
+                                    <table id="publicationcategorylist" class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="select-checkbox" id="multi-action-box" /></th>

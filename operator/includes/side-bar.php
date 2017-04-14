@@ -11,16 +11,16 @@
                         </ul>
                     </li>
                     <?php } ?>
-                    <li> <a href="#"><i class="fa fa-briefcase fa-2x"></i>Course Categories<span class="fa arrow"></span></a>
+                    <li> <a href="#"><i class="fa fa-briefcase fa-2x"></i>Publication Categories<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
-<!--                            <li> <a href="add-category">Add Course Category</a> </li>-->
+<!--                            <li> <a href="add-category">Add Publication Category</a> </li>-->
                             <li> <a href="manage-categories">Manage Categories</a> </li>
                         </ul>
                     </li>
-                    <li> <a href="#"><i class="fa fa-folder-open fa-2x"></i> Courses Manager<span class="fa arrow"></span></a>
+                    <li> <a href="#"><i class="fa fa-folder-open fa-2x"></i> Research Projects Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="add-course">Add Course</a> </li>
-                            <li> <a href="manage-courses">Manage Courses</a> </li>
+                            <li><a href="add-project">Add Research Project</a> </li>
+                            <li> <a href="manage-courses">Manage Research  Projects</a> </li>
                         </ul>
                     </li>  
                     <li> <a href="#"><i class="fa fa-file fa-2x"></i> Brochure Manager<span class="fa arrow"></span></a>

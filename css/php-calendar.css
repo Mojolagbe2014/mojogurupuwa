@@ -1,0 +1,172 @@
+/*******************************Calendar Top Navigation*********************************/
+div#calendar{
+/*  margin:0px auto;*/
+  padding:0px;
+  width: 602px;
+  font-family:Helvetica, "Times New Roman", Times, serif;
+}
+ 
+div#calendar div.box{
+    position:relative;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:40px;
+    background-color:   #2D3E50 ;      
+}
+ 
+div#calendar div.header{
+    line-height:40px;  
+    vertical-align:middle;
+    position:absolute;
+    left:11px;
+    top:0px;
+    width:582px;
+    height:40px;   
+    text-align:center;
+}
+ 
+div#calendar div.header a.prev,div#calendar div.header a.next{ 
+    position:absolute;
+    top:0px;   
+    height: 17px;
+    display:block;
+    cursor:pointer;
+    text-decoration:none;
+    color:#FFF;
+}
+ 
+div#calendar div.header span.title{
+    color:#FFF;
+    font-size:18px;
+}
+ 
+ 
+div#calendar div.header a.prev{
+    left:0px;
+}
+ 
+div#calendar div.header a.next{
+    right:0px;
+}
+ 
+ 
+ 
+ 
+/*******************************Calendar Content Cells*********************************/
+div#calendar div.box-content{
+    border:1px solid #2D3E50 ;
+    border-top:none;
+}
+ 
+ 
+ 
+div#calendar ul.label{
+    float:left;
+    margin: 0px;
+    padding: 0px;
+    margin-top:5px;
+    margin-left: 5px;
+}
+ 
+div#calendar ul.label li{
+    margin:0px;
+    padding:0px;
+    margin-right:5px;  
+    float:left;
+    list-style-type:none;
+    width:80px;
+    height:40px;
+    line-height:40px;
+    vertical-align:middle;
+    text-align:center;
+/*    color:#000;*/
+    font-size: 15px;
+    background-color: transparent;
+}
+ 
+ 
+div#calendar ul.dates{
+    float:left;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+ 
+/** overall width = width+padding-right**/
+div#calendar ul.dates li{
+    margin:0px;
+    padding:0px;
+    margin-right:5px;
+    margin-top: 5px;
+    line-height:60px;
+    vertical-align:middle;
+    float:left;
+    list-style-type:none;
+    width:80px;
+    height:60px;
+    font-size:25px;
+    background-color: #fffDDD;
+/*    color:#000;*/
+    text-align:center; 
+}
+a.popup_link .popup_login_link .inited{background:#000;} 
+ 
+:focus{
+    outline:none;
+}
+ 
+div.clear{
+    clear:both;
+}
+li.title{color:black;}
+li.end{color:red;}
+
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    div#calendar{ width:290px; }
+    div#calendar ul.dates li{width:35px;height:30px;font-size:12px;line-height: 30px;}
+    div#calendar div.box{ height:30px;}
+    div#calendar div.header{line-height: 30px;width: 265px;height: 20px;font-size:10px;}
+    div#calendar div.header span.title {font-size: 13px;}
+    div#calendar ul.label li {width:35px;font-size:12px;}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+    div#calendar{ width:290px; }
+    div#calendar ul.dates li{width:35px;height:30px;font-size:12px;line-height: 30px;}
+    div#calendar div.box{ height:30px;}
+    div#calendar div.header{line-height: 30px;width: 265px;height: 20px;font-size:10px;}
+    div#calendar div.header span.title {font-size: 13px;}
+    div#calendar ul.label li {width:35px;font-size:12px;}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    div#calendar{ width:400px; }
+    div#calendar ul.dates li{width:50px;height:30px;font-size:14px;line-height: 30px;}
+    div#calendar div.box{ height:30px;}
+    div#calendar div.header{line-height: 30px;width: 380px;height: 30px;font-size:12px;}
+    div#calendar div.header span.title {font-size: 15px;}
+    div#calendar ul.label li {width:50px;font-size:14px;}
+}
+
+@media only screen and (min-width : 768px) {
+    div#rev_slider_3_1{
+margin-top:100px
+}
+
+.menu_user_wrap .menu_user_right {
+    margin-right: -60px;
+}
+
+.menu_main_nav_area {
+    margin-top: 0.275em;
+    margin-bottom: 0.75em;
+}
+
+.menu_main_wrap .logo_main {
+    margin-top: -55px;
+}
+}

@@ -13,7 +13,7 @@ $errorArr = array(); //Array of errors
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Impact Training &amp; Management Consulting</title>
+    <title>Dashboard - Prof. Vladimir Okhmatovski's Research Group</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
@@ -44,7 +44,7 @@ $errorArr = array(); //Array of errors
                     <i class="fa fa-envelope-o"></i>
                 </span>
                 <div class="text-box" >
-                    <p class="main-text">120 New</p>
+                    <p class="main-text">0 New</p>
                     <p class="text-muted">Messages</p>
                 </div>
              </div>
@@ -55,7 +55,7 @@ $errorArr = array(); //Array of errors
                     <i class="fa fa-bars"></i>
                 </span>
                 <div class="text-box" >
-                    <p class="main-text">30 Tasks</p>
+                    <p class="main-text">0 Tasks</p>
                     <p class="text-muted">Remaining</p>
                 </div>
              </div>
@@ -66,7 +66,7 @@ $errorArr = array(); //Array of errors
                     <i class="fa fa-bell-o"></i>
                 </span>
                 <div class="text-box" >
-                    <p class="main-text">240 New</p>
+                    <p class="main-text">0 New</p>
                     <p class="text-muted">Notifications</p>
                 </div>
              </div>
@@ -77,7 +77,7 @@ $errorArr = array(); //Array of errors
                     <i class="fa fa-rocket"></i>
                 </span>
                 <div class="text-box" >
-                    <p class="main-text">3 Orders</p>
+                    <p class="main-text">0 Orders</p>
                     <p class="text-muted">Pending</p>
                 </div>
              </div>

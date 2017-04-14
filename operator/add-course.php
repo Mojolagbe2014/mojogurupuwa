@@ -13,7 +13,7 @@ $errorArr = array(); //Array of errors
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add New Course  - Impact Training &amp; Management Consulting</title>
+    <title>Add New Publications  - Prof. Vladimir Okhmatovski's Research Group</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/custom.css" rel="stylesheet" />
@@ -35,7 +35,7 @@ $errorArr = array(); //Array of errors
                         <div class="messageBox"></div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3>Add New Course</h3>
+                                <h3>Add New Publication</h3>
                             </div>
                             <div class="panel-body">
                                 <form role="form" id="CreateCourse" name="CreateCourse" action="../REST/add-course.php" method="POST" enctype="multipart/form-data">

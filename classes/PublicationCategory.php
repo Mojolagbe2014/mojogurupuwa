@@ -1,10 +1,10 @@
 <?php
 /**
- * Description of CourseCategory
+ * Description of PublicationCategory
  *
  * @author Kaiste
  */
-class CourseCategory implements ContentManipulator{
+class PublicationCategory implements ContentManipulator{
     private $id;
     private $name;
     private $description;
@@ -13,7 +13,7 @@ class CourseCategory implements ContentManipulator{
     
     
     //Class constructor
-    public function CourseCategory($dbObj) {
+    public function PublicationCategory($dbObj) {
         $this->dbObj = $dbObj;
     }
     
@@ -30,7 +30,7 @@ class CourseCategory implements ContentManipulator{
     }
     
     /**  
-     * Method that adds a course category into the database
+     * Method that adds a publication category into the database
      * @return JSON JSON encoded string/result
      */
     function add(){
@@ -38,8 +38,8 @@ class CourseCategory implements ContentManipulator{
                 ."VALUES ('{$this->name}','{$this->description}','{$this->image}')";
         if($this->notEmpty($this->name,$this->description,$this->image)){
             $result = $this->dbObj->query($sql);
-            if($result !== false){ $json = array("status" => 1, "msg" => "Done, course category successfully added!"); }
-            else{ $json = array("status" => 2, "msg" => "Error adding course category! ".  mysqli_error($this->dbObj->connection)); }
+            if($result !== false){ $json = array("status" => 1, "msg" => "Done, publication category successfully added!"); }
+            else{ $json = array("status" => 2, "msg" => "Error adding publication category! ".  mysqli_error($this->dbObj->connection)); }
         }
         else{ $json = array("status" => 3, "msg" => "Request method not accepted. All fields must be filled."); }
         
@@ -49,15 +49,15 @@ class CourseCategory implements ContentManipulator{
     }
 
     /** 
-     * Method for deleting a course category
+     * Method for deleting a publication category
      * @return JSON JSON encoded result
      */
     public function delete(){
         $sql = "DELETE FROM publication_category WHERE id = $this->id ";
         if($this->notEmpty($this->id)){
             $result = $this->dbObj->query($sql);
-            if($result !== false){ $json = array("status" => 1, "msg" => "Done, course category successfully deleted!"); }
-            else{ $json = array("status" => 2, "msg" => "Error deleting course category! ".  mysqli_error($this->dbObj->connection));  }
+            if($result !== false){ $json = array("status" => 1, "msg" => "Done, publication category successfully deleted!"); }
+            else{ $json = array("status" => 2, "msg" => "Error deleting publication category! ".  mysqli_error($this->dbObj->connection));  }
         }
         else{ $json = array("status" => 3, "msg" => "Request method not accepted."); }
         $this->dbObj->close();//Close Database Connection
@@ -65,11 +65,11 @@ class CourseCategory implements ContentManipulator{
         return json_encode($json);
     }
 
-    /** Method that fetches course categories from database for JQuery Data Table
+    /** Method that fetches publication categories from database for JQuery Data Table
      * @param string $column Column name of the data to be fetched
      * @param string $condition Additional condition e.g category_id > 9
      * @param string $sort column name to be used as sort parameter
-     * @return JSON JSON encoded coursecategory details
+     * @return JSON JSON encoded publicationcategory details
      */
     public function fetchForJQDT($draw, $totalData, $totalFiltered, $customSql="", $column="*", $condition="", $sort="id"){
         $sql = "SELECT $column FROM publication_category ORDER BY $sort";
@@ -90,11 +90,11 @@ class CourseCategory implements ContentManipulator{
         return json_encode($json);
     }
     
-    /** Method that fetches course categories from database
+    /** Method that fetches publication categories from database
      * @param string $column Column name of the data to be fetched
      * @param string $condition Additional condition e.g category_id > 9
      * @param string $sort column name to be used as sort parameter
-     * @return JSON JSON encoded coursecategory details
+     * @return JSON JSON encoded publicationcategory details
      */
     public function fetch($column="*", $condition="", $sort="id"){
         $sql = "SELECT $column FROM publication_category ORDER BY $sort";
@@ -113,7 +113,7 @@ class CourseCategory implements ContentManipulator{
         return json_encode($json);
     }
     
-    /** Method that fetches course categories from database
+    /** Method that fetches publication categories from database
      * @param string $column Column name of the data to be fetched
      * @param string $condition Additional condition e.g category_id > 9
      * @param string $sort column name to be used as sort parameter
@@ -128,13 +128,13 @@ class CourseCategory implements ContentManipulator{
 
     /**
      * fetchChildren() fetches each of the categories with their corresponding children
-     * @return JSON Object Array of Courses, categories and lessons
+     * @return JSON Object Array of Publications, categories and lessons
      */
     public function fetchChildren() {
         $result = array(); 
         $data = $this->dbObj->fetchAssoc("SELECT * FROM publication_category ");
         foreach ($data as $r) {  
-            if(count(Course::fetchAsChildren($this->dbObj, $r['id']))>0) $result[] = array('title'=> $r['name'], "folder" => true, "extraClasses" => "category", "children" => Course::fetchAsChildren($this->dbObj, $r['id']));
+            if(count(Publication::fetchAsChildren($this->dbObj, $r['id']))>0) $result[] = array('title'=> $r['name'], "folder" => true, "extraClasses" => "category", "children" => Publication::fetchAsChildren($this->dbObj, $r['id']));
             else $result[] = array('title'=> $r['name'], "folder" => true, "extraClasses" => "category");
         }
         $json = $result;
@@ -154,7 +154,7 @@ class CourseCategory implements ContentManipulator{
         return true;
     }
     
-    /** Method that update single field detail of a course category
+    /** Method that update single field detail of a publication category
      * @param string $field Column to be updated 
      * @param string $value New value of $field (Column to be updated)
      * @param int $id Id of the post to be updated
@@ -164,8 +164,8 @@ class CourseCategory implements ContentManipulator{
         $sql = "UPDATE publication_category SET $field = '{$value}' WHERE id = $id ";
         if(!empty($id)){
             $result = $dbObj->query($sql);
-            if($result !== false){ $json = array("status" => 1, "msg" => "Done, course category successfully update!"); }
-            else{ $json = array("status" => 2, "msg" => "Error updating course category! ".  mysqli_error($dbObj->connection));   }
+            if($result !== false){ $json = array("status" => 1, "msg" => "Done, publication category successfully update!"); }
+            else{ $json = array("status" => 2, "msg" => "Error updating publication category! ".  mysqli_error($dbObj->connection));   }
         }
         else{ $json = array("status" => 3, "msg" => "Request method not accepted."); }
         $dbObj->close();
@@ -173,15 +173,15 @@ class CourseCategory implements ContentManipulator{
         return json_encode($json);
     }
 
-    /** Method that update details of a course category
+    /** Method that update details of a publication category
      * @return JSON JSON encoded success or failure message
      */
     public function update() {
         $sql = "UPDATE publication_category SET name = '{$this->name}', description = '{$this->description}', image = '{$this->image}' WHERE id = $this->id ";
         if(!empty($this->id)){
             $result = $this->dbObj->query($sql);
-            if($result !== false){ $json = array("status" => 1, "msg" => "Done, course category successfully update!"); }
-            else{ $json = array("status" => 2, "msg" => "Error updating course category! ".  mysqli_error($this->dbObj->connection));   }
+            if($result !== false){ $json = array("status" => 1, "msg" => "Done, publication category successfully update!"); }
+            else{ $json = array("status" => 2, "msg" => "Error updating publication category! ".  mysqli_error($this->dbObj->connection));   }
         }
         else{ $json = array("status" => 3, "msg" => "Request method not accepted."); }
         $this->dbObj->close();
@@ -202,9 +202,9 @@ class CourseCategory implements ContentManipulator{
     }
     
     /**
-     * Method that returns count/total number of a particular course
+     * Method that returns count/total number of a particular publication
      * @param Object $dbObj Datatbase connectivity object
-     * @return int Number of courses
+     * @return int Number of publications
      */
     public static function getRawCount($dbObj, $dbPrefix){
         $tableName = $dbPrefix.'publication_category';

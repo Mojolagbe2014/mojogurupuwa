@@ -2,7 +2,7 @@
 /**
  * Description of Admin
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe
  */
 class Admin{
     private $id;

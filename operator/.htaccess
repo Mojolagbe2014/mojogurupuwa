@@ -1,5 +1,5 @@
-ErrorDocument 404 http://localhost/tsigroup/404.php
-ErrorDocument 403 http://localhost/tsigroup/403.php
+ErrorDocument 404 http://localhost/mojogurupuwa/404.php
+ErrorDocument 403 http://localhost/mojogurupuwa/403.php
 
 ServerSignature Off
 
