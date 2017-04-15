@@ -2,7 +2,7 @@
 /**
  * Description of Video
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Video implements ContentManipulator{
     private $id;

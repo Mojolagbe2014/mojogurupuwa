@@ -2,7 +2,7 @@
 /**
  * Description of Files
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Files implements ContentManipulator{
     private $id;

@@ -2,7 +2,7 @@
 /**
  * Description of PublicationCategory
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class PublicationCategory implements ContentManipulator{
     private $id;

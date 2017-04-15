@@ -2,7 +2,7 @@
 /**
  * Description of Presentation
  *
- * @author Jamiu Babatunde Mojolagbe
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Presentation implements ContentManipulator{
     private $id;

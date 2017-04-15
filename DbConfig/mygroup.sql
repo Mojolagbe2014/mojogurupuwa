@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.4.15.7
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2016 at 09:12 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: Apr 15, 2017 at 05:41 PM
+-- Server version: 5.6.31
+-- PHP Version: 5.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `impact`
+-- Database: `mygroup`
 --
 
 -- --------------------------------------------------------
@@ -27,16 +27,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `username` varchar(200) NOT NULL,
   `password` varchar(500) NOT NULL,
   `role` varchar(100) NOT NULL,
-  `date_registered` date NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `date_registered` date NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -44,94 +42,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `email`, `username`, `password`, `role`, `date_registered`) VALUES
 (1, 'Mojolagbe Jamiu Babatunde', 'mojolagbe@gmail.com', 'Babatunde', 'ae2b1fca515949e5d54fb22b8ed95575', 'Sub-Admin', '2015-08-20'),
-(2, 'Administrator', 'info@impactconsultingng.com', 'Admin', 'ae2b1fca515949e5d54fb22b8ed95575', 'Admin', '2015-11-23');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course`
---
-
-CREATE TABLE IF NOT EXISTS `course` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(600) NOT NULL,
-  `short_name` varchar(200) NOT NULL,
-  `category` varchar(500) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `code` varchar(100) NOT NULL,
-  `description` text NOT NULL,
-  `media` varchar(600) NOT NULL,
-  `amount` varchar(200) NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `date_registered` date NOT NULL,
-  `image` varchar(300) NOT NULL,
-  `featured` tinyint(4) NOT NULL,
-  `currency` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `evt_st_dat_end_dat` (`name`,`start_date`,`end_date`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `course`
---
-
-INSERT INTO `course` (`id`, `name`, `short_name`, `category`, `start_date`, `end_date`, `code`, `description`, `media`, `amount`, `status`, `date_registered`, `image`, `featured`, `currency`) VALUES
-(1, 'Analysing Financial Statement', 'Analysing Financial Statement', '1', '2016-04-19', '2016-04-21', '', '<p>Our Financial Analysis course takes you through the &ldquo;step-by-step&rdquo; of financial statements interpretation.</p>\r\n\r\n<p>Participants will gain clear insight into the techniques that investors, creditors, bankers and other analysts use to evaluate organisations. Using basic excel, participants will learn how to evaluate current operations as well as anticipate future corporate performance. Everyone on this programme will leave better equipped to make decisions that can positively impact the fortune of their organisation</p>\r\n\r\n<p><strong>LEARNING OBJECTIVES:</strong></p>\r\n\r\n<p>Participants will:</p>\r\n\r\n<p>&bull; Possess deeper understanding of the relationships among the three major financial statements</p>\r\n\r\n<p>&bull; Understand how business decisions affect interrelationship among items of the statement</p>\r\n\r\n<p>&bull; Identify business operations which drives movements in financial statements</p>\r\n\r\n<p>&bull; Apply financial ratios to analyze trends, competitors, and future economic decisions</p>\r\n\r\n<p>&bull; Utilize spread sheet tols and techniques in analyzing financial statements</p>\r\n\r\n<p><strong>LEARNING CONTENTS:</strong></p>\r\n\r\n<p>&bull; The Financial statements</p>\r\n\r\n<p>&bull; Profit and cash flow statements</p>\r\n\r\n<p>&bull; Ratio analysis</p>\r\n\r\n<p>&bull; Interpretation of accounts</p>\r\n\r\n<p>&bull; Addressing potential problems revealed in financial statements</p>\r\n\r\n<p>&bull; Benchmarking business performance</p>\r\n\r\n<p>&bull; Financial information databases</p>\r\n\r\n<p>&bull; Budgets and forecasts</p>\r\n\r\n<p>&bull; The lenders perspectives of financial statements</p>\r\n\r\n<p>&bull; Applying spreadsheets in comparisons of divisions, business units and entire companies</p>\r\n', '286328_.pdf', '88500', 1, '2016-01-21', '400229_analysing_financial_statement.jpg', 1, 'NGN'),
-(2, 'Banking Operations Course', 'Banking Operations Course', '1', '2016-04-04', '2016-04-06', '', '<p>Understanding banking operations is a key requirement for all entry level staff of financial institutions.</p>\r\n\r\n<p>This course on basic banking operations has been designed to provide participants with the knowledge and skills required for effectively processing banking transactions. They will also learn the control measures in order to eliminate losses.</p>\r\n\r\n<p><strong>LEARNING OBJECTIVES:</strong></p>\r\n\r\n<p>Participants will:</p>\r\n\r\n<p>&bull; Understand the intermediation roles of banks and other financial institutions</p>\r\n\r\n<p>&bull; Understand banking operations terminologies to build self confidence and professionalism</p>\r\n\r\n<p>&bull; Process banking transactions without errors and losses</p>\r\n\r\n<p>&bull; Understand the various banking products - their features and benefits to customers</p>\r\n\r\n<p>&bull; Understand banking operations control systems</p>\r\n\r\n<p>&bull; Appreciate their roles in working with other departments of the organisation for effective customer service delivery</p>\r\n\r\n<p><strong>LEARNING CONTENTS:</strong></p>\r\n\r\n<p>&bull; The business of banking</p>\r\n\r\n<p>&bull; Accounts opening functions</p>\r\n\r\n<p>&bull; Basic accounting for cash operations</p>\r\n\r\n<p>&bull; Cash and teller operations</p>\r\n\r\n<p>&bull; Money market products and processing</p>\r\n\r\n<p>&bull; CBN clearing and clearing regulations</p>\r\n\r\n<p>&bull; Income and expenses processing</p>\r\n\r\n<p>&bull; Government revenue collection services</p>\r\n\r\n<p>&bull; Introduction to international trade; Bills for collection, and letters of credit</p>\r\n\r\n<p>&bull; Computer operations in banking services</p>\r\n\r\n<p>&bull; Anti money laundering and know your customer</p>\r\n', '', '88500', 1, '2016-01-21', '650525_.jpg', 0, 'NGN'),
-(3, 'Management and Business Skills for Secretaries and Executive Assistants', 'Management and Business Skills', '2', '2016-04-05', '2016-04-07', '', '<p>The changing nature of business and pressure for results mean more responsibilities for the secretary in addition to the traditional roles. This course is designed to prepare the secretary and executive assistant to meet the expectation and dynamics of the modern workplace.</p>\r\n\r\n<h4>LEARNING OBJECTIVES</h4>\r\n\r\n<p>Participants will:</p>\r\n\r\n<p>Run the office with confidence and competence</p>\r\n\r\n<p>Acquire skills of personal effectiveness</p>\r\n\r\n<p>Handle confidentiality with greater care</p>\r\n\r\n<p>Key into their bosses aspirations</p>\r\n\r\n<p>Become more proactive</p>\r\n\r\n<p>LEARNING CONTENTS</p>\r\n\r\n<ul>\r\n	<li>Emerging issues in business/business drivers</li>\r\n	<li>Transiting from secretarial to managerial role</li>\r\n	<li>Duties and responsibilities of secretaries and executive assistants</li>\r\n	<li>Role of secretaries and PA&rsquo;s in meetings, conferences and functions</li>\r\n	<li>Management principles</li>\r\n	<li>Situational leadership</li>\r\n	<li>Interpersonal skills and dealing with difficult people</li>\r\n	<li>Habits of personal effectiveness/assertiveness</li>\r\n	<li>Principles of effective communication</li>\r\n	<li>Priority and stress management</li>\r\n	<li>Managing sensitive information and documents</li>\r\n	<li>Working with more than one manager</li>\r\n	<li>Customer service principles</li>\r\n	<li>Transactional analysis</li>\r\n	<li>Career outlook for secretaries</li>\r\n	<li>Basic book keeping and accounts</li>\r\n	<li>Essentials of business law</li>\r\n</ul>\r\n', '', '88500', 1, '2016-01-21', '887116_management_and_business_skills.jpg', 0, 'NGN'),
-(4, 'Office Management and Effective Administration Skills ', 'Office Management and Effective Administration Skills ', '2', '2016-02-16', '2016-02-18', '', '<p style="text-align: justify;">The office administrator&rsquo;s job has become more complex, challenging and stretched to encom&shy;pass multiple functions beyond the normal job description. This course is designed to fill the skills gap experienced by most administrative assistants and office managers. Participants will leave the Course equipped with skills to improve their performance and productivity.</p>\r\n\r\n<p style="text-align: justify;">LEARNING OBJECTIVES</p>\r\n\r\n<p style="text-align: justify;">Participants will learn :</p>\r\n\r\n<ul>\r\n	<li style="text-align: justify;">How to handle multiple projects and assignments</li>\r\n	<li style="text-align: justify;">The techniques of getting the best out of people including the boss</li>\r\n	<li style="text-align: justify;">Practical techniques of getting jobs done in less time</li>\r\n	<li style="text-align: justify;">How to manage crises and difficult situations</li>\r\n	<li style="text-align: justify;">Skills of managing a variety of functions in a modern office setting</li>\r\n</ul>\r\n\r\n<p style="text-align: justify;">LEARNING CONTENTS</p>\r\n\r\n<ul>\r\n	<li style="text-align: justify;">Challenges and opportunities for the office manager</li>\r\n	<li style="text-align: justify;">Planning, organising, directing and controlling</li>\r\n	<li style="text-align: justify;">Staying in sync with your boss</li>\r\n	<li style="text-align: justify;">Using 80/20 rule to identify important tasks</li>\r\n	<li style="text-align: justify;">Tools of creative thinking</li>\r\n	<li style="text-align: justify;">Facility management</li>\r\n	<li style="text-align: justify;">Fleet management</li>\r\n	<li style="text-align: justify;">Travel management</li>\r\n	<li style="text-align: justify;">Crises management techniques</li>\r\n	<li style="text-align: justify;">How to influence people</li>\r\n	<li style="text-align: justify;">Personal effectiveness</li>\r\n	<li style="text-align: justify;">Principles of negotiation</li>\r\n	<li style="text-align: justify;">Writing readable reports</li>\r\n	<li style="text-align: justify;">Managing the office</li>\r\n	<li style="text-align: justify;">Confidentiality and access</li>\r\n</ul>\r\n', '', '88500', 1, '2016-01-21', '668598_office_management_and_effective_administration_skills_.jpg', 1, 'NGN'),
-(5, 'Fundamentals of Human Resources Management', 'Fundamentals of HR Management', '3', '2016-06-20', '2016-06-22', '', '<p>This programme has been designed to prepare people new in the HR function to make a smooth transi&shy;tion into their roles. Participants will be grounded in the basic HR activities of attracting, engaging, de&shy;veloping and managing employee expectations to enable them contribute their best to the organization.</p>\r\n\r\n<p>Participants will also learn the administration support functions in HR setting.</p>\r\n\r\n<p>LEARNING OBJECTIVES</p>\r\n\r\n<p>Participants will:</p>\r\n\r\n<ul>\r\n	<li>Understand the roles and responsibilities of HR function to the business</li>\r\n	<li>Help operational staff in meeting their needs.</li>\r\n	<li>Assist in collating HR metrics</li>\r\n	<li>Understand the laws relating to contract of employment</li>\r\n</ul>\r\n\r\n<p>LEARNING CONTENTS</p>\r\n\r\n<ul>\r\n	<li>Importance and definition of human resource</li>\r\n	<li>HR function: Past, Present, future</li>\r\n	<li>HR department roles &amp; responsibilities</li>\r\n	<li>HR value proposition</li>\r\n	<li>Employee life cycle</li>\r\n	<li>Manpower planning</li>\r\n	<li>Recruitment and selection</li>\r\n	<li>Training and development</li>\r\n	<li>Target setting and performance appraisal</li>\r\n	<li>Benefits and compensation</li>\r\n	<li>Employee engagement</li>\r\n	<li>Laws of contract of employment</li>\r\n	<li>Grievance handling, counseling, and disciplinary procedures.</li>\r\n	<li>Introduction to industrial relations</li>\r\n	<li>Personnel administration</li>\r\n	<li>Staff handbook as HR tool</li>\r\n	<li>HR metrics collation</li>\r\n	<li>Employee satisfaction survey</li>\r\n</ul>\r\n', '', '88500', 1, '2016-01-21', '435605_fundamentals_of_hr_management.jpe', 0, 'NGN'),
-(6, 'Achieving Targets  Through Performance  Dialogue', 'Achieving Targets  Through Performance  Dialogue', '3', '2016-03-21', '2016-03-22', '', '<p>Performance dialogue is the series of conversation between managers and employees to plan, manage and review performance all year long. Achieving results through others depends on skilled interventions of managers and it is also through these conversations that managers can build trust, openness and col&shy;laboration.</p>\r\n\r\n<p>This workshop puts performance discussions and reviews into context, and offers a step-by-step pro&shy;cess for preparing and handling the conversation itself.</p>\r\n\r\n<p><u>LEARNING OBJECTIVES </u></p>\r\n\r\n<p style="margin-left:8.0pt">Participants will:</p>\r\n\r\n<ul>\r\n	<li>Use performance reviews and regular one-to-one dialogue in achieving team and organisational goals</li>\r\n	<li>Set and agree SMART goals with team members</li>\r\n	<li>Measure regularly against agreed standards</li>\r\n	<li>Prepare professionally for the review sessions</li>\r\n	<li>Use critical techniques and skills for managing the conversation</li>\r\n	<li>including handling disagreements</li>\r\n	<li>Give performance feedback more effectively</li>\r\n	<li>Motivate every team member to higher productivity</li>\r\n</ul>\r\n\r\n<p><u>LEARNING CONTENTS </u></p>\r\n\r\n<ul>\r\n	<li>The Performance Dialogue Cycle</li>\r\n	<li>Defining performance dialogue and its characteristics</li>\r\n	<li>Approach to goal Setting</li>\r\n	<li>Evaluating and addressing performance</li>\r\n	<li>Understanding performance: The Onion Model</li>\r\n	<li>Handling difficult conversations / constructive feedback</li>\r\n	<li>Motivating performance</li>\r\n	<li>Conducting effective appraisal</li>\r\n</ul>\r\n', '', '88500', 1, '2016-01-21', '857013_achieving_targets__through_performance__dialogue.png', 1, 'NGN'),
-(8, 'Superior Customer Service', 'Superior Customer Service', '4', '2016-01-27', '2016-01-29', '', '<p>In today&rsquo;s sophisticated market, the quality of product is not on its own sufficient to maintain or expand market share. Improving customer relations is one enduring way of keeping your customers. Customers are individuals; they need to feel that you care. Every form of customer contact, if well managed, provides an opportunity to build a relationship and develop future business. This course will help you develop the skills to enable you become customer focused and deliver excellent service to your customers.</p>\r\n\r\n<p><strong>LEARNING OBJECTIVES</strong></p>\r\n\r\n<p>Participants will</p>\r\n\r\n<p>&bull; Understand the nature of service</p>\r\n\r\n<p>&bull; Work as a service team</p>\r\n\r\n<p>&bull; Learn empathic listening skills</p>\r\n\r\n<p>&bull; Display excellent attitude to customers</p>\r\n\r\n<p>&bull; Respond appropriately to different customer personality types</p>\r\n\r\n<p>&bull; Execute service recovery efforts</p>\r\n\r\n<p>&bull; Manage difficult customers</p>\r\n\r\n<p><strong>LEARNING CONTENTS</strong></p>\r\n\r\n<p>&bull; Definition and characteristics of service</p>\r\n\r\n<p>&bull; Desirable behaviours in customer service</p>\r\n\r\n<p>&bull; The six rules of customer contact</p>\r\n\r\n<p>&bull; Moments of truth concept</p>\r\n\r\n<p>&bull; Building customer loyalty and retention</p>\r\n\r\n<p>&bull; Communication skills</p>\r\n\r\n<p>&bull; How to meet the needs of different types of customers</p>\r\n\r\n<p>&bull; Keeping service promise</p>\r\n\r\n<p>&bull; Empathetic listening skills</p>\r\n\r\n<p>&bull; What to do when there are problems</p>\r\n\r\n<p>&bull; Handling difficult customers</p>\r\n\r\n<p>&bull; Promoting team spirit (external - internal customer service concept)</p>\r\n\r\n<p>&bull; The total service concept</p>\r\n\r\n<p>&bull; Customer life value (CLV)</p>\r\n\r\n<p>&bull; Finding positive solutions to customer complaints</p>\r\n\r\n<p>&bull; Continuous service improvement process</p>\r\n\r\n<p>&bull; Customer experience mapping</p>\r\n', '', '88500', 1, '2016-01-21', '752725_.jpe', 1, 'NGN'),
-(9, 'Debt Recovery For Financial Institutions', 'Debt Recovery For Financial Institutions', '5', '2016-02-16', '2016-02-18', '', '<p>Timely collection of debts is critical to successful business operations. Ability to recover debts, however, starts from the manner in which the credit is written. Provision of a good credit policy and understand&shy;ing of trade operation practices form part of proactive debt recovery process. This course will teach techniques that will help streamline your organisation&rsquo;s practices, improve risk management and max&shy;imise the effectiveness of debt collection process. Senior bankers and accountants will share personal experiences and knowledge on this programme.</p>\r\n\r\n<p><u>LEARNING OBJECTIVES: </u></p>\r\n\r\n<p>Participants will learn:</p>\r\n\r\n<ul>\r\n	<li>How to prepare competent credit evaluation</li>\r\n	<li>How to identify troubled loans</li>\r\n	<li>The use of credit risk management tools</li>\r\n	<li>The basics of managing turnarounds</li>\r\n	<li>How to construct loan workouts</li>\r\n	<li>The legal procedures in loan recovery</li>\r\n	<li>Manage difficult customers and accounts</li>\r\n</ul>\r\n\r\n<p><u>LEARNING CONTENTS: </u></p>\r\n\r\n<ul>\r\n	<li>Credit Assessment &amp; Risk evaluation</li>\r\n	<li>Financial analysis in credit evaluation</li>\r\n	<li>Factors Influencing credit decisions and the pitfalls involved</li>\r\n	<li>Collection system and procedures</li>\r\n	<li>Collection tools and techniques</li>\r\n	<li>Debt recovery: key success factors</li>\r\n	<li>Dealing with delay tactics</li>\r\n	<li>Dealing with distressed debtors</li>\r\n	<li>Legal Perspective in debt collection</li>\r\n	<li>Negotiating for a settlement</li>\r\n</ul>\r\n', '', '88500', 1, '2016-01-21', '271991_debt_recovery_for_financial_institutions.png', 0, 'NGN');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course_brochure`
---
-
-CREATE TABLE IF NOT EXISTS `course_brochure` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(500) NOT NULL,
-  `document` varchar(900) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `course_brochure`
---
-
-INSERT INTO `course_brochure` (`id`, `name`, `document`) VALUES
-(1, '2015 Open Programme Guide', '382596_2015_open_programme_guide.pdf');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course_category`
---
-
-CREATE TABLE IF NOT EXISTS `course_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  `description` text NOT NULL,
-  `image` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `course_category`
---
-
-INSERT INTO `course_category` (`id`, `name`, `description`, `image`) VALUES
-(1, 'Business Strategy', 'Business strategy category', '331097_business_strategy.jpg'),
-(2, 'General Management', 'General management category', '554120_general_management.jpg'),
-(3, 'Human Resources', 'Human resources category', '803757_human_resources.jpg'),
-(4, 'Quality and Customer Service', 'Quality and customer service category', '662610_quality_and_customer_service.jpg'),
-(5, 'Banking and Finance', 'Banking and finance category', '957291_banking_and_finance.jpe');
+(2, 'Vladimir Okhmatovski', 'vladimir.okhmatovski@umanitoba.ca', 'Admin', 'ae2b1fca515949e5d54fb22b8ed95575', 'Admin', '2015-11-23');
 
 -- --------------------------------------------------------
 
@@ -140,23 +51,23 @@ INSERT INTO `course_category` (`id`, `name`, `description`, `image`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `event` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(300) NOT NULL,
   `description` text NOT NULL,
   `location` varchar(300) NOT NULL,
   `image` varchar(300) NOT NULL,
   `date_time` varchar(300) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `date_added` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `event`
 --
 
 INSERT INTO `event` (`id`, `name`, `description`, `location`, `image`, `date_time`, `status`, `date_added`) VALUES
-(1, 'Website Launch', '<p><span style="color:rgb(92, 101, 102); font-family:open sans; font-size:14px">The website was redesigned by <a href="http://kaisteventures.com">Kaiste Ventures Limited.</a></span></p>\r\n', 'Ketu, Lagos, Nigeria', '574060_website_launch.jpg', '2016/03/25 20:00', 1, '2015-11-13 13:13:25');
+(1, 'Website Launch', '<p><span style="color:rgb(92, 101, 102); font-family:open sans; font-size:14px">The website was redesigned by <a href="http://kaisteventures.com">Kaiste Ventures Limited.</a></span></p>\r\n', 'Ketu, Lagos, Nigeria', '574060_website_launch.jpg', '2016/03/25 20:00', 1, '2015-11-13 13:13:25'),
+(2, 'Let starts this', '<p>I don&#39;t know what is gonna happen here</p>\r\n', 'Winnipeg', '456694_let_starts_this.jpg', '2017/04/15 16:00', 0, '2017-04-15 12:27:40');
 
 -- --------------------------------------------------------
 
@@ -165,20 +76,171 @@ INSERT INTO `event` (`id`, `name`, `description`, `location`, `image`, `date_tim
 --
 
 CREATE TABLE IF NOT EXISTS `faq` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `question` varchar(700) NOT NULL,
   `answer` text NOT NULL,
-  `date_added` date NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `question` (`question`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `date_added` date NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `faq`
 --
 
 INSERT INTO `faq` (`id`, `question`, `answer`, `date_added`) VALUES
-(1, 'What happens if I am unable to attend a course and I have already paid?', 'Your payment will be withhold until you attend a course of the same amount.', '2016-01-20');
+(2, 'tets', 'tets', '2017-04-15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `member`
+--
+
+CREATE TABLE IF NOT EXISTS `member` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `program` varchar(100) NOT NULL,
+  `field` varchar(200) NOT NULL,
+  `bio` text NOT NULL,
+  `email` varchar(300) NOT NULL,
+  `website` varchar(500) NOT NULL,
+  `picture` varchar(300) NOT NULL,
+  `visible` tinyint(4) NOT NULL,
+  `graduated` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `member`
+--
+
+INSERT INTO `member` (`id`, `name`, `program`, `field`, `bio`, `email`, `website`, `picture`, `visible`, `graduated`) VALUES
+(4, 'Jamiu Babatunde Mojolagbe', 'M.Sc', 'Computational Electromagnetics', '<p>Testing&nbsp;</p>\r\n', 'mojolagm@myumanitoba.ca', 'http://www.umanitoba.ca', '397343_jamiu_babatunde_mojolagbe.jpg', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patent`
+--
+
+CREATE TABLE IF NOT EXISTS `patent` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `issuance_date` date NOT NULL,
+  `image` varchar(300) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `patent`
+--
+
+INSERT INTO `patent` (`id`, `name`, `description`, `issuance_date`, `image`) VALUES
+(1, 'System and Method for Remote and Mobile Patient Monitoring Service Using Heterogeneous Wireless Access Network', 'US Patent 9,007,908/Patent Application 12/573,581,', '2017-04-25', '552629_.png'),
+(2, 'PotashCorp Project', 'US Patent 9,007,908/Patent Application 12/573,581', '2017-04-10', '748504_.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `presentation`
+--
+
+CREATE TABLE IF NOT EXISTS `presentation` (
+  `id` int(11) NOT NULL,
+  `name` varchar(600) NOT NULL,
+  `organizer` varchar(200) NOT NULL,
+  `location` tinytext NOT NULL,
+  `date_presented` date NOT NULL,
+  `description` text NOT NULL,
+  `media` varchar(600) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `date_registered` date NOT NULL,
+  `image` varchar(300) NOT NULL,
+  `featured` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `presentation`
+--
+
+INSERT INTO `presentation` (`id`, `name`, `organizer`, `location`, `date_presented`, `description`, `media`, `status`, `date_registered`, `image`, `featured`) VALUES
+(1, 'Business Strategy', 'Department of Agricultural Sciences', 'E2-563 EITC', '2017-04-18', '<p>Presentation description goes here</p>\r\n', '206020_2017_04_18.pdf', 1, '2017-04-14', '873278_department_of_agricultural_sciences.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project`
+--
+
+CREATE TABLE IF NOT EXISTS `project` (
+  `id` int(11) NOT NULL,
+  `name` varchar(600) NOT NULL,
+  `is_completed` varchar(10) NOT NULL,
+  `sponsor` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `description` text NOT NULL,
+  `media` varchar(600) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `date_registered` date NOT NULL,
+  `image` varchar(300) NOT NULL,
+  `featured` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`id`, `name`, `is_completed`, `sponsor`, `start_date`, `end_date`, `description`, `media`, `status`, `date_registered`, `image`, `featured`) VALUES
+(1, 'PotashCorp Project', 'No', 1, '2017-04-29', '2017-05-31', '<p>We are still working on this project</p>\r\n', '364833_false.pdf', 1, '2017-04-14', '489070_false.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `publication`
+--
+
+CREATE TABLE IF NOT EXISTS `publication` (
+  `id` int(11) NOT NULL,
+  `name` varchar(600) NOT NULL,
+  `category` varchar(500) NOT NULL,
+  `date_published` date NOT NULL,
+  `description` text NOT NULL,
+  `media` varchar(600) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `date_registered` date NOT NULL,
+  `image` varchar(300) NOT NULL,
+  `featured` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `publication`
+--
+
+INSERT INTO `publication` (`id`, `name`, `category`, `date_published`, `description`, `media`, `status`, `date_registered`, `image`, `featured`) VALUES
+(1, 'Business Strategies', '3', '2017-04-05', '<p>Please is this published test</p>\r\n', '499489_2017_04_12.pdf', 1, '2017-04-14', '179665_2017_04_05.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `publication_category`
+--
+
+CREATE TABLE IF NOT EXISTS `publication_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(300) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `publication_category`
+--
+
+INSERT INTO `publication_category` (`id`, `name`, `description`, `image`) VALUES
+(1, 'Journal Article', 'IEEE Journal', '743929_journal_article.gif'),
+(2, 'Magazine Article', 'IEEE Magazine', '655348_magazine_article.jpeg'),
+(3, 'Conference Paper', 'General Conference', '411847_human_resources.jpg'),
+(4, 'Book', 'Text book or manual', '116459_book.png'),
+(5, 'Submitted for Review', 'Paper submitted already for review', '137949_submitted_for_review.jpg');
 
 -- --------------------------------------------------------
 
@@ -187,12 +249,11 @@ INSERT INTO `faq` (`id`, `question`, `answer`, `date_added`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `quote` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `content` text NOT NULL,
   `author` varchar(500) NOT NULL,
-  `image` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `image` varchar(300) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `quote`
@@ -200,8 +261,26 @@ CREATE TABLE IF NOT EXISTS `quote` (
 
 INSERT INTO `quote` (`id`, `content`, `author`, `image`) VALUES
 (1, 'Being in control of your life and having realistic expectations about your day-to-day challenges are the keys to stress management, which is perhaps the most important ingredient to living a happy, healthy and rewarding life.', 'Marilu Henner', '291958_1453376785.png'),
-(2, 'Management is doing things right; leadership is doing the right things.', 'Peter Drucker', '592242_1453376860.jpg'),
-(3, 'The biggest risk is not taking any risk... In a world that changing really quickly, the only strategy that is guaranteed to fail is not taking risks.\r\n', 'Mark Zuckerberg', '290365_1453377011.jpe');
+(3, 'The biggest risk is not taking any risk... In a world that changing really quickly, the only strategy that is guaranteed to fail is not taking risks.\r\n', 'Mark Zuckerbergs', '290365_1453377011.jpe');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resume`
+--
+
+CREATE TABLE IF NOT EXISTS `resume` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `document` varchar(900) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `resume`
+--
+
+INSERT INTO `resume` (`id`, `name`, `document`) VALUES
+(1, 'Latest CV', '958941_latest_cv.pdf');
 
 -- --------------------------------------------------------
 
@@ -211,8 +290,7 @@ INSERT INTO `quote` (`id`, `content`, `author`, `image`) VALUES
 
 CREATE TABLE IF NOT EXISTS `setting` (
   `name` varchar(200) NOT NULL,
-  `value` text NOT NULL,
-  PRIMARY KEY (`name`)
+  `value` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -227,7 +305,7 @@ INSERT INTO `setting` (`name`, `value`) VALUES
 ('COMPANY_ACC_DETAILS', '<p><strong>Access Bank Plc </strong><strong>Account No: 0034932953 </strong></p>\r\n\r\n<p><strong>Sort Code: 044152273&nbsp;</strong></p>\r\n'),
 ('COMPANY_ADDRESS', '<span>10, Obokun Street,<br />\r\noff Coker Road, Ilupeju, Lagos State Nigeria.</span>\r\n'),
 ('COMPANY_ADDRESS_GMAP', '<p>10 Obokun Street</p>\r\n'),
-('COMPANY_EMAIL', '<p>info@impactconsultingng.com</p>\r\n'),
+('COMPANY_EMAIL', '<p>vladimir.okhmatovski@umanitoba.ca</p>\n'),
 ('COMPANY_HOTLINE', '<p>+2348033014321</p>\r\n'),
 ('COMPANY_NAME', '<p>Impact Training &amp; Management Consulting</p>\r\n'),
 ('COMPANY_NUMBERS', '<p>+234-1-7932390<br />\r\n+234 803-3876456<br />\r\n+234 802-3060462</p>\r\n'),
@@ -269,7 +347,7 @@ INSERT INTO `setting` (`name`, `value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sponsor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(700) NOT NULL,
   `logo` varchar(700) NOT NULL,
   `website` varchar(700) NOT NULL,
@@ -277,11 +355,8 @@ CREATE TABLE IF NOT EXISTS `sponsor` (
   `date_added` date NOT NULL,
   `product` varchar(300) NOT NULL,
   `description` text NOT NULL,
-  `image` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`,`logo`),
-  UNIQUE KEY `website` (`website`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `image` varchar(300) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sponsor`
@@ -294,40 +369,11 @@ INSERT INTO `sponsor` (`id`, `name`, `logo`, `website`, `status`, `date_added`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tutor`
---
-
-CREATE TABLE IF NOT EXISTS `tutor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(500) NOT NULL,
-  `qualification` text NOT NULL,
-  `field` text NOT NULL,
-  `bio` text NOT NULL,
-  `email` varchar(300) NOT NULL,
-  `website` varchar(500) NOT NULL,
-  `picture` varchar(300) NOT NULL,
-  `visible` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `tutor`
---
-
-INSERT INTO `tutor` (`id`, `name`, `qualification`, `field`, `bio`, `email`, `website`, `picture`, `visible`) VALUES
-(1, 'Godwin Onokpachere ', 'B.Sc., M.Sc., LL.B, B.L., ACIB, ACIPM,CEO, HRM', 'General Management ', '<p>Godwin Onokpachere&#39;s biography</p>\r\n', 'godwino@impactconsultingng.com', 'http://www.impactconsultingng.com', '319973_godwin_onokpachere_.jpg', 1),
-(2, 'Taiwo Adegun', 'B.Sc., M.Sc., ED', 'Strategy & Quality ', '<p>Taiwo Adegun&#39;s biography</p>\r\n', 'taiwoa@impactconsultingng.com', 'http://www.impactconsultingng.com', '552142_taiwo_adegun.jpg', 1),
-(3, ' Funso Oyeniyi', 'B.A, M.Sc., DD, rpa, ED,', ' Sales & Marketing ', '<p>Funso Oyeniyi &#39;s biography</p>\r\n', 'funsoo@impactconsultingng.com', 'http://www.impactconsultingng.com', '700705__funso_oyeniyi.jpg', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(300) NOT NULL,
   `email` varchar(200) NOT NULL,
   `company` text NOT NULL,
@@ -344,10 +390,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `time_entered` varchar(100) NOT NULL,
   `status` tinyint(4) NOT NULL,
   `facebook_id` varchar(300) NOT NULL,
-  `twitter_id` varchar(400) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `twitter_id` varchar(400) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -363,20 +407,18 @@ INSERT INTO `user` (`id`, `name`, `email`, `company`, `country`, `description`, 
 --
 
 CREATE TABLE IF NOT EXISTS `video` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `description` text NOT NULL,
-  `video` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `video` varchar(300) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `video`
 --
 
 INSERT INTO `video` (`id`, `name`, `description`, `video`) VALUES
-(1, 'Human Resources via Monash University', 'Human resources manager', '998078_competitive_strategies_ii.mp4');
+(1, 'Human Resources via Monash University', 'Human resources managers', '998078_competitive_strategies_ii.mp4');
 
 -- --------------------------------------------------------
 
@@ -385,15 +427,12 @@ INSERT INTO `video` (`id`, `name`, `description`, `video`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `webpage` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(500) NOT NULL,
   `title` varchar(500) NOT NULL,
   `description` varchar(700) NOT NULL,
-  `keywords` text NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+  `keywords` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `webpage`
@@ -422,6 +461,200 @@ INSERT INTO `webpage` (`id`, `name`, `title`, `description`, `keywords`) VALUES
 (21, 'event', 'All Events', 'All upcoming events. ', 'event, all, upcoming'),
 (22, 'videos', 'All Videos', 'All trainings videos and seminar videos', 'training, seminar, video');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `event`
+--
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `question` (`question`);
+
+--
+-- Indexes for table `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `patent`
+--
+ALTER TABLE `patent`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `presentation`
+--
+ALTER TABLE `presentation`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `evt_st_dat_end_dat` (`name`,`date_presented`);
+
+--
+-- Indexes for table `project`
+--
+ALTER TABLE `project`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `evt_st_dat_end_dat` (`name`,`start_date`,`end_date`);
+
+--
+-- Indexes for table `publication`
+--
+ALTER TABLE `publication`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `evt_st_dat_end_dat` (`name`,`date_published`);
+
+--
+-- Indexes for table `publication_category`
+--
+ALTER TABLE `publication_category`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `quote`
+--
+ALTER TABLE `quote`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `resume`
+--
+ALTER TABLE `resume`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `sponsor`
+--
+ALTER TABLE `sponsor`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`,`logo`),
+  ADD UNIQUE KEY `website` (`website`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `video`
+--
+ALTER TABLE `video`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `webpage`
+--
+ALTER TABLE `webpage`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `title` (`title`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `event`
+--
+ALTER TABLE `event`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `member`
+--
+ALTER TABLE `member`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `patent`
+--
+ALTER TABLE `patent`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `presentation`
+--
+ALTER TABLE `presentation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `project`
+--
+ALTER TABLE `project`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `publication`
+--
+ALTER TABLE `publication`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `publication_category`
+--
+ALTER TABLE `publication_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `quote`
+--
+ALTER TABLE `quote`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `resume`
+--
+ALTER TABLE `resume`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `sponsor`
+--
+ALTER TABLE `sponsor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `video`
+--
+ALTER TABLE `video`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `webpage`
+--
+ALTER TABLE `webpage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -2,7 +2,7 @@
 /**
  * Description of Project
  *
- * @author Jamiu Babatunde Mojolagbe
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Project implements ContentManipulator{
     private $id;

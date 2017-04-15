@@ -2,7 +2,7 @@
 /**
  * Description of Patent
  *
- * @author Jamiu Babatunde Mojolagbe
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Patent implements ContentManipulator{
     private $id;

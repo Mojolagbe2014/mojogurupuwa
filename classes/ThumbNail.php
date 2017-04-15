@@ -3,7 +3,7 @@
 /**
  * Description of Thumbnail
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class ThumbNail extends Imaging{
     private $image; 

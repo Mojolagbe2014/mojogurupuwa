@@ -3,7 +3,7 @@
 /**
  * Description of Number
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Number {
     

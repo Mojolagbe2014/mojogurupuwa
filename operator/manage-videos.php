@@ -13,7 +13,7 @@ $errorArr = array(); //Array of errors
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manage Video  - Impact Training &amp; Management Consulting</title>
+    <title>Manage Videos  - Impact Training &amp; Management Consulting</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/custom.css" rel="stylesheet" />
@@ -35,7 +35,7 @@ $errorArr = array(); //Array of errors
                     <div class="col-md-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3><i class="fa fa-camera-retro"></i> All Video</h3>
+                                <h3><i class="fa fa-camera-retro"></i> All Videos</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">

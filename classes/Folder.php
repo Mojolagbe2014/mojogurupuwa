@@ -1,6 +1,7 @@
 <?php
 /** Class directory handles all files and directory operations 
  * @property string $path Path to the directpry to be manipulated
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Folder extends Directory {
     //Class properties/data

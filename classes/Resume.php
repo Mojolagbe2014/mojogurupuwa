@@ -2,7 +2,7 @@
 /**
  * Description of Resume
  *
- * @author Jamiu Babatunde Mojolagbe
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Resume implements ContentManipulator{
     private $id;

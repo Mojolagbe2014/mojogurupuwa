@@ -2,7 +2,7 @@
 /**
  * Description of Faq
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Faq implements ContentManipulator{
     private $id;

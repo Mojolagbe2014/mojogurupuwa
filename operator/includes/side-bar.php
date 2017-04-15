@@ -58,25 +58,21 @@
                     </li>
                     <li> <a href="#"><i class="fa fa-question-circle fa-2x"></i> FAQs Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-faq">Add FAQ</a> </li>
                             <li> <a href="manage-faq">Manage FAQs</a> </li>
                         </ul>
                     </li>
                     <li> <a href="#"><i class="fa fa-bell-o fa-2x"></i> Upcoming Events Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-events">Add New Event</a> </li>
                             <li> <a href="manage-events">Manage Events</a> </li>
                         </ul>
                     </li>
-                    <li> <a href="#"><i class="fa fa-apple fa-2x"></i> Sponsors/Partners/Clients<span class="fa arrow"></span></a>
+                    <li> <a href="#"><i class="fa fa-apple fa-2x"></i> Sponsors/Partners Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-sponsors">Add Partners/Sponsors</a> </li>
                             <li> <a href="manage-sponsors">Manage Partners/Sponsors</a> </li>
                         </ul>
                     </li>
                     <li> <a href="#"><i class="fa fa-quote-left fa-2x"></i> Quote Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-quotes">Add Quote</a> </li>
                             <li> <a href="manage-quotes">Manage Quotes</a> </li>
                         </ul>
                     </li>
@@ -88,7 +84,6 @@
                     </li>
                     <li> <a href="#"><i class="fa fa-video-camera fa-2x"></i> Video Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-videos">Add Video</a> </li>
                             <li> <a href="manage-videos">Manage Videos</a> </li>
                         </ul>
                     </li>

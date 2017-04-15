@@ -2,7 +2,7 @@
 /**
  * Description of General Setting
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Setting implements ContentManipulator{
     private $name;

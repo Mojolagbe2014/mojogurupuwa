@@ -2,7 +2,7 @@
 /**
  * Description of Event
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Event implements ContentManipulator{
     private $id;

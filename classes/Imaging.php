@@ -2,7 +2,7 @@
 /**
  * Description of Imaging
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Imaging {
     // Variables 

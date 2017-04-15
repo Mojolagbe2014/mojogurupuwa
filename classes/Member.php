@@ -1,7 +1,7 @@
 <?php
 /* 
  * Class Member describes individual members
- * @author Jamiu Babatunde Mojolagbe
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Member implements ContentManipulator{
     //class properties/data

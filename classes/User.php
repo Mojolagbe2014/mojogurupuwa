@@ -2,7 +2,7 @@
 /**
  * Description of User
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class User implements ContentManipulator{
     private $id;

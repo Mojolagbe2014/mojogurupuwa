@@ -2,7 +2,7 @@
 /**
  * Description of StringManipulator
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 
 /** It handles string manipulation */

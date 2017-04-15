@@ -2,7 +2,7 @@
 /**
  * Description of Sponsor
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Sponsor implements ContentManipulator{
     private $id;

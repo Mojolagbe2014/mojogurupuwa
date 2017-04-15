@@ -2,7 +2,7 @@
 /**
  * Description of Quote
  *
- * @author Kaiste
+ * @author Jamiu Babatunde Mojolagbe <mojolagbe@gmail.com>
  */
 class Quote implements ContentManipulator{
     private $id;
