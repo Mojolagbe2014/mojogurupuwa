@@ -1,8 +1,8 @@
 var dataTable, currentStatus;
 $(document).ready(function(){ 
-    loadAllRegisteredTutors();
-    function loadAllRegisteredTutors(){
-        dataTable = $('#tutorslist').DataTable( {
+    loadAllRegisteredMembers();
+    function loadAllRegisteredMembers(){
+        dataTable = $('#memberslist').DataTable( {
             columnDefs: [ {
                 orderable: false,
                 className: 'select-checkbox',
@@ -17,13 +17,13 @@ $(document).ready(function(){
             "serverSide": true,
             "scrollX": true,
             "ajax":{
-                url :"../REST/manage-tutors.php", //employee-grid-data.php",// json datasource
+                url :"../REST/manage-members.php", //employee-grid-data.php",// json datasource
                 type: "post",  // method  , by default get
-                data: {fetchTutors:'true'},
+                data: {fetchMembers:'true'},
                 error: function(){  // error handling
-                        $("#tutorslist-error").html("");
-                        $("#tutorslist").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
-                        $("#tutorslist_processing").css("display","none");
+                        $("#memberslist-error").html("");
+                        $("#memberslist").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                        $("#memberslist_processing").css("display","none");
 
                 }
             }
@@ -40,14 +40,14 @@ $(document).ready(function(){
         }
     });
     //Handler for multiple selection
-    $('.multi-activate-tutor').click(function(){
-        if(confirm("Are you sure you want to change tutor status for selected tutor(s)?")) {
-            if($('#multi-action-box').prop("checked") || $('#tutorslist :checkbox:checked').length > 0) {
-                var atLeastOneIsChecked = $('#tutorslist :checkbox:checked').length > 0;
+    $('.multi-activate-member').click(function(){
+        if(confirm("Are you sure you want to change member status for selected member(s)?")) {
+            if($('#multi-action-box').prop("checked") || $('#memberslist :checkbox:checked').length > 0) {
+                var atLeastOneIsChecked = $('#memberslist :checkbox:checked').length > 0;
                 if (atLeastOneIsChecked !== false) {
-                    $('#tutorslist :checkbox:checked').each(function(){
+                    $('#memberslist :checkbox:checked').each(function(){
                         currentStatus = 'Activate'; if(parseInt($(this).attr('data-visible')) === 1) currentStatus = "De-activate";
-                        activateTutor($(this).attr('data-id'),$(this).attr('data-visible'));
+                        activateMember($(this).attr('data-id'),$(this).attr('data-visible'));
                     });
                 }
                 else alert("No row selected. You must select atleast a row.");
@@ -55,13 +55,13 @@ $(document).ready(function(){
             else alert("No row selected. You must select atleast a row.");
         }
     });
-    $('.multi-delete-tutor').click(function(){
-        if(confirm("Are you sure you want to delete selected tutors?")) {
-            if($('#multi-action-box').prop("checked") || $('#tutorslist :checkbox:checked').length > 0) {
-                var atLeastOneIsChecked = $('#tutorslist :checkbox:checked').length > 0;
+    $('.multi-delete-member').click(function(){
+        if(confirm("Are you sure you want to delete selected members?")) {
+            if($('#multi-action-box').prop("checked") || $('#memberslist :checkbox:checked').length > 0) {
+                var atLeastOneIsChecked = $('#memberslist :checkbox:checked').length > 0;
                 if (atLeastOneIsChecked !== false) {
-                    $('#tutorslist :checkbox:checked').each(function(){
-                        deleteTutor($(this).attr('data-id'),$(this).attr('data-picture'));
+                    $('#memberslist :checkbox:checked').each(function(){
+                        deleteMember($(this).attr('data-id'),$(this).attr('data-picture'));
                     });
                 }
                 else alert("No row selected. You must select atleast a row.");
@@ -69,23 +69,41 @@ $(document).ready(function(){
             else alert("No row selected. You must select atleast a row.");
         }
     });
+    $('.multi-graduated').click(function(){
+        if(confirm("Are you sure you want to set graduation status of selected members?")) {
+            if($('#multi-action-box').prop("checked") || $('#memberslist :checkbox:checked').length > 0) {
+                var atLeastOneIsChecked = $('#memberslist :checkbox:checked').length > 0;
+                if (atLeastOneIsChecked !== false) {
+                    $('#memberslist :checkbox:checked').each(function(){
+                        setGraduation($(this).attr('data-id'), $(this).attr('data-graduated'));
+                    });
+                }
+                else alert("No row selected. You must select atleast a row.");
+            }
+            else alert("No row selected. You must select atleast a row.");
+        }
+    }); 
     
-    $(document).on('click', '.activate-tutor', function() {
+    $(document).on('click', '.activate-member', function() {
         currentStatus = 'Activate'; if(parseInt($(this).attr('data-visible')) === 1) currentStatus = "De-activate";
-        if(confirm("Are you sure you want to "+currentStatus+" this tutor? Tutor Name: '"+$(this).attr('data-name')+"'")) activateTutor($(this).attr('data-id'),$(this).attr('data-visible'));
+        if(confirm("Are you sure you want to "+currentStatus+" this member? Member Name: '"+$(this).attr('data-name')+"'")) activateMember($(this).attr('data-id'),$(this).attr('data-visible'));
     });
-    $(document).on('click', '.delete-tutor', function() {
-        if(confirm("Are you sure you want to delete this tutor ["+$(this).attr('data-name')+"]? Tutor picture ['"+$(this).attr('data-picture')+"'] will be deleted too.")) deleteTutor($(this).attr('data-id'),$(this).attr('data-picture'));
+    $(document).on('click', '.delete-member', function() {
+        if(confirm("Are you sure you want to delete this member ["+$(this).attr('data-name')+"]? Member picture ['"+$(this).attr('data-picture')+"'] will be deleted too.")) deleteMember($(this).attr('data-id'),$(this).attr('data-picture'));
     });
-    $(document).on('click', '.edit-tutor', function() {
-        if(confirm("Are you sure you want to edit this tutor ["+$(this).attr('data-name')+"] details?")) editTutor($(this).attr('data-id'), $(this).attr('data-name'), $(this).attr('data-qualification'), $(this).attr('data-field'), $(this).find('span#JQDTbioholder').html(), $(this).attr('data-picture'), $(this).attr('data-email'), $(this).attr('data-username'), $(this).attr('data-website'));
+    $(document).on('click', '.edit-member', function() {
+        if(confirm("Are you sure you want to edit this member ["+$(this).attr('data-name')+"] details?")) editMember($(this).attr('data-id'), $(this).attr('data-name'), $(this).attr('data-program'), $(this).attr('data-field'), $(this).find('span#JQDTbioholder').html(), $(this).attr('data-picture'), $(this).attr('data-email'), $(this).attr('data-username'), $(this).attr('data-website'));
+    });
+    $(document).on('click', '.set-graduation', function() {
+        featuredStatus = 'Activate Graduated'; if(parseInt($(this).attr('data-graduated')) == 1) featuredStatus = "Activate Current Student";
+        if(confirm("Are you sure you want to make this member ["+$(this).attr('data-name')+"] "+featuredStatus.replace('Activate', '')+"?")) setGraduation($(this).attr('data-id'), $(this).attr('data-graduated'));
     });
     
-    function deleteTutor(id, picture){
+    function deleteMember(id, picture){
         $.ajax({
-            url: "../REST/manage-tutors.php",
+            url: "../REST/manage-members.php",
             type: 'POST',
-            data: {deleteThisTutor: 'true', id:id, picture: picture},
+            data: {deleteThisMember: 'true', id:id, picture: picture},
             cache: false,
             success : function(data, status) {
                 if(data.status === 1){
@@ -108,7 +126,7 @@ $(document).ready(function(){
                 else if(status==='parsererror'){ erroMsg = 'Error. Parsing JSON Request failed.'; }
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Operation failed. '+erroMsg+'</div>');
 
                 $.gritter.add({
                     title: 'Notification!',
@@ -118,21 +136,21 @@ $(document).ready(function(){
         });
     }
     
-    function activateTutor(id, status){
+    function activateMember(id, status){
         $.ajax({
-            url: "../REST/manage-tutors.php",
+            url: "../REST/manage-members.php",
             type: 'GET',
-            data: {activateTutor: 'true', id:id, visible:status},
+            data: {activateMember: 'true', id:id, visible:status},
             cache: false,
             success : function(data, status) {
                 if(data.status === 1){
-                    $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Tutor Successfully '+currentStatus+'d! </div>');
+                    $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Member Successfully '+currentStatus+'d! </div>');
                 }
                 else if(data.status === 0 || data.status === 2 || data.status === 3 || data.status === 4){
-                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Tutor Activation Failed. '+data.msg+'</div>');
+                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Member Activation Failed. '+data.msg+'</div>');
                 }
                 else {
-                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Tutor Activation Failed. '+data+'</div>');
+                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Member Activation Failed. '+data+'</div>');
                 }
                 dataTable.ajax.reload();
                 $.gritter.add({
@@ -148,7 +166,7 @@ $(document).ready(function(){
                 else if(status==='parsererror'){ erroMsg = 'Error. Parsing JSON Request failed.'; }
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Activation failed. '+erroMsg+'</div>');
 
                 $.gritter.add({
                     title: 'Notification!',
@@ -158,8 +176,45 @@ $(document).ready(function(){
         });
     }
     
-    function editTutor(id, name, qualification, field, bio, picture, email, userName, website){//,
-        var formVar = {id:id, name:name, qualification:qualification, field:field, bio:bio, picture:picture, email:email, userName:userName, website:website};
+    function setGraduation(id, graduated){
+        $.ajax({
+            url: "../REST/manage-members.php",
+            type: 'GET',
+            data: {setGraduationStatus: 'true', id:id, graduated:graduated},
+            cache: false,
+            success : function(data, status) {
+                if(data.status === 1){
+                    $("#messageBox, .messageBox").html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Project Successfully '+featuredStatus+'! </div>');
+                }
+                else {
+                    $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Project Featuring Failed. '+data.msg+'</div>');
+                }
+                dataTable.ajax.reload();
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: data.msg ? data.msg : data
+                });
+            },
+            error : function(xhr, status) {
+                erroMsg = '';
+                if(xhr.status===0){ erroMsg = 'There is a problem connecting to internet. Please review your internet connection.'; }
+                else if(xhr.status===404){ erroMsg = 'Requested page not found.'; }
+                else if(xhr.status===500){ erroMsg = 'Internal Server Error.';}
+                else if(status==='parsererror'){ erroMsg = 'Error. Parsing JSON Request failed.'; }
+                else if(status==='timeout'){  erroMsg = 'Request Time out.';}
+                else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Operation failed. '+erroMsg+'</div>');
+
+                $.gritter.add({
+                    title: 'Notification!',
+                    text: erroMsg
+                });
+            }
+        });
+    }
+    
+    function editMember(id, name, program, field, bio, picture, email, userName, website){//,
+        var formVar = {id:id, name:name, program:program, field:field, bio:bio, picture:picture, email:email, userName:userName, website:website};
         $.each(formVar, function(key, value) { 
             if(key == 'picture') { $('form #oldPicture').val(value); $('form #oldPictureComment').text(value).css('color','red');} 
             else $('form #'+key).val(value);  
@@ -170,7 +225,7 @@ $(document).ready(function(){
         
         $('#cancelEdit').click(function(){ $("#hiddenUpdateForm").addClass('hidden'); });
     }
-    $("form#UpdateTutor").submit(function(e){ 
+    $("form#UpdateMember").submit(function(e){ 
         e.stopPropagation(); 
         e.preventDefault();
         $(document).scrollTo('div.panel h3');
@@ -205,7 +260,7 @@ $(document).ready(function(){
                 else if(status==='parsererror'){ erroMsg = 'Error. Parsing JSON Request failed.'; }
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Member details update failed. '+erroMsg+'</div>');
 
                 $.gritter.add({
                     title: 'Notification!',

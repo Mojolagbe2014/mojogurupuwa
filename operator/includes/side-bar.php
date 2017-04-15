@@ -50,10 +50,10 @@
                             <li> <a href="manage-subscribers">Manage Subscribers</a> </li>
                         </ul>
                     </li>
-                    <li> <a href="#"><i class="fa fa-users fa-2x"></i> Team Members<span class="fa arrow"></span></a>
+                    <li> <a href="#"><i class="fa fa-users fa-2x"></i> Group Members<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="add-tutor">Add Member</a> </li>
-                            <li> <a href="manage-tutors">Manage Members</a> </li>
+                            <li><a href="add-member">Add Member</a> </li>
+                            <li> <a href="manage-members">Manage Members</a> </li>
                         </ul>
                     </li>
                     <li> <a href="#"><i class="fa fa-question-circle fa-2x"></i> FAQs Manager<span class="fa arrow"></span></a>

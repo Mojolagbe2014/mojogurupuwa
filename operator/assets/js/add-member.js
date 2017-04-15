@@ -1,5 +1,5 @@
 $(document).ready(function(){    
-    $("form#CreateTutor").submit(function(e){ 
+    $("form#CreateMember").submit(function(e){ 
         e.stopPropagation();
         e.preventDefault();
         $(document).scrollTo('div.panel h3');
@@ -30,7 +30,7 @@ $(document).ready(function(){
                 else if(status==='parsererror'){ erroMsg = 'Error. Parsing JSON Request failed.'; }
                 else if(status==='timeout'){  erroMsg = 'Request Time out.';}
                 else { erroMsg = 'Unknow Error.\n'+xhr.responseText;}          
-                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Admin details update failed. '+erroMsg+'</div>');
+                $("#messageBox, .messageBox").html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>Member creation failed. '+erroMsg+'</div>');
 
                 $.gritter.add({
                     title: 'Notification!',
