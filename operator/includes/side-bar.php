@@ -42,7 +42,7 @@
                     </li>
                     <li> <a href="#"><i class="fa fa-certificate fa-2x"></i> Patents Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="manage-brochures">Manage Patents</a> </li>
+                            <li> <a href="manage-patents">Manage Patents</a> </li>
                         </ul>
                     </li>
                     <li> <a href="#"><i class="fa fa-user fa-2x"></i> Subscribers<span class="fa arrow"></span></a>
