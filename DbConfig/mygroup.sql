@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2017 at 05:41 PM
+-- Generation Time: Apr 16, 2017 at 07:39 AM
 -- Server version: 5.6.31
 -- PHP Version: 5.3.29
 
@@ -105,15 +105,19 @@ CREATE TABLE IF NOT EXISTS `member` (
   `website` varchar(500) NOT NULL,
   `picture` varchar(300) NOT NULL,
   `visible` tinyint(4) NOT NULL,
-  `graduated` tinyint(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `graduated` tinyint(4) NOT NULL,
+  `twitter` varchar(200) NOT NULL,
+  `facebook` varchar(200) NOT NULL,
+  `linkedin` varchar(200) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`id`, `name`, `program`, `field`, `bio`, `email`, `website`, `picture`, `visible`, `graduated`) VALUES
-(4, 'Jamiu Babatunde Mojolagbe', 'M.Sc', 'Computational Electromagnetics', '<p>Testing&nbsp;</p>\r\n', 'mojolagm@myumanitoba.ca', 'http://www.umanitoba.ca', '397343_jamiu_babatunde_mojolagbe.jpg', 1, 0);
+INSERT INTO `member` (`id`, `name`, `program`, `field`, `bio`, `email`, `website`, `picture`, `visible`, `graduated`, `twitter`, `facebook`, `linkedin`) VALUES
+(4, 'Jamiu Babatunde Mojolagbe', 'M.Sc', 'Computational Electromagnetics', '<p>Testing&nbsp;</p>\r\n', 'mojolagm@myumanitoba.ca', 'http://www.umanitoba.ca', '397343_jamiu_babatunde_mojolagbe.jpg', 1, 0, '', '', ''),
+(6, 'Ammar Aljammal', 'M.Sc', 'Computational Electromagnetics', '<p>Required later</p>\r\n', 'aljamala@myumanitoba.ca', 'http://www.umanitoba.ca', '680224_ammar_aljammal.jpg', 1, 0, 'https://www.twitter.com', 'https://www.facebook.com/ammar.aljammal.7', 'https://www.linkedin.com');
 
 -- --------------------------------------------------------
 
@@ -209,14 +213,17 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `date_registered` date NOT NULL,
   `image` varchar(300) NOT NULL,
   `featured` tinyint(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `publication`
 --
 
 INSERT INTO `publication` (`id`, `name`, `category`, `date_published`, `description`, `media`, `status`, `date_registered`, `image`, `featured`) VALUES
-(1, 'Business Strategies', '3', '2017-04-05', '<p>Please is this published test</p>\r\n', '499489_2017_04_12.pdf', 1, '2017-04-14', '179665_2017_04_05.jpg', 0);
+(1, 'Systematic development of transmission-line models for interconnects with frequency-dependent losses', '1', '2017-10-19', '<p>This paper presents a new method for the extraction of the frequency-dependent, per-unit-length (pul) resistance, and inductance parameters of multiconductor interconnects. The proposed extraction methodology is based on a new formulation of the magneto-quasi-static problem that allows lossy ground planes of finite thickness to be modeled rigorously. The formulation is such that the pul impedance matrix for the multiconductor interconnect is extracted directly at a prescribed frequency. Once the matrix has been calculated over the ...</p>\r\n', '', 1, '2017-04-16', '148822_2017_10_19.jpg', 1),
+(2, 'Evaluation of layered media Green''s functions via rational function fitting', '1', '2004-01-14', '<p>An efficient rational function fitting methodology, called VECTFIT, is utilized toward &nbsp;the closed-form evaluation of the Sommerfeld integrals associated with electromagnetic &nbsp;Green&#39;s functions in planar layered media. VECTFIT approximates the component of the &nbsp;spectrum of the Green&#39;s function that remains after the extraction of the primary source &nbsp;contribution and the quasistatic part with a rational function, thus enabling a robust and &nbsp;expedient closed-form evaluation of the Sommerfeld integral for electromagnetic&nbsp;</p>\r\n', '', 1, '2017-04-16', '960223_2004_01_14.png', 1),
+(3, 'Large-scale broad-band parasitic extraction for fast layout verification of 3-D RF and mixed-signal on-chip structures ', '1', '2005-01-03', '<p>A methodology for efficient parasitic extraction and verification flow for RF and &nbsp;mixed-signal integrated-circuit designs is presented. The implementation of a multiplane &nbsp;precorrected fast Fourier transform (PFFT) computational engine enables the full-wave &nbsp;electromagnetic (EM) simulation of interconnects and passive components. The PFFT &nbsp;algorithm is implemented on a set of two-dimensional fast Fourier transform grids associated &nbsp;with the current sheets corresponding to the conductor loss models. This leads to the full-</p>\r\n', '', 1, '2017-04-16', '333440_2005_01_03.jpg', 1),
+(4, 'A new technique for the derivation of closed-form electromagnetic Green''s functions for unbounded planar layered media', '1', '2002-07-16', '<p>A closed-form electromagnetic Green&#39;s function for unbounded, planar, layered media is derived in terms of a finite sum of Hankel functions. The derivation is based on the direct inverse Hankel transform of a pole-residue representation of the spectral-domain form of the Green&#39;s function. Such a pole-residue form is obtained through the solution of the spectral-domain form of the governing Green&#39;s function equation numerically, through a finite-difference approximation, rather than analytically. The proposed methodology can</p>\r\n', '', 1, '2017-04-16', '833344_2002_07_16.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -301,13 +308,8 @@ INSERT INTO `setting` (`name`, `value`) VALUES
 ('ABOUT_US', '<p><strong>OUR BEGINNING </strong></p>\r\n\r\n<p>Impact Training &amp; Management Consulting Limited was registered and commenced business in 2003, with highly experienced consultants as<br />\r\nits directors.</p>\r\n\r\n<p><strong>OUR OBJECTIVES </strong></p>\r\n\r\n<ul>\r\n	<li>To affect positively our clients business by enhancing the quality<br />\r\n	of their manpower.</li>\r\n	<li>To partner with our clients; working to realise their aspirations.</li>\r\n	<li>To achieve definite and long lasting advantages in the market place.</li>\r\n</ul>\r\n\r\n<p><strong>OUR VALUES </strong></p>\r\n\r\n<ul>\r\n	<li>To act with due diligence in pursuit of excellence for our clients in an environment of mutual respect and trust</li>\r\n	<li>To deliver just-in-time quality learning interventions in the most cost effective way</li>\r\n	<li>To improve worldforce effectiveness at both individual and organisational levels</li>\r\n	<li>To partner with organisations and ensure relevant hands-on-and direct-to-function training.</li>\r\n</ul>\r\n\r\n<p><strong>OUR EXPERIENCE </strong></p>\r\n\r\n<p>Over the decade, we have worked individually and collectively with over three hundred diverse business, spanning all sectors of the Nigerian economy including highly respected multinational companies and indigenous institutions.</p>\r\n\r\n<p><strong>OUR APPROACH </strong></p>\r\n\r\n<p>Our methodologies are competency driven. The required attributes in knowledge, skills and attitudes are designed into our programmes and practically impacted. This way, we relate to clients in different models; as Consultants, Coaches, Advisors, Co-learners and Faciltators in order to infuse conceptual knowledge and ready to use skills.</p>\r\n\r\n<p><strong>OUR LEARNING CENTRE </strong></p>\r\n\r\n<p>We operate in a well equipped learning centre located in an accessible, serene environment in Ilupeju, Lagos.</p>\r\n\r\n<p><strong>OUR PARTNERS </strong></p>\r\n\r\n<p>Our partnership is made up of individuals with pedigree that continues to show high level commitment to insightful consulting and quality training. This is the essence of our profile. We are truly synergistic team with special skills and experience across disciplines and sectors acquired over many years. This is your guarantee of quality service.</p>\r\n\r\n<p>&nbsp;</p>\r\n'),
 ('ADDTHIS_SHARE_BUTTON', '<!-- Go to www.addthis.com/dashboard to customize your tools -->\r\n<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56a5fbdb49cbb5db" async="async"></script>\r\n'),
 ('ANALYTICS', '<script></script>'),
-('BOOKMARK_BUTTON', '<p>FALSE</p>\r\n'),
-('COMPANY_ACC_DETAILS', '<p><strong>Access Bank Plc </strong><strong>Account No: 0034932953 </strong></p>\r\n\r\n<p><strong>Sort Code: 044152273&nbsp;</strong></p>\r\n'),
 ('COMPANY_ADDRESS', '<span>10, Obokun Street,<br />\r\noff Coker Road, Ilupeju, Lagos State Nigeria.</span>\r\n'),
 ('COMPANY_ADDRESS_GMAP', '<p>10 Obokun Street</p>\r\n'),
-('COMPANY_EMAIL', '<p>vladimir.okhmatovski@umanitoba.ca</p>\n'),
-('COMPANY_HOTLINE', '<p>+2348033014321</p>\r\n'),
-('COMPANY_NAME', '<p>Impact Training &amp; Management Consulting</p>\r\n'),
 ('COMPANY_NUMBERS', '<p>+234-1-7932390<br />\r\n+234 803-3876456<br />\r\n+234 802-3060462</p>\r\n'),
 ('COMPANY_OTHER_EMAILS', '<p>info@impactconsultingng.com</p>\r\n'),
 ('DRIBBBLE_LINK', '<p>https://dribbble.com/</p>\r\n'),
@@ -315,29 +317,17 @@ INSERT INTO `setting` (`name`, `value`) VALUES
 ('FACEBOOK_APP_ID', '<p>0</p>\r\n'),
 ('FACEBOOK_LINK', '<p>https://www.facebook.com/</p>\r\n'),
 ('GOOGLEPLUS_LINK', '<p>https://www.plus.google.com/</p>\r\n'),
-('HOMEPAGE_CORE_SOLUTION_HEADER', '<p>Core Solution</p>\r\n'),
-('HOMEPAGE_CORE_SOLUTION_ICON', '<p>cog</p>\r\n'),
-('HOMEPAGE_CORE_SOLUTION_LINK', '<p>about-us/</p>\r\n'),
-('HOMEPAGE_CORE_SOLUTION_TEXT', '<p>We provide training essentially in Forensic Accounting and Fraud Examination as well as Banking &amp; Finance, Risk, Management and Supply Chain.</p>\r\n'),
-('HOMEPAGE_COURSE_CATEGORIES_HEADER', '<p>Course Categories</p>\r\n'),
-('HOMEPAGE_COURSE_CATEGORIES_ICON', '<p>graduation-cap</p>\r\n'),
-('HOMEPAGE_COURSE_CATEGORIES_LINK', '<p>courses/</p>\r\n'),
-('HOMEPAGE_COURSE_CATEGORIES_TEXT', '<p>View list of our course categories from accounting to supply chain management and book a seat for the ones that meets your professional needs.</p>\r\n'),
-('HOMEPAGE_DOWNLOAD_BROCHURE_HEADER', '<p>Download Brochure</p>\r\n'),
-('HOMEPAGE_DOWNLOAD_BROCHURE_ICON', '<p>download</p>\r\n'),
-('HOMEPAGE_DOWNLOAD_BROCHURE_LINK', '<p>download-brochure</p>\r\n'),
-('HOMEPAGE_DOWNLOAD_BROCHURE_TEXT', '<p>Download our comprehensive brochure to view all our courses we offer at your convenience round the year and its free.</p>\r\n'),
-('HOMEPAGE_WHO_WE_ARE_HEADER', '<p>Who We Are</p>\r\n'),
-('HOMEPAGE_WHO_WE_ARE_ICON', '<p>group</p>\r\n'),
-('HOMEPAGE_WHO_WE_ARE_LINK', '<p>about-us/</p>\r\n'),
-('HOMEPAGE_WHO_WE_ARE_TEXT', '<p>TSI was founded on the corporate vision of &ldquo;Complete Solution&rdquo; in a global arena with strong bias for research and training.</p>\r\n'),
+('GROUP_EMAIL', '<p><span style="background-color:rgb(245, 245, 245); font-family:open sans,sans-serif; font-size:12px">vladimir.okhmatovski@umanitoba.ca</span></p>\r\n'),
+('GROUP_HOTLINE', '<p>(+1) 2048697315</p>\r\n'),
+('GROUP_NAME', '<p>Prof. Vladimir Okhmatovski&#39;s Research Group</p>\r\n'),
+('HOMEPAGE_TEXT_GROUP_MEMBER', '<p><span style="background-color:rgb(245, 245, 245); font-family:open sans,sans-serif; font-size:12px">We are experts in this industry with over 100 years of experience. What that means is you are going to get right solution, experts also recommand us.</span></p>\r\n'),
+('HOMEPAGE_TEXT_OUR_EXPERIENCE', '<p><span style="background-color:rgb(247, 247, 247); color:rgb(132, 132, 132); font-family:hind,sans-serif; font-size:16px">We are experts in this industry with over 100 years of experience. What that means is you are going to get right solution, experts also recommand us.</span></p>\r\n'),
+('HOMEPAGE_TEXT_PRODUCT', '<p><span style="background-color:rgb(245, 245, 245); font-family:open sans,sans-serif; font-size:12px">We are experts in this industry with over 100 years of experience. What that means is you&nbsp;</span>are going to get right solution, experts also recommand us.</p>\r\n'),
 ('LINKEDIN_LINK', '<p>https://www.linkedin.com/</p>\r\n'),
 ('PINTEREST_LINK', '<p>https://www.pinterest.com/</p>\r\n'),
-('SETTINGS_PANEL', '<p>FALSE</p>\r\n'),
-('TOTAL_DISPLAYABLE_COURSES', '<p>100</p>\r\n'),
 ('TWITTER_ID', '<p>0</p>\r\n'),
-('TWITTER_LINK', '<p>https://twitter.com/impactconslt</p>\r\n'),
-('WELCOME_MESSAGE', '<p style="text-align: justify;">We provide training essentially in Forensic Accounting and Fraud Examination as well as Banking &amp; Finance, Risk, Management and Supply Chain. TSI Limited is a one stop shop for high-quality training, research and consultancy services and customer satisfaction is our greatest priority. We hope you can find all your training needs here.</p>\r\n'),
+('TWITTER_LINK', '<p>https://twitter.com/</p>\r\n'),
+('WELCOME_MESSAGE', '<p style="text-align:justify">Welcome to the official website of Prof. Vladimir Okhmatovski&#39;s group. We hope you can find all you&nbsp;need&nbsp;here.</p>\r\n'),
 ('YOUTUBE_LINK', '<p>https://www.youtube.com/</p>\r\n');
 
 -- --------------------------------------------------------
@@ -599,7 +589,7 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `patent`
 --
@@ -619,7 +609,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `publication`
 --
 ALTER TABLE `publication`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `publication_category`
 --

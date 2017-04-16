@@ -190,7 +190,7 @@ class Patent implements ContentManipulator{
      * @param Object $dbObj Database connectivity object
      * @return int Number of s
      */
-    public static function getRawCount($dbObj, $dbPrefix){
+    public static function getRawCount($dbObj, $dbPrefix=''){
         $tableName = $dbPrefix.'patent';
         $sql = "SELECT * FROM $tableName ";
         $count = "";

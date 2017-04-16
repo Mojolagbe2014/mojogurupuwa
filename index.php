@@ -8,6 +8,7 @@ $thisPage = new WebPage(); //Create new instance of webPage class
 $dbObj = new Database();//Instantiate database
 $thisPage->dbObj = $dbObj;
 $projectObj = new Project($dbObj);
+$publicationObj = new Publication($dbObj);
 $categoryObj = new PublicationCategory($dbObj);
 $clientObj = new Sponsor($dbObj);
 $quoteObj = new Quote($dbObj);
@@ -40,54 +41,36 @@ require('includes/page-properties.php');
     <div class="container">
         
         <div class="section-title center">
-            <h2>Why Choosing The Expeart</h2>
+            <h2>Welcome..</h2>
             <div class="text">
-                <p>We are experts in this industry with over 100 years experience. What that means is you are going to get right <br> solution. please find our services.</p>
+                <p><?php echo WELCOME_MESSAGE; ?></p>
             </div>
         </div>
             
-        
         <div class="row clearfix">
+            <?php 
+            $siteWidgetTits = array('Our Experience', 'Group Members', 'Products &amp; Projects');
+            $siteWidgetIcons = array('graphic2', 'people', 'computer');
+            $siteWidgetItems = array('HOMEPAGE_TEXT_OUR_EXPERIENCE','HOMEPAGE_TEXT_GROUP_MEMBER','HOMEPAGE_TEXT_PRODUCT');
+            $widgetCount = 0;
+            foreach($siteWidgetItems as $siteWidgetItem){
+            ?>
             <!--Featured Service -->
             <article class="column col-md-4 col-sm-6 col-xs-12">
                 <div class="item">
-                    <div class="icon_box">
-                        <span class="icon-graphic2"></span>
+                    <div class="icon_box center">
+                        <span class="icon-<?php echo $siteWidgetIcons[$widgetCount]; ?>"></span>
                     </div>
-                    <a href="#"><h4>Why Our Consulting</h4></a>
-                    <div class="text">
-                        <p>We are experts in this industry with over 100 years of experience. What that means is you are going to get right solution, experts also recommand us.</p>
+                    <div class="center">
+                        <a href="#" class="center"><h4><?php echo $siteWidgetTits[$widgetCount]; ?></h4></a>
+                    </div>
+                    <div class="text center">
+                        <p><?php echo Setting::getValue($dbObj, $siteWidgetItem) ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, $siteWidgetItem)))) : ''; ?></p>
                     </div>
                     <div class="count">01</div>
                 </div>
             </article>
-            <!--Featured Service -->
-            <article class="column col-md-4 col-sm-6 col-xs-12">
-                <div class="item">
-                    <div class="icon_box">
-                        <span class="icon-layers"></span>
-                    </div>
-                    <a href="#"><h4>Advanced Analytics</h4></a>
-                    <div class="text">
-                        <p>We are experts in this industry with over 100 years of experience. What that means is you are going to get right solution, experts also recommand us.</p>
-                    </div>
-                    <div class="count">02</div>
-                </div>
-            </article>
-            <!--Featured Service -->
-            <article class="column col-md-4 col-sm-6 col-xs-12">
-                <div class="item">
-                    <div class="icon_box">
-                        <span class="icon-computer"></span>
-                    </div>
-                    <a href="#"><h4>Customer Insights</h4></a>
-                    <div class="text">
-                        <p>We are experts in this industry with over 100 years of experience. What that means is you are going to get right solution, experts also recommand us.</p>
-                    </div>
-                    <div class="count">03</div>
-                </div>
-            </article>
-            
+            <?php $widgetCount++; } ?>
         </div>
             
     </div>
@@ -96,114 +79,55 @@ require('includes/page-properties.php');
 <section class="service sec-padd2">
     <div class="container">
         
-        <div class="section-title">
-            <h2>Our Services</h2>
+        <div class="section-title center">
+            <h2>Our Publications</h2>
         </div>
         
         <div class="service_carousel">
-            <!--Featured Service -->
+            <?php 
+            foreach($publicationObj->fetchRaw("*", "status=1 AND featured = 1 ", " RAND() LIMIT 15")as $publication) { 
+                $dateParam = explode('-', $publication['date_published']);
+                $dateObj   = DateTime::createFromFormat('!m', $dateParam[1]);
+                $thumb = new ThumbNail("media/publication-image/".$publication['image'], 260, 160); 
+                $pubLink = SITE_URL."publication/". $publication['id']."/".StringManipulator::slugify($publication['name']);
+            ?>
+            <!--Featured Publication -->
             <article class="single-column">
                 <div class="item">
                     <figure class="img-box">
-                        <img src="images/service/1.jpg" alt="">
+                        <img src="<?php echo $thumb; ?>" style="width:260px; height: 160px;" alt="<?php echo $publication['name']; ?>">
                         <figcaption class="default-overlay-outer">
                             <div class="inner">
                                 <div class="content-layer">
-                                    <a href="service-1.html" class="thm-btn thm-tran-bg">read more</a>
+                                    <a href="<?php echo $pubLink; ?>/" class="thm-btn thm-tran-bg">read more</a>
                                 </div>
                             </div>
                         </figcaption>
                     </figure>
                     <div class="content center">
-                        <h5>Service #1</h5>
-                        <a href="service-1.html"><h4>Business Growth</h4></a>
+                        <h5><?php echo $dateParam[0]."/".$dateParam[1]; ?></h5>
+                        <a href="<?php echo $pubLink; ?>/"><h4 style="font-size: 14px; font-weight: 100;"><?php echo $publication['name']; ?></h4></a>
                         <div class="text">
-                            <p>The process of improving some of <br>our an enterprise's success. Business <br>growth can be a achieved.</p>
+                            <p><?php echo PublicationCategory::getName($dbObj, $publication['category']); ?></p>
                         </div>
                     </div>
                 </div>
             </article>
-            <!--Featured Service -->
-            <article class="single-column">
-                <div class="item">
-                    <figure class="img-box">
-                        <img src="images/service/2.jpg" alt="">
-                        <figcaption class="default-overlay-outer">
-                            <div class="inner">
-                                <div class="content-layer">
-                                    <a href="service-2.html" class="thm-btn thm-tran-bg">read more</a>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                    <div class="content center">
-                        <h5>Service #2</h5>
-                        <a href="service-2.html"><h4>Sustainability</h4></a>
-                        <div class="text">
-                            <p>When it comes to sustainability & <br>corporate responsibility, we believe <br>thenormal rules of business.</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <!--Featured Service -->
-            <article class="single-column">
-                <div class="item">
-                    <figure class="img-box">
-                        <img src="images/service/3.jpg" alt="">
-                        <figcaption class="default-overlay-outer">
-                            <div class="inner">
-                                <div class="content-layer">
-                                    <a href="service-3.html" class="thm-btn thm-tran-bg">read more</a>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                    <div class="content center">
-                        <h5>Service #3</h5>
-                        <a href="service-3.html"><h4>Performance</h4></a>
-                        <div class="text">
-                            <p>In a contract, performance deemed <br> to be the fulfillment of an obligation <br>in a manner that releases.</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <!--Featured Service -->
-            <article class="single-column">
-                <div class="item">
-                    <figure class="img-box">
-                        <img src="images/service/4.jpg" alt="">
-                        <figcaption class="default-overlay-outer">
-                            <div class="inner">
-                                <div class="content-layer">
-                                    <a href="service-4.html" class="thm-btn thm-tran-bg">read more</a>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                    <div class="content center">
-                        <h5>Service #4</h5>
-                        <a href="service-5.html"><h4>Organization</h4></a>
-                        <div class="text">
-                            <p>We help business improve financial <br>performaance by ensuring the entire <br>organization system is aligned.</p>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            
+            <?php } ?>
         </div>
             
     </div>
 </section>
 
-<section class="fact-counter sec-padd" style="background-image: url(images/background/4.jpg);">
+<section class="fact-counter sec-padd" style="background-image: url(<?php echo SITE_URL; ?>images/background/4.jpg);">
     <div class="container">
         <div class="row clearfix">
             <div class="counter-outer clearfix">
                 <!--Column-->
                 <article class="column counter-column col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-duration="0ms">
                     <div class="item">
-                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="107">0</span></div>
-                        <h4 class="counter-title">Experienced Consultants</h4>
+                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="<?php echo Member::getRawCount($dbObj, " graduated='0' "); ?>">0</span></div>
+                        <h4 class="counter-title">Current Members</h4>
                         <div class="icon"><i class="icon-people3"></i></div>
                     </div>
                         
@@ -212,8 +136,8 @@ require('includes/page-properties.php');
                 <!--Column-->
                 <article class="column counter-column col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-duration="0ms">
                     <div class="item">
-                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="2000">0</span></div>
-                        <h4 class="counter-title">Sucessfull Projects</h4>
+                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="<?php echo Project::getRawCount($dbObj); ?>">0</span></div>
+                        <h4 class="counter-title">Successful Projects</h4>
                         <div class="icon"><i class="icon-technology3"></i></div>
                     </div>
                 </article>
@@ -221,8 +145,8 @@ require('includes/page-properties.php');
                 <!--Column-->
                 <article class="column counter-column col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-duration="0ms">
                     <div class="item">
-                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="47">0</span></div>
-                        <h4 class="counter-title">Winning Awards</h4>
+                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="<?php echo Publication::getRawCount($dbObj); ?>">0</span></div>
+                        <h4 class="counter-title">All Publications</h4>
                         <div class="icon"><i class="icon-sports"></i></div>
                     </div>
                 </article>
@@ -230,8 +154,8 @@ require('includes/page-properties.php');
                 <!--Column-->
                 <article class="column counter-column col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-duration="0ms">
                     <div class="item">
-                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="100">0</span>%</div>
-                        <h4 class="counter-title">Satisfied Customers</h4>
+                        <div class="count-outer"><span class="count-text" data-speed="3000" data-stop="<?php echo Patent::getRawCount($dbObj); ?>">0</span></div>
+                        <h4 class="counter-title">Patents</h4>
                         <div class="icon"><i class="icon-square2"></i></div>
                     </div>
                 </article>

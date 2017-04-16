@@ -3,7 +3,7 @@ define("FACEBOOK_APP_ID", Setting::getValue($dbObj, 'FACEBOOK_APP_ID') ? trim(st
 define("FACEBOOK_ADMINS", Setting::getValue($dbObj, 'FACEBOOK_ADMINS') ? trim(strip_tags(Setting::getValue($dbObj, 'FACEBOOK_ADMINS'))) : '');
 define("TWITTER_ID", Setting::getValue($dbObj, 'TWITTER_ID') ? trim(strip_tags(Setting::getValue($dbObj, 'TWITTER_ID'))) : '');
 define("WEBSITE_AUTHOR", Setting::getValue($dbObj, 'GROUP_NAME') ? trim(strip_tags(Setting::getValue($dbObj, 'GROUP_NAME'))) : '');
-define("WELCOME_MESSAGE", Setting::getValue($dbObj, 'WELCOME_MESSAGE') ? Setting::getValue($dbObj, 'WELCOME_MESSAGE') : '');
+define("WELCOME_MESSAGE", Setting::getValue($dbObj, 'WELCOME_MESSAGE') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'WELCOME_MESSAGE')))) : '');
 define("FACEBOOK_LINK", Setting::getValue($dbObj, 'FACEBOOK_LINK') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'FACEBOOK_LINK')))) : '');
 define("GOOGLEPLUS_LINK", Setting::getValue($dbObj, 'GOOGLEPLUS_LINK') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'GOOGLEPLUS_LINK')))) : '');
 define("LINKEDIN_LINK", Setting::getValue($dbObj, 'LINKEDIN_LINK') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'LINKEDIN_LINK')))) : '');
@@ -16,6 +16,4 @@ define("GROUP_EMAIL", Setting::getValue($dbObj, 'GROUP_EMAIL') ? trim(stripcslas
 define("GROUP_ADDRESS", Setting::getValue($dbObj, 'GROUP_ADDRESS') ? Setting::getValue($dbObj, 'GROUP_ADDRESS') : '');
 define("GROUP_ADDRESS_GMAP", Setting::getValue($dbObj, 'GROUP_ADDRESS_GMAP') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'GROUP_ADDRESS_GMAP')))) : '');
 define("GROUP_NUMBERS", Setting::getValue($dbObj, 'GROUP_NUMBERS') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'GROUP_NUMBERS')))) : '');
-define("GROUP_ACC_DETAILS", Setting::getValue($dbObj, 'GROUP_ACC_DETAILS') ? Setting::getValue($dbObj, 'GROUP_ACC_DETAILS') : '');
 define("GROUP_OTHER_EMAILS", Setting::getValue($dbObj, 'GROUP_OTHER_EMAILS') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'GROUP_OTHER_EMAILS')))) : '');
-define("SETTINGS_PANEL", Setting::getValue($dbObj, 'SETTINGS_PANEL') ? trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'SETTINGS_PANEL')))) : '');

@@ -87,7 +87,7 @@
                             <li> <a href="manage-videos">Manage Videos</a> </li>
                         </ul>
                     </li>
-                    <?php if(isset($_SESSION['ITCadminEmail']) && $_SESSION['ITCadminEmail'] == trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'COMPANY_EMAIL'))))) { ?>
+                    <?php if(isset($_SESSION['ITCadminEmail']) && $_SESSION['ITCadminEmail'] == trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'GROUP_EMAIL'))))) { ?>
                     <li> <a href="#"><i class="fa fa-cog fa-2x"></i>Settings Manager<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="manage-settings"><i class="fa fa-cogs fa-1x"></i> General Settings</a> </li>

@@ -196,4 +196,19 @@ class Member implements ContentManipulator{
         foreach ($thisMemberNames as $thisMemberNames) { $thisMemberName = $thisMemberNames[0]; }
         return $thisMemberName;
     }
+    
+    /**
+     * Method that returns count/total number of particular members
+     * @param Object $dbObj Database connectivity object
+     * @param string $condition Additional condition
+     * @return int Number of members
+     */
+    public static function getRawCount($dbObj, $condition=" 1=1 "){
+        $sql = "SELECT * FROM member WHERE $condition ";
+        $count = "";
+        $result = $dbObj->query($sql);
+        $totalData = mysqli_num_rows($result);
+        if($result !== false){ $count = $totalData; }
+        return $count;
+    }
 }

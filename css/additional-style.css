@@ -1,3 +1,7 @@
 .text-white {
     color: #ffffff;
 }
+
+a.reformat-h4 h4 {
+    font-size: 18px; font-weight: 100;
+}
