@@ -213,8 +213,8 @@ $(document).ready(function(){
         });
     }
     
-    function editMember(id, name, program, field, bio, picture, email, userName, website){//,
-        var formVar = {id:id, name:name, program:program, field:field, bio:bio, picture:picture, email:email, userName:userName, website:website};
+    function editMember(id, name, program, field, bio, picture, email, userName, website, twitter, facebook, linkedin){//,
+        var formVar = {id:id, name:name, program:program, field:field, bio:bio, picture:picture, email:email, userName:userName, website:website, twitter:twitter, facebook:facebook, linkedin:linkedin};
         $.each(formVar, function(key, value) { 
             if(key == 'picture') { $('form #oldPicture').val(value); $('form #oldPictureComment').text(value).css('color','red');} 
             else $('form #'+key).val(value);  

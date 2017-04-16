@@ -15,6 +15,9 @@ class Member implements ContentManipulator{
     private $picture;
     private $visible = '1' ;
     private $graduated = 0;
+    private $twitter;
+    private $facebook;
+    private $linkedin;
     private $dbObj;
     private $tableName;
 
@@ -40,8 +43,8 @@ class Member implements ContentManipulator{
      * @return JSON JSON encoded string/result
      */
     public function add(){
-        $sql = "INSERT INTO $this->tableName (name, program, field, bio, email, website, picture, visible, graduated) "
-                ."VALUES ('{$this->name}','{$this->program}','{$this->field}','{$this->bio}','{$this->email}','{$this->website}','{$this->picture}','{$this->visible}','{$this->graduated}')";
+        $sql = "INSERT INTO $this->tableName (name, program, field, bio, email, website, picture, visible, graduated, twitter, facebook, linkedin) "
+                ."VALUES ('{$this->name}','{$this->program}','{$this->field}','{$this->bio}','{$this->email}','{$this->website}','{$this->picture}','{$this->visible}','{$this->graduated}','{$this->twitter}','{$this->facebook}','{$this->linkedin}')";
         if($this->notEmpty($this->name,$this->program,$this->bio)){
             $result = $this->dbObj->query($sql);
             if($result !== false){ $json = array("status" => 1, "msg" => "Done, member successfully added!"); }
@@ -84,7 +87,7 @@ class Member implements ContentManipulator{
         $result =array(); 
         if(count($data)>0){
             foreach($data as $r){
-                $result[] = array("id" => $r['id'], "name" =>  utf8_encode($r['name']), 'program' =>  utf8_encode($r['program']), "field" =>  utf8_encode($r['field']), "bio" =>  utf8_encode(stripslashes(strip_tags($r['bio']))), "email" =>  utf8_encode($r['email']), "website" =>  utf8_encode($r['website']), "picture" =>  utf8_encode($r['picture']), "visible" =>  utf8_encode($r['visible']));
+                $result[] = array("id" => $r['id'], "name" =>  utf8_encode($r['name']), 'program' =>  utf8_encode($r['program']), "field" =>  utf8_encode($r['field']), "bio" =>  utf8_encode(stripslashes(strip_tags($r['bio']))), "email" =>  utf8_encode($r['email']), "website" =>  utf8_encode($r['website']), "picture" =>  utf8_encode($r['picture']), "visible" =>  utf8_encode($r['visible']), "linkedin" =>  utf8_encode($r['linkedin']), "twitter" =>  utf8_encode($r['twitter']), "facebook" =>  utf8_encode($r['facebook']));
             }
             $json = array("status" => 1, "info" => $result);
         } else{ $json = array("status" => 2, "msg" => "Necessary parameters not set. Or empty result. ".mysqli_error($this->dbObj->connection)); }
@@ -126,8 +129,8 @@ class Member implements ContentManipulator{
                 if($r['graduated'] == 1){  $graduatedSt = 'icon-eye-open'; $graduatedStCol = 'btn-success'; $graduatedStTit = "Activate Current Student";}
                 if($r['visible'] == 1){  $fetMemberStat = 'icon-check'; $fetMemberRolCol = 'btn-success'; $fetMemberRolTit = "De-activate Member";}
                 $multiActionBox = '<input type="checkbox" class="multi-action-box" data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-picture="'.$r['picture'].'"  data-visible="'.$r['visible'].'" data-graduated="'.$r['graduated'].'" />';
-                $actionLink = ' <button data-id="'.$r['id'].'" data-picture="'.$r['picture'].'" data-name="'.$r['name'].'" class="btn btn-danger btn-sm delete-member" title="Delete"><i class="btn-icon-only icon-trash"> </i></button> <button data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-program="'.$r['program'].'" data-field="'.$r['field'].'" data-email="'.$r['email'].'" data-website="'.$r['website'].'" data-picture="'.$r['picture'].'" class="btn btn-info btn-sm edit-member"  title="Edit"><i class="btn-icon-only icon-pencil"> </i> <span id="JQDTbioholder" data-bio ="" class="hidden">'.$r['bio'].'</span> </button> <button data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-visible="'.$r['visible'].'"  class="btn '.$fetMemberRolCol.' btn-sm activate-member"  title="'.$fetMemberRolTit.'"><i class="btn-icon-only '.$fetMemberStat.'"> </i></button> <button data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-graduated="'.$r['graduated'].'"  class="btn '.$graduatedStCol.' btn-sm set-graduation"  title="'.$graduatedStTit.'"><i class="btn-icon-only '.$graduatedSt.'"> </i></button>';
-                $result[] = array(utf8_encode($multiActionBox), $r['id'], utf8_encode($actionLink), utf8_encode('<img src="../media/member/'.utf8_encode($r['picture']).'" style="width:60px; height:50px;" alt="Pix">'), utf8_encode($r['name']), StringManipulator::trimStringToFullWord(40, utf8_encode(stripslashes(strip_tags($r['program'])))), StringManipulator::trimStringToFullWord(40, utf8_encode(stripslashes(strip_tags($r['field'])))), StringManipulator::trimStringToFullWord(62, utf8_encode(stripslashes(strip_tags($r['bio'])))), utf8_encode($r['email']), utf8_encode($r['website']));//
+                $actionLink = ' <button data-id="'.$r['id'].'" data-picture="'.$r['picture'].'" data-name="'.$r['name'].'" class="btn btn-danger btn-sm delete-member" title="Delete"><i class="btn-icon-only icon-trash"> </i></button> <button data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-program="'.$r['program'].'" data-field="'.$r['field'].'" data-email="'.$r['email'].'" data-website="'.$r['website'].'" data-picture="'.$r['picture'].'" class="btn btn-info btn-sm edit-member"  title="Edit"><i class="btn-icon-only icon-pencil"> </i> <span id="JQDTbioholder" data-bio =""  data-linkedin="'.$r['linkedin'].'"  data-twitter="'.$r['twitter'].'"  data-facebook="'.$r['facebook'].'" class="hidden">'.$r['bio'].'</span> </button> <button data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-visible="'.$r['visible'].'"  data-linkedin="'.$r['linkedin'].'"  data-twitter="'.$r['twitter'].'"  data-facebook="'.$r['facebook'].'"  class="btn '.$fetMemberRolCol.' btn-sm activate-member"  title="'.$fetMemberRolTit.'"><i class="btn-icon-only '.$fetMemberStat.'"> </i></button> <button data-id="'.$r['id'].'" data-name="'.$r['name'].'" data-graduated="'.$r['graduated'].'" data-linkedin="'.$r['linkedin'].'"  data-twitter="'.$r['twitter'].'"  data-facebook="'.$r['facebook'].'" class="btn '.$graduatedStCol.' btn-sm set-graduation"  title="'.$graduatedStTit.'"><i class="btn-icon-only '.$graduatedSt.'"> </i></button>';
+                $result[] = array(utf8_encode($multiActionBox), $r['id'], utf8_encode($actionLink), utf8_encode('<img src="../media/member/'.utf8_encode($r['picture']).'" style="width:60px; height:50px;" alt="Pix">'), utf8_encode($r['name']), StringManipulator::trimStringToFullWord(40, utf8_encode(stripslashes(strip_tags($r['program'])))), StringManipulator::trimStringToFullWord(40, utf8_encode(stripslashes(strip_tags($r['field'])))), StringManipulator::trimStringToFullWord(62, utf8_encode(stripslashes(strip_tags($r['bio'])))), utf8_encode($r['email']), utf8_encode($r['website']), utf8_encode($r['twitter']), utf8_encode($r['facebook']), utf8_encode($r['linkedin']));//
             }
             $json = array("status" => 1,"draw" => intval($draw), "recordsTotal"    => intval($totalData), "recordsFiltered" => intval($totalFiltered), "data" => $result);
         } 
@@ -141,7 +144,7 @@ class Member implements ContentManipulator{
      * @return JSON JSON encoded success or failure message
      */
     public function update() {
-        $sql = "UPDATE $this->tableName SET name = '{$this->name}', program = '{$this->program}', field = '{$this->field}', bio = '{$this->bio}', email = '{$this->email}', website = '{$this->website}', picture = '{$this->picture}' WHERE id = $this->id ";
+        $sql = "UPDATE $this->tableName SET name = '{$this->name}', program = '{$this->program}', field = '{$this->field}', bio = '{$this->bio}', email = '{$this->email}', twitter = '{$this->twitter}', facebook = '{$this->facebook}', linkedin = '{$this->linkedin}', website = '{$this->website}', picture = '{$this->picture}' WHERE id = $this->id ";
         if(!empty($this->id)){
             $result = $this->dbObj->query($sql);
             if($result !== false){ $json = array("status" => 1, "msg" => "Done, member successfully update!"); }

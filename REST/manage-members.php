@@ -17,7 +17,7 @@ if(!isset($_SESSION['ITCLoggedInAdmin']) || !isset($_SESSION["ITCadminEmail"])){
 else{
     if(filter_input(INPUT_POST, "fetchMembers") != NULL){
         $requestData= $_REQUEST;
-        $columns = array( 0 =>'id', 1 =>'id', 2 => 'visible',  3 => 'picture', 4 => 'name', 5 => 'program', 6 => 'field', 7 => 'bio', 8 => 'email', 9 => 'website');
+        $columns = array( 0 =>'id', 1 =>'id', 2 => 'visible',  3 => 'picture', 4 => 'name', 5 => 'program', 6 => 'field', 7 => 'bio', 8 => 'email', 9 => 'website', 10 => 'twitter', 11 => 'facebook', 12 => 'linkedin');
 
         // getting total number records without any search
         $query = $dbObj->query("SELECT * FROM member ");
@@ -31,6 +31,9 @@ else{
                 $sql.=" OR field LIKE '%".$requestData['search']['value']."%' ";
                 $sql.=" OR bio LIKE '%".$requestData['search']['value']."%' ";
                 $sql.=" OR email LIKE '%".$requestData['search']['value']."%' ";
+                $sql.=" OR twitter LIKE '%".$requestData['search']['value']."%' ";
+                $sql.=" OR facebook LIKE '%".$requestData['search']['value']."%' ";
+                $sql.=" OR linkedin LIKE '%".$requestData['search']['value']."%' ";
                 $sql.=" OR website LIKE '%".$requestData['search']['value']."%' ) ";
         }
         $query = $dbObj->query($sql);
@@ -109,7 +112,7 @@ else{
     }
     
     if(filter_input(INPUT_POST, "updateThisMember") != NULL){
-        $postVars = array('id', 'name','program','field','bio','email','website','picture');  // Form fields names
+        $postVars = array('id', 'name','program','field','bio','email','website','picture','twitter', 'facebook', 'linkedin');  // Form fields names
         $oldPicture = $_REQUEST['oldPicture'];
         //Validate the POST variables and add up to error message if empty
         foreach ($postVars as $postVar){
@@ -119,6 +122,15 @@ else{
                                 if($memberObj->$postVar == "") { $memberObj->$postVar = $oldPicture;}
                                 $memberPictureFil = $newPicture;
                                 break;
+                case 'website': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                case 'twitter': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                case 'facebook': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                case 'linkedin': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+
                 default     :   $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($memberObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;

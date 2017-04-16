@@ -14,23 +14,17 @@ class WebPage {
     private $dbObj;
     private $tableName;
     
-    //Class Constructor
     public function WebPage($dbObj=null, $tableName='webpage') {
         $this->dbObj = $dbObj;        $this->tableName = $tableName;
-        //includes predefined constants
-        include(CONST_FILE_PATH); 
-        //Include Databse manipulation handler file
-        include(DB_CONFIG_FILE); 
+        include(CONST_FILE_PATH); //includes predefined constants
+        include(DB_CONFIG_FILE); //Include Databse manipulation handler file
         
         function autoLoadClasses($className){
             $path = CLASSES_PATH;
             $ext = ".php";
             $fullpath = $path.sprintf("%s",$className.$ext);
-            if(file_exists($fullpath)){
-                return include $fullpath;
-            }else{
-                echo $fullpath;
-            }
+            if(file_exists($fullpath)){ return include $fullpath; }
+            else{ echo $fullpath; }
         }
         spl_autoload_register('autoLoadClasses');
     }
@@ -60,37 +54,44 @@ class WebPage {
         return $html;
     }
     
-    /** Method for dispalying error message  */
+    /** Method for displaying error message  */
     function showError($error){
         if(is_array($error)){
             $msg ="<p>Please attend to the following errors:</p><ul>";
             foreach($error as $error){ $msg .="<li>".$error."</li>"; }     
             $msg .="</ul>";
         }
-        else{
-            $msg = $error;
-        }
+        else{ $msg = $error; }
         return $this->messageBox($msg, 'error');
     }
     
     /** Redirect() redirects a webpage to $redirectTo
      *  @param string $location String path of the page to be redirected to
      */
-    public function redirectTo($location){
-       header("location: ".$location);exit;
-   }
+    public function redirectTo($location){ header("location: ".$location);exit; }
    
     /**
      * Display active page menu highlighted
      * @param string $url The current page URL
-     * @param string $menuName The name of the menu to make active
+     * @param string|array $menuName The name of the menu to make active
      * @param string $actPagCssClass The CSS class of active menu
      * @return string CSS class
      */
     public function active($url, $menuName, $actPagCssClass){ 
-        if(strpos($url, $menuName)){ 
-            return $actPagCssClass;
-        } 
+        if(is_array($menuName)){
+            $retVal = "";
+            foreach($menuName as $menuNam){
+                if(strpos($url, $menuNam)){ 
+                    $retVal = $actPagCssClass;
+                } 
+            }
+            return $retVal;
+        }
+        else{
+            if(strpos($url, $menuName)){ 
+                return $actPagCssClass;
+            } 
+        }
      }
      
      /**  

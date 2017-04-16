@@ -92,6 +92,27 @@ $errorArr = array(); //Array of errors
                                     </div>
                                     
                                     <div class="form-group">
+                                        <label class="control-label" for="twitter">Twitter Profile:</label>
+                                        <div class="controls">
+                                            <input data-title="twitter" type="url" placeholder="twitter profile link" id="twitter" name="twitter" data-original-title="twitter" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label" for="facebook">Facebook Profile:</label>
+                                        <div class="controls">
+                                            <input data-title="facebook" type="url" placeholder="facebook profile link" id="facebook" name="facebook" data-original-title="facebook" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label" for="linkedin">LinkedIn Profile:</label>
+                                        <div class="controls">
+                                            <input data-title="linkedin" type="url" placeholder="linkedin profile link" id="linkedin" name="linkedin" data-original-title="linkedin" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
                                         <div class="controls">
                                             <input type="hidden" name="addNewMember" id="addNewMember" value="addNewMember"/>
                                             <button type="submit" name="addMember" id="addMember" class="btn btn-danger">Add Member</button> &nbsp; &nbsp;

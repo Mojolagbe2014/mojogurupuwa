@@ -15,7 +15,7 @@ if(!isset($_SESSION['ITCLoggedInAdmin']) || !isset($_SESSION["ITCadminEmail"])){
 }
 else{
     if(filter_input(INPUT_POST, "addNewMember") != NULL){
-        $postVars = array('name','program','field','bio','email','website','picture'); // Form fields names
+        $postVars = array('name','program','field','bio','email','website','picture','twitter','facebook','linkedin'); // Form fields names
         //Validate the POST variables and add up to error message if empty
         foreach ($postVars as $postVar){
             switch($postVar){
@@ -24,6 +24,12 @@ else{
                                 if($memberObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 case 'website': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                case 'twitter': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                case 'facebook': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
+                                break;
+                case 'linkedin': $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 break;
                 default     :   $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($memberObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}

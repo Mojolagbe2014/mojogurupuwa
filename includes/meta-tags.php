@@ -4,8 +4,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <title><?php echo $thisPage->title; ?></title>
-    <link rel='shortcut icon' href='<?php echo SITE_URL; ?>images/favicon.png' type='image/x-icon' />
-    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo SITE_URL; ?>images/fav-icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="<?php echo SITE_URL; ?>images/fav-icon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?php echo SITE_URL; ?>images/fav-icon/favicon-16x16.png" sizes="16x16">
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
     <meta name="description" content="<?php echo $thisPage->description; ?>"/>
     <meta name="robots" content="All" />
     <meta name="robots" content="index, follow" />
