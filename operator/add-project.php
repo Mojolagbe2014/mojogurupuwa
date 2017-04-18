@@ -91,7 +91,7 @@ $errorArr = array(); //Array of errors
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="control-label" for="image">Project Image <span class="text-danger"><em>(Recommended Size: width=400px, height=400px)</em></span>:</label>
+                                        <label class="control-label" for="image">Project Image <span class="text-danger"><em>(Recommended Size: 790x420)</em></span>:</label>
                                         <div class="controls">
                                             <input data-title="project image" type="file" placeholder="project image" id="image" name="image" data-original-title="Project image" class="form-control" required="required">
                                         </div>

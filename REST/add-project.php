@@ -39,15 +39,15 @@ else{
             $uploadOk = 1; $msg = ''; //$normalSize = true; $isImage = true;
             $imageFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
             
-            if (file_exists($targetImage)) { $msg .= " Project image already exists."; $uploadOk = 0; }
+            if ($projectMedFil!="" && file_exists($targetImage)) { $msg .= " Project image already exists."; $uploadOk = 0; }
             //if ($_FILES["file"]["size"] > 800000000 || $_FILES["image"]["size"] > 8000000) { $msg .= " Project media is too large."; $normalSize = false; }
-            if($uploadOk == 1 && Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both')== 'true'){ 
+            if($uploadOk == 1 && Imaging::checkDimension($_FILES["image"]["tmp_name"], 790, 420, 'equ', 'both')== 'true'){ 
                 if($projectMedFil !=''){ move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile);}
                 if($projectImgFil !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $targetImage);}
                 echo $projectObj->add(); 
             }
             else {
-                $msg = "Sorry, your project was not uploaded. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'equ', 'both');
+                $msg = "Sorry, your project was not uploaded. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 790, 420, 'equ', 'both');
                 $json = array("status" => 0, "msg" => $msg); 
                 $dbObj->close();//Close Database Connection
                 header('Content-type: application/json');

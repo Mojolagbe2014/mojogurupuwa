@@ -62,12 +62,10 @@ else{
         if(count($errorArr) < 1)   {
             $fileDelParam = true; $imageDelParam = true;
             if($projectMedia!='' && file_exists(MEDIA_FILES_PATH."project/".$projectMedia)){
-                if(unlink(MEDIA_FILES_PATH."project/".$projectMedia)){ $fileDelParam = true;}
-                else $fileDelParam = false;
+                unlink(MEDIA_FILES_PATH."project/".$projectMedia);
             }
             if($projectImage!='' && file_exists(MEDIA_FILES_PATH."project-image/".$projectImage)){
-                if(unlink(MEDIA_FILES_PATH."project-image/".$projectImage)){ $imageDelParam = true;}
-                else $imageDelParam = false;
+                unlink(MEDIA_FILES_PATH."project-image/".$projectImage);
             }
             if($fileDelParam == true && $imageDelParam ==true){ echo $projectObj->delete(); }
             else{ 
@@ -154,7 +152,7 @@ else{
                 }
             }
             if($newImage !=""){
-                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both');}
+                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 790, 420, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 790, 420, 'equ', 'both');}
                 if ($uploadOk == 1 && move_uploaded_file($_FILES["image"]["tmp_name"], MEDIA_FILES_PATH."project-image/".$projectImageFil)) {
                     $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
                     $status = 'ok'; if($oldImage!='' && file_exists(MEDIA_FILES_PATH."project-image/".$oldImage))unlink(MEDIA_FILES_PATH."project-image/".$oldImage);
