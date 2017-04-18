@@ -298,7 +298,7 @@ require('includes/page-properties.php');
                         default     :   $sponsorObj->$key = $partner[$value]; break; 
                     }
                 }
-                @$sponsorObj->logo = new ThumbNail($sponsorObj->logo, 218, 125);
+                @$sponsorObj->logo = new ThumbNail($sponsorObj->logo, 210, 120);
                 $sponLink = SITE_URL."sponsor/". $sponsorObj->id."/".StringManipulator::slugify($sponsorObj->name)."/";
             ?>
             <div class="item tool_tip" title="<?php echo $sponsorObj->name; ?>">

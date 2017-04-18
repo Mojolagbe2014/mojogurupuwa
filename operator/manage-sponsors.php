@@ -82,7 +82,7 @@ $errorArr = array(); //Array of errors
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label" for="logo">Official Logo:</label>
+                                        <label class="control-label" for="logo">Official Logo:  <em class="text-danger">(Recommended Size: 218x125)</em></label>
                                         <div class="controls">
                                             <input type="hidden" name="oldLogo" id="oldLogo" />
                                             <input data-title="" type="file" placeholder="" id="logo" name="logo" class="form-control">

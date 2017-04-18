@@ -26,7 +26,7 @@ else{
                                 break;
                 case 'image':   $sponsorObj->$postVar = basename($_FILES["image"]["name"]) ? rand(100000, 1000000)."_".  strtolower(str_replace(" ", "_", filter_input(INPUT_POST, 'name'))).".".pathinfo(basename($_FILES["image"]["name"]),PATHINFO_EXTENSION): ""; 
                                 $sponsorImage = $sponsorObj->$postVar;
-                                if($sponsorObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($sponsorObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $sponsorObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($sponsorObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -39,21 +39,27 @@ else{
             $targetImage = MEDIA_FILES_PATH."sponsor-image/". $sponsorImage;
             $uploadOk = 1; $msg = '';
             $imageFileType = pathinfo($targetLogo, PATHINFO_EXTENSION);
-            if (file_exists($targetLogo)) { $msg .= " Sponsor logo already exists."; $uploadOk = 0; }
-            if ($_FILES["logo"]["size"] > 80000000) { $msg .= " Sponsor logo is too large."; $uploadOk = 0; }
-            if ($uploadOk == 0) {
-                $msg = "Sorry, your sponsor logo was not uploaded. ERROR: ".$msg;
+            
+            if (file_exists($targetImage) && $sponsorImage!="") { $msg .= " Sponsor/Partner image already exists."; $uploadOk = 0; }
+            if (file_exists($targetLogo) && $sponsorLogo!="") { $msg .= " Sponsor/Partner logo already exists."; $uploadOk = 0; }
+            
+            if($uploadOk == 0){
+                $msg = "Sorry, your sponsor/partner was not uploaded. " .msg;
                 $json = array("status" => 0, "msg" => $msg); 
+                $dbObj->close();//Close Database Connection
                 header('Content-type: application/json');
                 echo json_encode($json);
-            } 
-            else {
-                if (move_uploaded_file($_FILES["logo"]["tmp_name"], $targetLogo) && move_uploaded_file($_FILES["image"]["tmp_name"], $targetImage)) {
-                    $msg .= "The logo has been uploaded.";
-                    $status = 'ok';
-                    echo $sponsorObj->add();
-                } else {
-                    $msg = " Sorry, there was an error uploading your sponsor logo. ERROR: ".$msg;
+            }
+            else{ 
+                if (($sponsorLogo !='' || $sponsorImage !='') && ($_FILES["logo"]["size"] > 800000000 || $_FILES["image"]["size"] > 8000000)) { $msg .= " Sponsor/Partner image is too large."; $uploadOk = 0; }
+                if(($sponsorLogo !='') && (Imaging::checkDimension($_FILES["logo"]["tmp_name"], 218, 125, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Sponsor/Partner image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["logo"]["tmp_name"], 218, 125, 'equ', 'both');  }
+                if($uploadOk == 1){
+                    if($sponsorLogo !=''){ move_uploaded_file($_FILES["logo"]["tmp_name"], $targetLogo);}
+                    if($sponsorImage !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $targetImage);}
+                    echo $sponsorObj->add(); 
+                }
+                else{
+                    $msg = "Sorry, your publication was not uploaded. " .$msg;
                     $json = array("status" => 0, "msg" => $msg); 
                     $dbObj->close();//Close Database Connection
                     header('Content-type: application/json');
@@ -103,11 +109,11 @@ else{
             switch($postVar){
                 case 'logo': $sponsorObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $sponsorLogo = $sponsorObj->$postVar;
-                                if($sponsorObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($sponsorObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 case 'image': $sponsorObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $sponsorImage = $sponsorObj->$postVar;
-                                if($sponsorObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($sponsorObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $sponsorObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($sponsorObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -118,12 +124,10 @@ else{
         if(count($errorArr) < 1)   {
             $logoDelParam = true;
             if(file_exists(MEDIA_FILES_PATH."sponsor/".$sponsorLogo) && $sponsorLogo!=''){
-                if(unlink(MEDIA_FILES_PATH."sponsor/".$sponsorLogo)){ $logoDelParam = true;}
-                else { $logoDelParam = false; }
+                unlink(MEDIA_FILES_PATH."sponsor/".$sponsorLogo);
             }
             if(file_exists(MEDIA_FILES_PATH."sponsor-image/".$sponsorImage) && $sponsorImage!=''){
-                if(unlink(MEDIA_FILES_PATH."sponsor-image/".$sponsorImage)){ $logoDelParam = true;}
-                else { $logoDelParam = false; }
+                unlink(MEDIA_FILES_PATH."sponsor-image/".$sponsorImage);
             }
             if($logoDelParam == true){ echo $sponsorObj->delete(); }
             else{ 
@@ -166,10 +170,12 @@ else{
             $targetLogo = MEDIA_FILES_PATH."sponsor/". $newLogo;
             $targetImage = MEDIA_FILES_PATH."sponsor-image/". $newImage;
             $uploadOk = 1; $msg = '';
+            
             if($newLogo !=""){
-                if (move_uploaded_file($_FILES["logo"]["tmp_name"], $targetLogo)) {
+                if(Imaging::checkDimension($_FILES["logo"]["tmp_name"], 218, 125, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["logo"]["tmp_name"], 218, 125, 'equ', 'both');}
+                if ($uploadOk == 1 && move_uploaded_file($_FILES["logo"]["tmp_name"], $targetLogo)) {
                     $msg .= "The file ". basename( $_FILES["logo"]["name"]). " has been uploaded.";
-                    $status = 'ok'; if(file_exists(MEDIA_FILES_PATH."sponsor/".$oldLogo)) unlink(MEDIA_FILES_PATH."sponsor/".$oldLogo); $uploadOk = 1;
+                    $status = 'ok'; if($oldLogo!='' && file_exists(MEDIA_FILES_PATH."sponsor/".$oldLogo)) unlink(MEDIA_FILES_PATH."sponsor/".$oldLogo);
                 } else { $uploadOk = 0; }
             }
             if($newImage !=""){
@@ -182,7 +188,7 @@ else{
                 echo $sponsorObj->update();
             }
             else {
-                    $msg = " Sorry, there was an error uploading your sponsor logo. ERROR: ".$msg;
+                    $msg = " Sorry, there was an error uploading your sponsor. ERROR: ".$msg;
                     $json = array("status" => 0, "msg" => $msg); 
                     $dbObj->close();//Close Database Connection
                     header('Content-type: application/json');
