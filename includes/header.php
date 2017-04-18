@@ -25,9 +25,9 @@
             <div class="col-right float_right">
                 <ul class="social">
                     <li>Stay Connected: </li>
-                    <li><a href="<?php echo FACEBOOK_LINK; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="<?php echo LINKEDIN_LINK; ?>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="<?php echo TWITTER_LINK; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="<?php echo FACEBOOK_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="<?php echo LINKEDIN_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="<?php echo TWITTER_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-twitter"></i></a></li>
                 </ul>
                 <div class="link">
                     <a href="<?php echo SITE_URL; ?>solvers" class="thm-btn">use our em-solver</a>

@@ -4,16 +4,12 @@
         <div class="row">
             <div class="col-md-3 col-sm-12">
                 <figure class="logo">
-                    <a href="index.html"><img src="images/logo/logo2.png" alt=""></a>
+                    <a href="<?php echo SITE_URL; ?>"><img src="<?php echo SITE_URL; ?>images/logo/logo2.png" alt=""></a>
                 </figure>
             </div>
             <div class="col-md-9 col-sm-12">
-                <div class="float_left">
-                    <h4>Over 20 years of experience we’ll ensure you get the best guidance.</h4>
-                </div>
-                <div class="float_right">
-                    <a href="contact.html" class="thm-btn-tr">Request Quote</a>
-                </div>
+                <div class="float_left"><h4></h4> </div>
+                <div class="float_right"></div>
             </div>
         </div>
                 
@@ -36,26 +32,8 @@
                                 <h3 class="footer-title">About Us</h3>
                                 
                                 <div class="widget-content">
-                                    <div class="text"><p>The Experts consulting over 20 years of experience we’ll ensure you always get the best guidance. We serve a clients at every level of their organization, in whatever capacity we can be most useful, whether as a trusted advisor.</p> </div>
-                                    <div class="link">
-                                        <a href="#" class="default_link">More About us <i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Footer Column-->
-                        <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                            <div class="footer-widget links-widget">
-                                <h3 class="footer-title">Our Services</h3>
-                                <div class="widget-content">
-                                    <ul class="list">
-                                        <li><a href="service-1.html">Business Growth</a></li>
-                                        <li><a href="service-2.html">Sustainability</a></li>
-                                        <li><a href="service-3.html">Performance</a></li>
-                                        <li><a href="service-4.html">Advanced Analytics</a></li>
-                                        <li><a href="service-5.html">Customer Insights</a></li>
-                                        <li><a href="service-6.html">Organization</a></li>
-                                    </ul>
+                                    <div class="text"><p class="text-justify"><?php echo StringManipulator::trimStringToFullWord(250, trim(stripcslashes(strip_tags(Setting::getValue($dbObj, 'ABOUT_US'))))); ?></p> </div>
+                                    <div class="link"></div>
                                 </div>
                             </div>
                         </div>
@@ -65,24 +43,22 @@
                 <!--Big Column-->
                 <div class="big-column col-md-6 col-sm-12 col-xs-12">
                     <div class="row clearfix">
-                        
-
                         <!--Footer Column-->
                         <div class="footer-column col-md-6 col-sm-6 col-xs-12">
                             <div class="footer-widget contact-widget">
                                 <h3 class="footer-title">Contact us</h3>
                                 <div class="widget-content">
                                     <ul class="contact-info">
-                                        <li><span class="icon-signs"></span>22/121 Apple Street, New York, <br>NY 10012, USA</li>
-                                        <li><span class="icon-phone-call"></span> Phone: +123-456-7890</li>
-                                        <li><span class="icon-e-mail-envelope"></span>Mail@Fortuneteam.com</li>
+                                        <li><span class="icon-signs"></span><?php echo GROUP_ADDRESS; ?></li>
+                                        <li><span class="icon-phone-call"></span> Phone: <?php echo GROUP_HOTLINE; ?></li>
+                                        <li><span class="icon-e-mail-envelope"></span><?php echo GROUP_EMAIL; ?></li>
                                     </ul>
                                 </div>
                                 <ul class="social">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="<?php echo FACEBOOK_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="<?php echo TWITTER_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="<?php echo GOOGLEPLUS_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="<?php echo LINKEDIN_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -93,11 +69,11 @@
                                 <h3 class="footer-title">Newsletter</h3>
                                 <div class="widget-content">
                                     <!--Post-->
-                                    <div class="text"><p>Sign up today for hints, tips and the <br>latest product news</p></div>
+                                    <div class="text"><p>Sign up today for newsletter</p></div>
                                     <!--Post-->
-                                    <form action="#" class="default-form">
-                                        <input type="email" placeholder="Email Address">
-                                        <button type="submit" class="thm-btn">Subscribe Us</button>
+                                    <form action="<?php echo SITE_URL.'REST/subscribe.php'; ?>" class="default-form">
+                                        <input type="email" id="subscriberEmail" name="subscriberEmail" value="" required="required" placeholder="Email Address">
+                                        <button type="submit"  name="subscriberSubmit" class="thm-btn">Subscribe Now!</button>
                                     </form>
                                 </div>
                                 
@@ -115,16 +91,9 @@
      <section class="footer-bottom">
         <div class="container">
             <div class="pull-left copy-text">
-                <p>Copyrights © 2017 All Rights Reserved. Powered by  <a href="#"> The Experts.</a></p>
-                
-            </div><!-- /.pull-right -->
-            <div class="pull-right get-text">
-                <ul>
-                    <li><a href="#">Support |  </a></li>
-                    <li><a href="#">Privacy & Policy |</a></li>
-                    <li><a href="#"> Terms & Conditions</a></li>
-                </ul>
-            </div><!-- /.pull-left -->
+                <p>Copyrights © <?php $currYear   = new DateTime(); echo $currYear->format('Y'); ?> All Rights Reserved.
+                <?php echo Setting::getValue($dbObj, 'ADDTHIS_SHARE_BUTTON') ? Setting::getValue($dbObj, 'ADDTHIS_SHARE_BUTTON') : ''; ?>
+            </div><!-- /.pull-right --><ul></ul></div><!-- /.pull-left -->
         </div><!-- /.container -->
     </section>
      

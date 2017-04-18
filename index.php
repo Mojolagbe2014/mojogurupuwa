@@ -10,7 +10,8 @@ $thisPage->dbObj = $dbObj;
 $projectObj = new Project($dbObj);
 $publicationObj = new Publication($dbObj);
 $categoryObj = new PublicationCategory($dbObj);
-$clientObj = new Sponsor($dbObj);
+$sponsorObj = new Sponsor($dbObj);
+$memberObj = new Member($dbObj);
 $quoteObj = new Quote($dbObj);
 $calendar = new Calendar($dbObj);
 $videoObj = new Video($dbObj);
@@ -164,376 +165,140 @@ require('includes/page-properties.php');
     </div>
 </section>
 
-<section class="feature-service sec-padd2">
+<section class="latest-project sec-padd">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12 column style-1">
-                <div class="section-title">
-                    <h3>About Experts</h3>
-                </div>
-                <figure class="img-box">
-                    <a href="#"><img src="images/resource/1.jpg" alt=""></a>
-                </figure>
-                <div class="text">
-                    <p>We have built an enviable reputation in the consumer goods, heavy industry, high-tech, manufacturing, medical, recreational vehicle, and our transportation sectors. multidisciplinary team of experts.</p>
-                </div>
-                <div class="link"><a href="#" class="thm-btn-tr style-2">Know More</a></div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 column style-2">
-                <div class="section-title">
-                    <h2>What We Do</h2>
-                </div>
-                <div class="content">
-                    <div class="text">
-                        <p>We are experts in this field with over 100 years <br>experience. What that means is you are going to <br>get right solution. please find our services.</p>
-                    </div>
-                    <ul class="list">
-                        <li><a href="service-1.html"><i class="fa fa-check-circle-o"></i>Business Growth</a></li>
-                        <li><a href="service-2.html"><i class="fa fa-check-circle-o"></i>Sustainability</a></li>
-                        <li><a href="service-3.html"><i class="fa fa-check-circle-o"></i>Performance</a></li>
-                        <li><a href="service-4.html"><i class="fa fa-check-circle-o"></i>Advanced Analytics</a></li>
-                        <li><a href="service-5.html"><i class="fa fa-check-circle-o"></i>Customer Insights</a></li>
-                        <li><a href="service-6.html"><i class="fa fa-check-circle-o"></i>Organization</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 column style-3">
-                <div class="section-title">
-                    <h2>Business Growth</h2>
-                </div>
-                <div class="graph">
-                    <figure class="graph-img"><img src="images/resource/graph1.jpg" alt=""></figure>
-                    <form action="#" class="default-form">
-                        <div class="select-box">
-                            <select class="text-capitalize selectpicker form-control required" name="form_subject" data-style="g-select" data-width="100%">
-                                <option>Last 6 Months</option>
-                                <option>Last 7 Months</option>
-                                <option>Last 8 Months</option>
-                                <option>Last 9 Months</option>
-                            </select>
-                        </div>
-                    </form>
-                        
-                </div>
-            </div>
-            
+        <div class="section-title center">
+            <h2>Group Members</h2>
         </div>
+        <div class="latest-project-carousel">
+            <?php 
+            foreach($memberObj->fetchRaw("*", " visible=1 ", " RAND() LIMIT 15")as $member) {
+                $thumb = new ThumbNail("media/member/".$member['picture'], 300, 300); 
+                $memLink = SITE_URL."member/". $member['id']."/".StringManipulator::slugify($member['name']);
+            ?>
+            <div class="item">
+                <div class="single-project">
+                    <figure class="imghvr-shutter-in-out-horiz">
+                        <img src="<?php echo $thumb; ?>" style="width:300px; height: 300px;" alt="<?php echo $member['name']; ?>"/>
+                        <figcaption>
+                            <div class="content">
+                                <a href="<?php echo $memLink; ?>"><h4><?php echo $member['name']; ?></h4></a>
+                                <p><?php echo $member['program']; ?> <br/> <?php echo $member['graduated'] == '0' ? "Current Student" : "Graduated"; ?></p>
+                            </div> 
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>      
+            <?php } ?>
+        </div>
+                
     </div>
 </section>
 
 <div class="container"><div class="border-bottom"></div></div>
 
-<section class="testimonials-section sec-padd">
+<section class="testimonials-section sec-padd" style="padding: 25px 0 40px;">
     <div class="container">
         <div class="section-title center">
-            <h2>testimonials</h2>
+            <h2>Quotes</h2>
         </div> 
-        
         <!--Slider-->      
         <div class="testimonials-slider column-carousel three-column">
             
+            <?php foreach($quoteObj->fetchRaw("*", " 1=1 ", " RAND() LIMIT 10") as $quote) { 
+                $thumb = new ThumbNail("media/quote/".$quote['image'], 80, 80); 
+                $quoteLink = SITE_URL."quote/". $quote['id']."/".StringManipulator::slugify($quote['author']);
+            ?>
             <!--Slide-->
             <article class="slide-item">
                 <div class="quote"><span class="icon-left"></span></div>
                 <div class="author">
                     <div class="img-box">
-                        <a href="#"><img src="images/resource/thumb1.png" alt=""></a>
+                        <a href="#"><img src="<?php echo $thumb; ?>" style="width:80px; height: 80px;" alt=""></a>
                     </div>
-                    <h4>Jenifer Hearly</h4>
-                    <a href="#"><p>Newyork</p></a>
-                    <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
+                    <h4><?php echo $quote['author']; ?></h4>
+                    <a href="#"><p></p></a>
                 </div>
                 
-                <div class="slide-text">
-                    <p>Fortune has helped us to just have a better handle on everything in our business – to actually make decisions and move forward to grow.</p>
+                <div class="slide-text center">
+                    <p><?php echo StringManipulator::trimStringToFullWord(160, strip_tags($quote['content'])); ?></p>
                 </div>
             </article>
-            
-            <!--Slide-->
-            <article class="slide-item">
-                <div class="quote"><span class="icon-left"></span></div>
-                <div class="author">
-                    <div class="img-box">
-                        <a href="#"><img src="images/resource/thumb2.png" alt=""></a>
-                    </div>
-                    <h4>Mitchel Harward</h4>
-                    <a href="#"><p>San Fransisco</p></a>
-                    <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
-                </div>
-                
-                <div class="slide-text">
-                    <p>They bring a wealth of knowledge as well as a personal touch so often missing from other firms, helped us to just have better handle on everything.</p>
-                </div>
-            </article>
-            
-            <!--Slide-->
-            <article class="slide-item">
-                <div class="quote"><span class="icon-left"></span></div>
-                <div class="author">
-                    <div class="img-box">
-                        <a href="#"><img src="images/resource/thumb3.png" alt=""></a>
-                    </div>
-                    <h4>Beally Russel</h4>
-                    <a href="#"><p>Newyork</p></a>
-                    <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
-                </div>
-                
-                <div class="slide-text">
-                    <p>It involves an examination of operations which allows their team discuss the art of the possible. They bring a wealth of knowledge, we believe fortune.</p>
-                </div>
-            </article>
-
-     
+            <?php } ?>
         </div>
         
     </div>    
 </section>
 
-<section class="latest-project sec-padd">
-    <div class="container">
-        <div class="section-title">
-            <h2>Latest Projects</h2>
-        </div>
-        <div class="latest-project-carousel">
-            <div class="item">
-                <div class="single-project">
-                    <figure class="imghvr-shutter-in-out-horiz">
-                        <img src="images/resource/4.jpg" alt="Awesome Image"/>
-                        <figcaption>
-                            <div class="content">
-                                <a href="project-single.html"><h4>Latest Technology</h4></a>
-                                <p>Consulting</p>
-                            </div> 
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-            <div class="item">
-                <div class="single-latest-project-carousel">
-                    <div class="single-project">
-                    <figure class="imghvr-shutter-in-out-horiz">
-                        <img src="images/resource/5.jpg" alt="Awesome Image"/>
-                        <figcaption>
-                            <div class="content">
-                                <a href="project-single.html"><h4>Audit & Assurance</h4></a>
-                                <p>Financial</p>
-                            </div>    
-                        </figcaption>
-                    </figure>
-                </div>
-                </div><!-- /.single-latest-project-carousel -->
-            </div>
-            <div class="item">
-                <div class="single-latest-project-carousel">
-                    <div class="single-project">
-                    <figure class="imghvr-shutter-in-out-horiz">
-                        <img src="images/resource/6.jpg" alt="Awesome Image"/>
-                        <figcaption>
-                            <div class="content">
-                                <a href="project-single.html"><h4>Business Growth</h4></a>
-                                <p>Growth</p>
-                            </div> 
-                        </figcaption>
-                    </figure>
-                </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="single-latest-project-carousel">
-                    <div class="single-project">
-                    <figure class="imghvr-shutter-in-out-horiz">
-                        <img src="images/resource/7.jpg" alt="Awesome Image"/>
-                        <figcaption>
-                            <div class="content">
-                                <a href="project-single.html"><h4>Transporation Service</h4></a>
-                                <p>Marketing</p>
-                            </div> 
-                        </figcaption>
-                    </figure>
-                </div>
-                </div>
-            </div>            
-        </div>
-                
-    </div>
-</section>
-
 <section class="blog-section sec-padd2">
     <div class="container">
         <div class="section-title center">
-            <h2>latest news</h2>
+            <h2>Latest Projects</h2>
         </div>
         <div class="row">
+            <?php 
+            foreach($projectObj->fetchRaw("*", "status=1 AND featured = 1 ", " RAND() LIMIT 3")as $project) { 
+                $dateParam = explode('-', $project['start_date']);
+                $dateObj   = DateTime::createFromFormat('!m', $dateParam[1]);
+                $thumb = new ThumbNail("media/project-image/".$project['image'], 370, 200); 
+                $pubLink = SITE_URL."project/". $project['id']."/".StringManipulator::slugify($project['name']);
+            ?>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="default-blog-news wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                     <figure class="img-holder">
-                        <a href="blog-details.html"><img src="images/blog/1.jpg" alt="News"></a>
+                        <a href="<?php echo $pubLink; ?>/"><img src="<?php echo $thumb; ?>" style="width:370px; height: 200px;" alt="<?php echo $project['name']; ?>"></a>
                         <figcaption class="overlay">
                             <div class="box">
                                 <div class="content">
-                                    <a href="blog-details.html"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a href="<?php echo $pubLink; ?>/"><i class="fa fa-link" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </figcaption>
                     </figure>
                     <div class="lower-content">
-                        <div class="date">21 <br>April</div>
-                        <h4><a href="blog-details.html">Retail banks wake up to digital</a></h4>
-                        <div class="post-meta">by fletcher  |  14 Comments</div>
+                        <div class="date"><?php echo substr($dateObj->format('F'), 0, 3).'<br>'.$dateParam[0]; ?></div>
+                        <h4><a href="<?php echo $pubLink; ?>/" title="<?php echo $project['name']; ?>"><?php echo StringManipulator::trimStringToFullWord(80, trim(stripcslashes(strip_tags($project['name'])))); ?>..</a></h4>
+                        <div class="post-meta"></div>
                         <div class="text">
-                            <p>know how to pursue pleasure rationally seds encounter consequences.</p>               
+                            <p class="text-justify"><?php echo StringManipulator::trimStringToFullWord(100, trim(stripcslashes(strip_tags($project['description'])))); ?>..</p>               
                         </div>
                         <div class="link">
-                            <a href="blog-details.html" class="default_link">Read More <i class="fa fa-angle-right"></i></a>
+                            <a href="<?php echo $pubLink; ?>/" class="default_link">Read More <i class="fa fa-angle-right"></i></a>
                         </div>
                         
                     </div>
                 </div>
                 
             </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="default-blog-news wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-                    <figure class="img-holder">
-                        <a href="blog-details.html"><img src="images/blog/2.jpg" alt="News"></a>
-                        <figcaption class="overlay">
-                            <div class="box">
-                                <div class="content">
-                                    <a href="blog-details.html"><i class="fa fa-link" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                    <div class="lower-content">
-                        <div class="date">17 <br>June</div>
-                        <h4><a href="blog-details.html">Improve your business growth</a></h4>
-                        <div class="post-meta">by Richards  |  22 Comments</div>
-                        <div class="text">
-                            <p>Great pleasure to take a trivial example, which of us undertakes laborious.</p>                            
-                        </div>
-                        <div class="link">
-                            <a href="blog-details.html" class="default_link">Read More <i class="fa fa-angle-right"></i></a>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="default-blog-news wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-                    <figure class="img-holder">
-                        <a href="blog-details.html"><img src="images/blog/3.jpg" alt="News"></a>
-                        <figcaption class="overlay">
-                            <div class="box">
-                                <div class="content">
-                                    <a href="blog-details.html"><i class="fa fa-link" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                    <div class="lower-content">
-                        <div class="date">14 <br>Mar</div>
-                        <h4><a href="blog-details.html">Save money for your future.</a></h4>
-                        <div class="post-meta">by Vincent  |  16 Comments</div>
-                        <div class="text">
-                            <p>Pleasure and praising pain was born and I will give you a complete account.</p>                            
-                        </div>
-                        <div class="link">
-                            <a href="blog-details.html" class="default_link">Read More <i class="fa fa-angle-right"></i></a>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-<section class="consultations sec-padd" style="background-image: url(images/background/5.jpg);">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">   
-                <div class="contact-info">
-                    <div class="section-title">
-                        <h3>Contact Details</h3>
-                    </div>
-                    <div class="text">
-                        <p>Please find below contact details <br>and contact us today!</p>
-                    </div>
-                    <div class="widget-content">
-                        <ul class="list-info">
-                            <li><span class="fa fa-phone"></span>Phone: +321 456 78 901</li>
-                            <li><span class="fa fa-envelope"></span>Email: Info@supportyou.com</li>
-                            <li><span class="fa fa-clock-o"></span>Mon to Sat: 9.00am to 16.pm</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                <div class="section-title">
-                    <h2>Request For Call Back</h2>
-                </div>
-                <div class="default-form-area">
-                    <form id="contact_form" name="contact_form" class="default-form" action="inc/sendmail.php" method="post">
-                        <div class="row-10 clearfix">
-                            <div class="col-md-4 co-sm-6 col-xs-12 column">
-                                <div class="form-group">
-                                    <input type="text" name="form_name" class="form-control" value="" placeholder="Name *" required="">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="form_email" class="form-control required email" value="" placeholder="Email Address *" required="">
-                                </div>
-                                <div class="form-group">
-                                    <div class="select-box">
-                                        <select class="text-capitalize selectpicker form-control required" name="form_subject" data-style="g-select" data-width="100%">
-                                            <option value="0" selected="">Enquiry About</option>
-                                            <option value="1">Enquiry Team</option>
-                                            <option value="2">Enquiry service</option>
-                                        </select>
-                                    </div>
-                                        
-                                </div>
-                            </div>
-                            <div class="col-md-8 co-sm-6 col-xs-12 column">
-                                <div class="form-group style-2">
-                                    <textarea name="form_message" class="form-control textarea required" placeholder="Special Request..."></textarea>
-                                    <input id="form_botcheck" name="form_botcheck" class="form-control" type="hidden" value="">
-                                    <button class="thm-btn thm-color" type="submit" data-loading-text="Please wait..."><i class="fa fa-paper-plane"></i></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
 </section>
 
 <section class="clients-section sec-padd">
     <div class="container">
-        <div class="section-title">
-            <h2>our partners</h2>
+        <div class="section-title center">
+            <h2>our sponsors / partners</h2>
         </div>
         <div class="client-carousel owl-carousel owl-theme">
-
-            <div class="item tool_tip" title="media partner">
-                <img src="images/clients/1.png" alt="Awesome Image">
+            <?php 
+            $num =1; $addStyle = '';
+            foreach ($sponsorObj->fetchRaw("*", " status = 1 ", " RAND() ") as $partner) {
+                $partnerData = array('id' => 'id', 'name' => 'name', 'logo' => 'logo', 'product' => 'product', 'website' => 'website', 'image' => 'image', 'dateAdded' => 'date_added', 'description' => 'description');
+                foreach ($partnerData as $key => $value){
+                    switch ($key) { 
+                        case 'logo': $sponsorObj->$key = 'media/sponsor/'.$partner[$value];break;//
+                        case 'image': $sponsorObj->$key = MEDIA_FILES_PATH1.'sponsor-image/'.$partner[$value];break;
+                        default     :   $sponsorObj->$key = $partner[$value]; break; 
+                    }
+                }
+                @$sponsorObj->logo = new ThumbNail($sponsorObj->logo, 218, 125);
+                $sponLink = SITE_URL."sponsor/". $sponsorObj->id."/".StringManipulator::slugify($sponsorObj->name)."/";
+            ?>
+            <div class="item tool_tip" title="<?php echo $sponsorObj->name; ?>">
+                <a href="<?php echo $sponsorObj->website; ?>" target="_blank" rel="nofollow"><img src="<?php echo $sponsorObj->logo; ?>" style="width:218px; height: 125px;" alt="<?php echo $sponsorObj->name; ?>"></a>
             </div>
-            <div class="item tool_tip" title="media partner">
-                <img src="images/clients/2.png" alt="Awesome Image">
-            </div>
-            <div class="item tool_tip" title="media partner">
-                <img src="images/clients/3.png" alt="Awesome Image">
-            </div>
-            <div class="item tool_tip" title="media partner">
-                <img src="images/clients/4.png" alt="Awesome Image">
-            </div>
-            <div class="item tool_tip" title="media partner">
-                <img src="images/clients/5.png" alt="Awesome Image">
-            </div>
-
+            <?php $num++; } ?>
         </div>
     </div>  
 </section>

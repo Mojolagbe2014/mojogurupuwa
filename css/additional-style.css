@@ -5,3 +5,10 @@
 a.reformat-h4 h4 {
     font-size: 18px; font-weight: 100;
 }
+.text-center{
+    text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
