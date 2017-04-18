@@ -31,27 +31,27 @@ else{
         //If validated and not empty submit it to database
         if(count($errorArr) < 1)   {
             
-            $target_file = MEDIA_FILES_PATH."category/". basename($_FILES["image"]["name"]);
+            $target_file = MEDIA_FILES_PATH."category/". $pubCatMedFil;
             $uploadOk = 1; $msg = '';
             $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
             // Check if file already exists
-            if (file_exists($target_file)) { $msg .= " Publication category image already exists."; $uploadOk = 0; }
-            // Check file size
-            if ($_FILES["image"]["size"] > 800000000) { $msg .= " Publication category image is too large."; $uploadOk = 0; }
+            if ($pubCatMedFil !="" && file_exists($target_file)) { $msg .= " Publication category image already exists."; $uploadOk = 0; }
+            if ($pubCatMedFil !="" && $_FILES["image"]["size"] > 800000000) { $msg .= " Publication category image is too large."; $uploadOk = 0; }
             if ($uploadOk == 0) {
-                $msg = "Sorry, your course category image was not uploaded. ERROR: ".$msg;
+                $msg = "Sorry, your category image was not uploaded. ERROR: ".$msg;
                 $json = array("status" => 0, "msg" => $msg); 
                 $dbObj->close();//Close Database Connection
                 header('Content-type: application/json');
                 echo json_encode($json);
             } 
             else {
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], MEDIA_FILES_PATH."category/".$pubCatMedFil)) {
-                    $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
-                    $status = 'ok';
+                if(($pubCatMedFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Category image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');  }
+                if($uploadOk == 1){
+                    if($pubCatMedFil !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);}
                     echo $pubCatObj->add();
-                } else {
-                    $msg = " Sorry, there was an error uploading your course category image. ERROR: ".$msg;
+                }
+                else{
+                    $msg = "Sorry, your category was not uploaded. " .$msg;
                     $json = array("status" => 0, "msg" => $msg); 
                     $dbObj->close();//Close Database Connection
                     header('Content-type: application/json');
@@ -99,7 +99,7 @@ else{
             switch($postVar){
                 case 'image':   $pubCatObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $pubCatMedFil = $pubCatObj->$postVar;
-                                if($pubCatObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($pubCatObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $pubCatObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($pubCatObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -108,13 +108,8 @@ else{
         }
         //If validated and not empty submit it to database
         if(count($errorArr) < 1)   {
-            if(unlink(MEDIA_FILES_PATH."category/".$pubCatMedFil)){ echo $pubCatObj->delete(); }
-            else{ 
-                $json = array("status" => 0, "msg" => $errorArr); 
-                $dbObj->close();//Close Database Connection
-                header('Content-type: application/json');
-                echo json_encode($json);
-            }
+            if($pubCatMedFil!="" && file_exists(MEDIA_FILES_PATH."category/".$pubCatMedFil)){ unlink(MEDIA_FILES_PATH."category/".$pubCatMedFil); }
+            echo $pubCatObj->delete();
         }
         //Else show error messages
         else{ 
@@ -150,13 +145,16 @@ else{
             $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
            
             if($newMedia !=""){
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], MEDIA_FILES_PATH."category/".$pubCatMedFil)) {
-                    $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
-                    $status = 'ok';
-                    unlink(MEDIA_FILES_PATH."category/".$oldMedia);
+                if(($pubCatMedFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Category image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');  }
+                if($uploadOk == 1){
+                    if($pubCatMedFil !=''){ 
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+                        if(file_exists(unlink(MEDIA_FILES_PATH."category/".$oldMedia))) {unlink(MEDIA_FILES_PATH."category/".$oldMedia);}
+                    }
                     echo $pubCatObj->update();
-                } else {
-                    $msg = " Sorry, there was an error uploading your course media. ERROR: ".$msg;
+                }
+                else{
+                    $msg = "Sorry, your category was not uploaded. " .$msg;
                     $json = array("status" => 0, "msg" => $msg); 
                     $dbObj->close();//Close Database Connection
                     header('Content-type: application/json');

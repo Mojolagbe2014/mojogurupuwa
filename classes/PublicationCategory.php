@@ -202,8 +202,8 @@ class PublicationCategory implements ContentManipulator{
     }
     
     /**
-     * Method that returns count/total number of a particular publication
-     * @param Object $dbObj Datatbase connectivity object
+     * Method that returns count/total number of a particular category
+     * @param Object $dbObj Database connectivity object
      * @return int Number of publications
      */
     public static function getRawCount($dbObj, $dbPrefix){
@@ -214,5 +214,18 @@ class PublicationCategory implements ContentManipulator{
         $totalData = mysqli_num_rows($result);
         if($result !== false){ $count = $totalData; }
         return $count;
+    }
+    
+    /** getSingle() fetches a single column of category using the category $id
+     * @param object $dbObj Database connectivity and manipulation object
+     * @param string $column Table required column in the database
+     * @param int $id category id of the project 
+     * @return string Requested column
+     */
+    public static function getSingle($dbObj, $column, $id) {
+        $thisAsstReqVal = '';
+        $thisAsstReqVals = $dbObj->fetchNum("SELECT $column FROM publication_category WHERE id = '{$id}' ");
+        foreach ($thisAsstReqVals as $thisAsstReqVals) { $thisAsstReqVal = $thisAsstReqVals[0]; }
+        return $thisAsstReqVal;
     }
 }

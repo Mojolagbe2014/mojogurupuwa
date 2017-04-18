@@ -20,7 +20,7 @@ else{
             switch($postVar){
                 case 'image':   $publicationObj->$postVar = basename($_FILES["image"]["name"]) ? rand(100000, 1000000)."_".  strtolower(str_replace("-", "_", filter_input(INPUT_POST, 'datePublished'))).".".pathinfo(basename($_FILES["image"]["name"]),PATHINFO_EXTENSION): ""; 
                                 $publicationImgFil = $publicationObj->$postVar;
-                                if($publicationObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($publicationObj->$postVar == "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 case 'media':   $publicationObj->$postVar = basename($_FILES["file"]["name"]) ? rand(100000, 1000000)."_".  strtolower(str_replace("-", "_", filter_input(INPUT_POST, 'datePublished'))).".".pathinfo(basename($_FILES["file"]["name"]),PATHINFO_EXTENSION): ""; 
                                 $publicationMedFil = $publicationObj->$postVar;
@@ -39,20 +39,32 @@ else{
             $uploadOk = 1; $msg = ''; //$normalSize = true; $isImage = true;
             $imageFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
             
-            if (file_exists($targetImage)) { $msg .= " Publication image already exists."; $uploadOk = 0; }
-            //if ($_FILES["file"]["size"] > 800000000 || $_FILES["image"]["size"] > 8000000) { $msg .= " Publication media is too large."; $normalSize = false; }
-            if($uploadOk == 1 && Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both')== 'true'){ 
-                if($publicationMedFil !=''){ move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile);}
-                if($publicationImgFil !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $targetImage);}
-                echo $publicationObj->add(); 
-            }
-            else {
-                $msg = "Sorry, your publication was not uploaded. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both');
+            if (file_exists($targetImage) && $publicationImgFil!="") { $msg .= " Publication image already exists."; $uploadOk = 0; }
+            if (file_exists($targetFile) && $publicationMedFil!="") { $msg .= " Publication media/file already exists."; $uploadOk = 0; }
+            
+            if($uploadOk == 0){
+                $msg = "Sorry, your publication was not uploaded. " .msg;
                 $json = array("status" => 0, "msg" => $msg); 
                 $dbObj->close();//Close Database Connection
                 header('Content-type: application/json');
                 echo json_encode($json);
-            } 
+            }
+            else{ 
+                if (($publicationMedFil !='' || $publicationImgFil !='') && ($_FILES["file"]["size"] > 800000000 || $_FILES["image"]["size"] > 8000000)) { $msg .= " Publication image is too large."; $uploadOk = 0; }
+                if(($publicationImgFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Publication image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');  }
+                if($uploadOk == 1){
+                    if($publicationMedFil !=''){ move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile);}
+                    if($publicationImgFil !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $targetImage);}
+                    echo $publicationObj->add(); 
+                }
+                else{
+                    $msg = "Sorry, your publication was not uploaded. " .$msg;
+                    $json = array("status" => 0, "msg" => $msg); 
+                    $dbObj->close();//Close Database Connection
+                    header('Content-type: application/json');
+                    echo json_encode($json);
+                }
+            }
 
         }else{ 
             $json = array("status" => 0, "msg" => $errorArr); 

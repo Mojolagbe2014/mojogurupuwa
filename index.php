@@ -89,7 +89,13 @@ require('includes/page-properties.php');
             foreach($publicationObj->fetchRaw("*", "status=1 AND featured = 1 ", " RAND() LIMIT 15")as $publication) { 
                 $dateParam = explode('-', $publication['date_published']);
                 $dateObj   = DateTime::createFromFormat('!m', $dateParam[1]);
-                $thumb = new ThumbNail("media/publication-image/".$publication['image'], 260, 160); 
+                
+                if($publication['image']=="") { 
+                    $publication['image'] = PublicationCategory::getSingle($dbObj, "image", $publication['category']);
+                    $thumb = new ThumbNail("media/category/".$publication['image'], 260, 160); 
+                }else{
+                    $thumb = new ThumbNail("media/publication-image/".$publication['image'], 260, 160); 
+                }
                 $pubLink = SITE_URL."publication/". $publication['id']."/".StringManipulator::slugify($publication['name']);
             ?>
             <!--Featured Publication -->
@@ -346,6 +352,7 @@ require('includes/page-properties.php');
     <script src="<?php echo SITE_URL; ?>js/jquery.flexslider.js"></script>
     <script src="<?php echo SITE_URL; ?>js/imagezoom.js"></script> 
     <script id="map-script" src="<?php echo SITE_URL; ?>js/default-map.js"></script>
+    <script src="<?php echo SITE_URL; ?>sweet-alert/sweetalert.min.js" type="text/javascript"></script>
     <script src="<?php echo SITE_URL; ?>js/custom.js"></script>
 
 </div>

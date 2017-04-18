@@ -897,3 +897,21 @@ jQuery(window).scroll(function () {
 		factCounter();
 	})(jQuery);
 });
+function showMessage(title, message, alertType){
+    swal({
+        title: title,
+        text: message,
+        confirmButtonText: "Okay",
+        customClass: 'facebook',
+        html: true,
+        type: alertType
+    });
+}
+
+
+jQuery(document).ready(function(){
+    jQuery(".underProcessing").click(function(e) {
+        e.preventDefault();
+        showMessage("Under-Processing", "The webpage you requested is underprocessing.<br/> Please check back.", "error");
+    });
+});

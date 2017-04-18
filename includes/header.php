@@ -30,7 +30,7 @@
                     <li><a href="<?php echo TWITTER_LINK; ?>" target="_blank" rel="nofollow"><i class="fa fa-twitter"></i></a></li>
                 </ul>
                 <div class="link">
-                    <a href="<?php echo SITE_URL; ?>solvers" class="thm-btn">use our em-solver</a>
+                    <a href="<?php echo SITE_URL; ?>solvers" class="thm-btn underProcessing">use our em-solver</a>
                 </div>
             </div>
                 
@@ -54,25 +54,25 @@
                    <ul class="menuzord-menu">
                         <li class="<?php echo $thisPage->active($_SERVER['SCRIPT_NAME'], 'index', 'active'); ?>"><a href="<?php echo SITE_URL; ?>">Home</a></li>
 
-                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'publication', 'active'); ?>"><a href="<?php echo SITE_URL; ?>publications">Publications</a></li>
+                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'publication', 'active'); ?>"><a href="<?php echo SITE_URL; ?>publications/">Publications</a></li>
 
-                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'project', 'active'); ?>"><a href="<?php echo SITE_URL; ?>projects">Projects</a></li>
+                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'project', 'active'); ?>"><a href="<?php echo SITE_URL; ?>projects/">Projects</a></li>
 
-                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'member', 'active'); ?>"><a href="<?php echo SITE_URL; ?>members">Members</a></li>
+                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'member', 'active'); ?>"><a href="<?php echo SITE_URL; ?>members/">Members</a></li>
 
-                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'gallery', 'active'); ?>"><a href="<?php echo SITE_URL; ?>contact">Contact</a></li>
+                        <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'gallery', 'active'); ?>"><a href="<?php echo SITE_URL; ?>contact/">Contact</a></li>
                         
                         <?php $linkArray = array('gallery', 'presentation', 'patent', 'about', 'video', 'sponsor', 'new', 'faq'); ?>
                         <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], $linkArray, 'active'); ?>"><a href="#">More</a>
                         <ul class="dropdown">
-                            <li><a href="<?php echo SITE_URL; ?>presentations">Presentations</a></li>
-                            <li><a href="<?php echo SITE_URL; ?>patents">Patents</a></li>
-                            <li><a href="<?php echo SITE_URL; ?>about">About Me</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>presentations/">Presentations</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>patents/">Patents</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>about/">About Me</a></li>
                             <li><a href="<?php echo SITE_URL; ?>gallery">Gallery</a></li>
-                            <li><a href="<?php echo SITE_URL; ?>videos">Course Videos</a></li>
-                            <li><a href="<?php echo SITE_URL; ?>sponsors">Sponsors/Partners</a></li>
-                            <li><a href="<?php echo SITE_URL; ?>news">News/Events</a></li>
-                            <li><a href="<?php echo SITE_URL; ?>faq">FAQ’s</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>videos/">Course Videos</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>sponsors/">Sponsors/Partners</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>news/">News/Events</a></li>
+                            <li><a href="<?php echo SITE_URL; ?>faq/">FAQ’s</a></li>
                          </ul>
                         </li>
                         

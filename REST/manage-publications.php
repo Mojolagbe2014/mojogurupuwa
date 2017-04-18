@@ -51,7 +51,7 @@ else{
                                 break;
                 case 'image':   $publicationObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $publicationImage = $publicationObj->$postVar;
-                                if($publicationObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($publicationObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $publicationObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($publicationObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -154,7 +154,7 @@ else{
                 }
             }
             if($newImage !=""){
-                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 400, 400, 'min', 'both');}
+                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');}
                 if ($uploadOk == 1 && move_uploaded_file($_FILES["image"]["tmp_name"], MEDIA_FILES_PATH."publication-image/".$publicationImageFil)) {
                     $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
                     $status = 'ok'; if($oldImage!='' && file_exists(MEDIA_FILES_PATH."publication-image/".$oldImage))unlink(MEDIA_FILES_PATH."publication-image/".$oldImage);

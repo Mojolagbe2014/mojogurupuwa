@@ -122,7 +122,7 @@
                     data-start="2300">
                     <div class="slide-content-box center">
                         <div class="button">
-                            <a class="thm-btn-tr" href="<?php echo SITE_URL; ?>solvers">go to em-solver</a>     
+                            <a class="thm-btn-tr underProcessing" href="<?php echo SITE_URL; ?>solvers">go to em-solver</a>     
                         </div>
                     </div>
                 </div>
