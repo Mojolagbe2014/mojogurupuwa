@@ -45,7 +45,7 @@ else{
                 echo json_encode($json);
             } 
             else {
-                if(($pubCatMedFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Category image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');  }
+                if(($pubCatMedFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Category image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both');  }
                 if($uploadOk == 1){
                     if($pubCatMedFil !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);}
                     echo $pubCatObj->add();
@@ -145,7 +145,7 @@ else{
             $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
            
             if($newMedia !=""){
-                if(($pubCatMedFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Category image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');  }
+                if(($pubCatMedFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Category image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both');  }
                 if($uploadOk == 1){
                     if($pubCatMedFil !=''){ 
                         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);

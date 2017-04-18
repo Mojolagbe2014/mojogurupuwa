@@ -154,7 +154,7 @@ else{
                 }
             }
             if($newImage !=""){
-                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');}
+                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both');}
                 if ($uploadOk == 1 && move_uploaded_file($_FILES["image"]["tmp_name"], MEDIA_FILES_PATH."publication-image/".$publicationImageFil)) {
                     $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
                     $status = 'ok'; if($oldImage!='' && file_exists(MEDIA_FILES_PATH."publication-image/".$oldImage))unlink(MEDIA_FILES_PATH."publication-image/".$oldImage);

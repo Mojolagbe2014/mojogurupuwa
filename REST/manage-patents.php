@@ -92,7 +92,7 @@ else{
             switch($postVar){
                 case 'image':   $pubCatObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $pubCatMedFil = $pubCatObj->$postVar;
-                                if($pubCatObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($pubCatObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $pubCatObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($pubCatObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -102,9 +102,8 @@ else{
         //If validated and not empty submit it to database
         if(count($errorArr) < 1)   {
             $imageDelParam = true;
-            if($courseImage!='' && file_exists(MEDIA_FILES_PATH."patent/".$pubCatMedFil)){
-                if(unlink(MEDIA_FILES_PATH."patent/".$pubCatMedFil)){ $imageDelParam = true;}
-                else $imageDelParam = false;
+            if($pubCatMedFil!='' && file_exists(MEDIA_FILES_PATH."patent/".$pubCatMedFil)){
+                unlink(MEDIA_FILES_PATH."patent/".$pubCatMedFil);
             }
             if($imageDelParam ==true){ echo $pubCatObj->delete(); }
             else{ 

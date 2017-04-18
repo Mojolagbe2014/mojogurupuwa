@@ -81,7 +81,7 @@ $errorArr = array(); //Array of errors
 
                                     <div class="form-group">
                                         <label class="control-label" for="image">Category Image:</label> <span><strong id="oldFileComment"></strong></span>
-                                        <small class="alert-danger">Recommended Size: 260x160</small>
+                                        <small class="alert-danger">Recommended Size: 420x305</small>
                                         <div class="controls">
                                             <input type="file" id="image" name="image"class="form-control"/>
                                         </div>

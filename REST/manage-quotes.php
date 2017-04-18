@@ -31,31 +31,33 @@ else{
         //If validated and not empty submit it to database
         if(count($errorArr) < 1)   {
             
-            $target_file = MEDIA_FILES_PATH."quote/". $quoteImg;
+            $targetFile = MEDIA_FILES_PATH."quote/". $quoteImg;
             $uploadOk = 1; $msg = '';
-            if ($quoteImg!='' && file_exists($target_file)) { $msg .= " quote image already exists."; $uploadOk = 0; }
-            if ($_FILES["image"]["size"] > 800000000) { $msg .= " quote image is too large."; $uploadOk = 0; }
-            if ($uploadOk == 0) {
-                $msg = "Sorry, your quote image was not uploaded. ERROR: ".$msg;
+            
+            if (file_exists($targetFile) && $quoteImg!="") { $msg .= " Quote image already exists."; $uploadOk = 0; }
+            
+            if($uploadOk == 0){
+                $msg = "Sorry, quote was not uploaded. " .msg;
                 $json = array("status" => 0, "msg" => $msg); 
                 $dbObj->close();//Close Database Connection
                 header('Content-type: application/json');
                 echo json_encode($json);
-            } 
-            else {
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                    $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
-                    $status = 'ok';
-                    echo $quoteObj->add();
-                } else {
-                    $msg = " Sorry, there was an error uploading your quote image. ERROR: ".$msg;
+            }
+            else{ 
+                if ($quoteImg !='' &&  $_FILES["image"]["size"] > 8000000) { $msg .= " Quote image is too large."; $uploadOk = 0; }
+                if(($quoteImg !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 100, 100, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Quote image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 100, 100, 'equ', 'both');  }
+                if($uploadOk == 1){
+                    if($quoteImg !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile);}
+                    echo $quoteObj->add(); 
+                }
+                else{
+                    $msg = "Sorry, quote was not uploaded. " .$msg;
                     $json = array("status" => 0, "msg" => $msg); 
                     $dbObj->close();//Close Database Connection
                     header('Content-type: application/json');
                     echo json_encode($json);
                 }
             }
-
         }
         //Else show error messages
         else{ 
@@ -95,7 +97,7 @@ else{
             switch($postVar){
                 case 'image':   $quoteObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $quoteImg = $quoteObj->$postVar;
-                                if($quoteObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($quoteObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $quoteObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($quoteObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -135,12 +137,21 @@ else{
             $target_file = MEDIA_FILES_PATH."quote/". $quoteImg;
             $uploadOk = 1; $msg = '';
             
-            
-            if($newMedia !=""){ 
-                move_uploaded_file($_FILES["image"]["tmp_name"], $target_file); 
-                if ($oldMedia!='' && file_exists(MEDIA_FILES_PATH."quote/".$oldMedia)) { unlink(MEDIA_FILES_PATH."quote/".$oldMedia); }
-            } 
-            echo $quoteObj->update();
+            if($newMedia !=""){
+                if(Imaging::checkDimension($_FILES["image"]["tmp_name"], 100, 100, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["image"]["tmp_name"], 100, 100, 'equ', 'both');}
+                if ($uploadOk == 1 && move_uploaded_file($_FILES["image"]["tmp_name"], MEDIA_FILES_PATH."quote/".$quoteImg)) {
+                    $msg .= "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
+                    $status = 'ok'; if($oldMedia!='' && file_exists(MEDIA_FILES_PATH."quote/".$oldMedia)) unlink(MEDIA_FILES_PATH."quote/".$oldMedia);
+                } else { $uploadOk = 0; }
+            }
+            if($uploadOk == 1){ echo $quoteObj->update(); }
+            else {
+                    $msg = " Sorry, there was an error uploading your quote image. ERROR: ".$msg;
+                    $json = array("status" => 0, "msg" => $msg); 
+                    $dbObj->close();//Close Database Connection
+                    header('Content-type: application/json');
+                    echo json_encode($json);
+            }
         }
         else{ 
             $json = array("status" => 0, "msg" => $errorArr); 

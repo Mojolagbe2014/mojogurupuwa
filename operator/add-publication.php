@@ -73,7 +73,7 @@ $errorArr = array(); //Array of errors
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="control-label" for="image">Publication Image <span class="text-danger"><em>(Recommended Size: width=260px, height=160px)</em></span>:</label>
+                                        <label class="control-label" for="image">Publication Image <span class="text-danger"><em>(Recommended Size: width=420px, height=305px)</em></span>:</label>
                                         <div class="controls">
                                             <input data-title="publication image" type="file" placeholder="publication image" id="image" name="image" data-original-title="Publication image" class="form-control">
                                         </div>

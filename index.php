@@ -113,7 +113,7 @@ require('includes/page-properties.php');
                     </figure>
                     <div class="content center">
                         <h5><?php echo $dateParam[0]."/".$dateParam[1]; ?></h5>
-                        <a href="<?php echo $pubLink; ?>/"><h4 style="font-size: 14px; font-weight: 100;"><?php echo $publication['name']; ?></h4></a>
+                        <a href="<?php echo $pubLink; ?>/" title="<?php echo $publication['name']; ?>"><h4 style="font-size: 14px; font-weight: 100;"><?php echo StringManipulator::trimStringToFullWord(80,$publication['name']); ?>..</h4></a>
                         <div class="text">
                             <p><?php echo PublicationCategory::getName($dbObj, $publication['category']); ?></p>
                         </div>
@@ -179,13 +179,13 @@ require('includes/page-properties.php');
         <div class="latest-project-carousel">
             <?php 
             foreach($memberObj->fetchRaw("*", " visible=1 ", " RAND() LIMIT 15")as $member) {
-                $thumb = new ThumbNail("media/member/".$member['picture'], 300, 300); 
+                $thumb = new ThumbNail("media/member/".$member['picture'], 270, 220); 
                 $memLink = SITE_URL."member/". $member['id']."/".StringManipulator::slugify($member['name']);
             ?>
             <div class="item">
                 <div class="single-project">
                     <figure class="imghvr-shutter-in-out-horiz">
-                        <img src="<?php echo $thumb; ?>" style="width:300px; height: 300px;" alt="<?php echo $member['name']; ?>"/>
+                        <img src="<?php echo $thumb; ?>" style="width:270px; height: 220px;" alt="<?php echo $member['name']; ?>"/>
                         <figcaption>
                             <div class="content">
                                 <a href="<?php echo $memLink; ?>"><h4><?php echo $member['name']; ?></h4></a>

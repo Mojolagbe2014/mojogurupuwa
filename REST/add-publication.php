@@ -51,7 +51,7 @@ else{
             }
             else{ 
                 if (($publicationMedFil !='' || $publicationImgFil !='') && ($_FILES["file"]["size"] > 800000000 || $_FILES["image"]["size"] > 8000000)) { $msg .= " Publication image is too large."; $uploadOk = 0; }
-                if(($publicationImgFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Publication image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 260, 160, 'equ', 'both');  }
+                if(($publicationImgFil !='') && (Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Publication image dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["image"]["tmp_name"], 420, 305, 'equ', 'both');  }
                 if($uploadOk == 1){
                     if($publicationMedFil !=''){ move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile);}
                     if($publicationImgFil !=''){ move_uploaded_file($_FILES["image"]["tmp_name"], $targetImage);}

@@ -41,29 +41,31 @@ else{
             $targetFile = MEDIA_FILES_PATH."member/". $memberImgFil;
             $uploadOk = 1; $msg = '';
             $imageFileType = pathinfo($targetFile, PATHINFO_EXTENSION);
-            if (file_exists($targetFile)) { $msg .= " Member picture already exists."; $uploadOk = 0; }
-            if ($_FILES["picture"]["size"] > 80000000) { $msg .= " Member picture is too large."; $uploadOk = 0; }
-            if ($imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png" && $imageFileType != "gif"  && $imageFileType != "bmp") { $msg .= "Sorry, only image files are allowed."; $uploadOk = 0; }
-            if ($uploadOk == 0) {
-                $msg = "Sorry, your member picture was not uploaded. ERROR: ".$msg;
+            
+            if (file_exists($targetFile) && $memberImgFil!="") { $msg .= " Member picture already exists."; $uploadOk = 0; }
+            
+            if($uploadOk == 0){
+                $msg = "Sorry, member was not uploaded. " .msg;
                 $json = array("status" => 0, "msg" => $msg); 
+                $dbObj->close();//Close Database Connection
                 header('Content-type: application/json');
                 echo json_encode($json);
-            } 
-            else {
-                if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
-                    $msg .= "The picture has been uploaded.";
-                    $status = 'ok';
-                    echo $memberObj->add();
-                } else {
-                    $msg = " Sorry, there was an error uploading your member picture. ERROR: ".$msg;
+            }
+            else{ 
+                if ($memberImgFil !='' &&  $_FILES["picture"]["size"] > 8000000) { $msg .= " Member picture is too large."; $uploadOk = 0; }
+                if(($memberImgFil !='') && (Imaging::checkDimension($_FILES["picture"]["tmp_name"], 270, 220, 'equ', 'both')!= 'true')){ $uploadOk = 0; $msg .= " Member picture dimension not match. ERROR: ".$msg.Imaging::checkDimension($_FILES["picture"]["tmp_name"], 270, 220, 'equ', 'both');  }
+                if($uploadOk == 1){
+                    if($memberImgFil !=''){ move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile);}
+                    echo $memberObj->add(); 
+                }
+                else{
+                    $msg = "Sorry, member was not uploaded. " .$msg;
                     $json = array("status" => 0, "msg" => $msg); 
                     $dbObj->close();//Close Database Connection
                     header('Content-type: application/json');
                     echo json_encode($json);
                 }
             }
-
         }
         //Else show error messages
         else{ 

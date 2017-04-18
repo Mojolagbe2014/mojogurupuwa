@@ -52,7 +52,7 @@ else{
             switch($postVar){
                 case 'picture':   $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 $memberImage = $memberObj->$postVar;
-                                if($memberObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
+                                //if($memberObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
                                 break;
                 default     :   $memberObj->$postVar = filter_input(INPUT_POST, $postVar) ? mysqli_real_escape_string($dbObj->connection, filter_input(INPUT_POST, $postVar)) :  ''; 
                                 if($memberObj->$postVar === "") {array_push ($errorArr, "Please enter $postVar ");}
@@ -63,8 +63,7 @@ else{
         if(count($errorArr) < 1)   {
             $pictureDelParam = true;
             if($memberImage!='' && file_exists(MEDIA_FILES_PATH."member/".$memberImage)){
-                if(unlink(MEDIA_FILES_PATH."member/".$memberImage)){ $pictureDelParam = true;}
-                else { $pictureDelParam = false; }
+                unlink(MEDIA_FILES_PATH."member/".$memberImage);
             }
             if($pictureDelParam == true){ echo $memberObj->delete(); }
             else{ 
@@ -143,16 +142,13 @@ else{
             $uploadOk = 1; $msg = '';
             
             if($newPicture !=""){
-                if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetPicture)) {
+                if(Imaging::checkDimension($_FILES["picture"]["tmp_name"], 270, 220, 'equ', 'both') != 'true'){$uploadOk = 0; $msg = Imaging::checkDimension($_FILES["picture"]["tmp_name"], 270, 220, 'equ', 'both');}
+                if ($uploadOk == 1 && move_uploaded_file($_FILES["picture"]["tmp_name"], MEDIA_FILES_PATH."member/".$memberPictureFil)) {
                     $msg .= "The file ". basename( $_FILES["picture"]["name"]). " has been uploaded.";
-                    $status = 'ok'; if(file_exists(MEDIA_FILES_PATH."member/".$oldPicture)) unlink(MEDIA_FILES_PATH."member/".$oldPicture); $uploadOk = 1;
-                } else {
-                    $uploadOk = 0;
-                }
+                    $status = 'ok'; if($oldPicture!='' && file_exists(MEDIA_FILES_PATH."member/".$oldPicture))unlink(MEDIA_FILES_PATH."member/".$oldPicture);
+                } else { $uploadOk = 0; }
             }
-            if($uploadOk == 1){
-                echo $memberObj->update();
-            }
+            if($uploadOk == 1){ echo $memberObj->update(); }
             else {
                     $msg = " Sorry, there was an error uploading your member picture. ERROR: ".$msg;
                     $json = array("status" => 0, "msg" => $msg); 

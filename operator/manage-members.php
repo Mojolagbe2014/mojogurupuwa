@@ -35,7 +35,7 @@ $errorArr = array(); //Array of errors
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="messageBox"></div>
+                        <div class="messageBox" id="messageBox"></div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h3><i class="fa fa-group"></i> All Group Members</h3>
@@ -108,7 +108,7 @@ $errorArr = array(); //Array of errors
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label" for="picture">Picture:</label>
+                                        <label class="control-label" for="picture">Picture: <em class="text-danger">(Recommended Size: 270x220)</em></label>
                                         <div class="controls">
                                             <input data-title="member picture" type="file" placeholder="member picture" id="picture" name="picture" data-original-title="Member picture" class="form-control">
                                             <br/><span>Old Picture: <strong id="oldPictureComment"></strong></span>
