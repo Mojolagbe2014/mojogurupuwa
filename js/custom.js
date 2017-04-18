@@ -914,4 +914,15 @@ jQuery(document).ready(function(){
         e.preventDefault();
         showMessage("Under-Processing", "The webpage you requested is underprocessing.<br/> Please check back.", "error");
     });
+    
+    jQuery(".inactive").bind({
+        mouseover: function(e){
+            e.preventDefault();
+            jQuery(this).css('cursor','not-allowed').addClass('alert-danger');
+        },
+        click: function(e){
+            e.preventDefault();
+            jQuery(this).css('cursor','not-allowed').addClass('alert-danger');;
+        }
+    });
 });

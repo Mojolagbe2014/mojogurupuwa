@@ -18,6 +18,16 @@ $videoObj = new Video($dbObj);
 
 include('includes/other-settings.php');
 require('includes/page-properties.php');
+
+//PAGING INFORMATION
+$recordPerPage = Setting::getValue($dbObj, 'TOTAL_DISPLAYABLE_PUBLICATIONS') ? trim(strip_tags(Setting::getValue($dbObj, 'TOTAL_DISPLAYABLE_PUBLICATIONS'))) : 100;
+$pageNum = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) : 1;
+
+$condParam = " status=1 ";
+$offset = ($pageNum - 1) * $recordPerPage; 
+$transactTotal = Publication::getRawCount($dbObj, " $condParam ");//NUM_ROWS($transactQuery)
+$totalPages = intval($transactTotal/$recordPerPage);
+if(($transactTotal%$recordPerPage)>0){$totalPages +=1;}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,146 +48,52 @@ require('includes/page-properties.php');
 
 <?php include('includes/bread-crumb.php'); ?>
 
-<section class="service style-2 sec-padd2">
+<section class="service style-2 sec-padd2 four-column">
     <div class="container"> 
         <div class="row">
-            <div class="col-lg-12 col-md-8 col-sm-12">
-                <div class="row">
-                    <article class="column col-md-4 col-sm-6 col-xs-12">
-                        <div class="item">
-                            <figure class="img-box">
-                                <img src="images/service/1.jpg" alt="">
-                                <figcaption class="default-overlay-outer">
-                                    <div class="inner">
-                                        <div class="content-layer">
-                                            <a href="service-1.html" class="thm-btn thm-tran-bg">read more</a>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                            <div class="content center">
-                                <h5>Service #1</h5>
-                                <a href="service-1.html"><h4>Business Growth</h4></a>
-                                <div class="text">
-                                    <p>The process of improving some of <br>our an enterprise's success. Business <br>growth can be a achieved.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+            <?php 
+            foreach($publicationObj->fetchRaw("*", " $condParam ", " date_published DESC LIMIT $recordPerPage OFFSET $offset ")as $publication) { 
+                $dateParam = explode('-', $publication['date_published']);
+                $dateObj   = DateTime::createFromFormat('!m', $dateParam[1]);
 
-                    <article class="column col-md-4 col-sm-6 col-xs-12">
-                        <div class="item">
-                            <figure class="img-box">
-                                <img src="images/service/2.jpg" alt="">
-                                <figcaption class="default-overlay-outer">
-                                    <div class="inner">
-                                        <div class="content-layer">
-                                            <a href="service-2.html" class="thm-btn thm-tran-bg">read more</a>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                            <div class="content center">
-                                <h5>Service #2</h5>
-                                <a href="service-2.html"><h4>Sustainability</h4></a>
-                                <div class="text">
-                                    <p>When it comes to sustainability & <br>corporate responsibility, we believe <br>thenormal rules of business.</p>
+                if($publication['image']=="") { 
+                    $publication['image'] = PublicationCategory::getSingle($dbObj, "image", $publication['category']);
+                    $thumb = new ThumbNail("media/category/".$publication['image'], 260, 160); 
+                }else{
+                    $thumb = new ThumbNail("media/publication-image/".$publication['image'], 260, 160); 
+                }
+                $pubLink = SITE_URL."publication/". $publication['id']."/".StringManipulator::slugify($publication['name'])."/";
+            ?>
+            <article class="column col-md-3 col-sm-6 col-xs-12">
+                <div class="item">
+                    <figure class="img-box">
+                        <img src="<?php echo SITE_URL.$thumb; ?>" style="width:260px; height: 160px;" alt="<?php echo $publication['name']; ?>">
+                        <figcaption class="default-overlay-outer">
+                            <div class="inner">
+                                <div class="content-layer">
+                                    <a href="<?php echo $pubLink; ?>" class="thm-btn thm-tran-bg">read more</a>
                                 </div>
                             </div>
+                        </figcaption>
+                    </figure>
+                    <div class="content center">
+                        <h5><?php echo PublicationCategory::getName($dbObj, $publication['category']); ?></h5>
+                        <a href="<?php echo $pubLink; ?>"  title="<?php echo $publication['name']; ?>"><h4><?php echo StringManipulator::trimStringToFullWord(80,$publication['name']); ?>..</h4></a>
+                        <div class="text">
+                            <p><?php echo StringManipulator::trimStringToFullWord(120, trim(strip_tags($publication['description']))); ?> . . .</p>
                         </div>
-                    </article>
-                    
-                    <article class="column col-md-4 col-sm-6 col-xs-12">
-                        <div class="item">
-                            <figure class="img-box">
-                                <img src="images/service/3.jpg" alt="">
-                                <figcaption class="default-overlay-outer">
-                                    <div class="inner">
-                                        <div class="content-layer">
-                                            <a href="service-3.html" class="thm-btn thm-tran-bg">read more</a>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                            <div class="content center">
-                                <h5>Service #3</h5>
-                                <a href="service-3.html"><h4>Performance</h4></a>
-                                <div class="text">
-                                    <p>In a contract, performance deemed <br> to be the fulfillment of an obligation <br>in a manner that releases.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article class="column col-md-4 col-sm-6 col-xs-12">
-                        <div class="item">
-                            <figure class="img-box">
-                                <img src="images/service/4.jpg" alt="">
-                                <figcaption class="default-overlay-outer">
-                                    <div class="inner">
-                                        <div class="content-layer">
-                                            <a href="service-4.html" class="thm-btn thm-tran-bg">read more</a>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                            <div class="content center">
-                                <h5>Service #4</h5>
-                                <a href="service-5.html"><h4>Organization</h4></a>
-                                <div class="text">
-                                    <p>We help business improve financial <br>performaance by ensuring the entire <br>organization system is aligned.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="column col-md-4 col-sm-6 col-xs-12">
-                        <div class="item">
-                            <figure class="img-box">
-                                <img src="images/service/5.jpg" alt="">
-                                <figcaption class="default-overlay-outer">
-                                    <div class="inner">
-                                        <div class="content-layer">
-                                            <a href="service-4.html" class="thm-btn thm-tran-bg">read more</a>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                            <div class="content center">
-                                <h5>Service #5</h5>
-                                <a href="service-4.html"><h4>Advanced Analytics</h4></a>
-                                <div class="text">
-                                    <p>Advanced Analytics is an unique  <br>add on service offer to The Experts <br> which enables you to discover.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="column col-md-4 col-sm-6 col-xs-12">
-                        <div class="item">
-                            <figure class="img-box">
-                                <img src="images/service/6.jpg" alt="">
-                                <figcaption class="default-overlay-outer">
-                                    <div class="inner">
-                                        <div class="content-layer">
-                                            <a href="service-4.html" class="thm-btn thm-tran-bg">read more</a>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                            <div class="content center">
-                                <h5>Service #6</h5>
-                                <a href="service-6.html"><h4>Customer Insights</h4></a>
-                                <div class="text">
-                                    <p>Interpretation of trends in human <br> behavors which aims to increase the <br>effectiveness of a product.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                        
+                    </div>
                 </div>
-            </div>
+            </article>
+            <?php } ?>
         </div>
+        
+        <ul class="page_pagination center">
+            <li><a href="<?php echo ($pageNum>1) ? SITE_URL.'publications/page/'.($pageNum-1).'/' : 'javascript:;'; ?>" class="tran3s <?php echo ($pageNum>1) ? '' : 'inactive'; ?>"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+            <li><a href="<?php echo SITE_URL.'publications/page/'.($pageNum); ?>" class="active tran3s"><?php echo ($pageNum); ?></a></li>
+            <li><a href="<?php echo SITE_URL.'publications/page/'.($pageNum+1); ?>" class="tran3s <?php echo ($pageNum+1 <= $totalPages) ? '' : 'inactive'; ?>"><?php echo ($pageNum+1); ?></a></li>
+            <li><a href="<?php echo ($pageNum < $totalPages) ? SITE_URL.'publications/page/'.($pageNum+1).'/' : 'javascript:;'; ?>" class="tran3s <?php echo ($pageNum < $totalPages) ? '' : 'inactive'; ?>"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+        </ul>
     </div>
 </section>
 
