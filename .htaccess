@@ -26,15 +26,21 @@ RewriteRule ^([^/]+)/?$ $1.php [NC,L]
 
 RewriteRule ^publication/([0-9]+)/([^/]+)/?$ publication.php?id=$1 [NC,L]
 
+RewriteRule ^publication/([^/]+)/([^/]+)/?$ publication.php?id=$1 [NC,L]
+
 RewriteRule ^publications/([^/]+)/?$ publications.php?class=$1 [NC,L]
 
 RewriteRule ^publications/([^/]+)/([0-9]+)/?$ publications.php?page=$2 [NC,L]
 
 RewriteRule ^publications/([^/]+)/([^/]+)/([0-9]+)/?$ publications.php?class=$1&page=$3 [NC,L]
 
-RewriteRule ^courses/category/([0-9]+)/([^/]+)/?$ courses.php?category=$1&catSlugName=$2 [NC,L]
+RewriteRule ^publications/category/([0-9]+)/([^/]+)/?$ publications.php?category=$1&catSlugName=$2 [NC,L]
 
-RewriteRule ^courses/category/([0-9]+)/([^/]+)/([^/]+)/([0-9]+)/?$ courses.php?category=$1&catSlugName=$2&page=$4 [NC,L]
+RewriteRule ^publications/category/([0-9]+)/([^/]+)/([^/]+)/([0-9]+)/?$ publications.php?category=$1&catSlugName=$2&page=$4 [NC,L]
+
+RewriteRule ^project/([0-9]+)/([^/]+)/?$ project.php?id=$1 [NC,L]
+
+RewriteRule ^projects/([^/]+)/([0-9]+)/?$ projects.php?page=$2 [NC,L]
 
 RewriteRule ^category/([0-9]+)/([^/]+)/?$ category.php?id=$1 [NC,L]
 

@@ -22,10 +22,22 @@ require('includes/page-properties.php');
 //PAGING INFORMATION
 $recordPerPage = Setting::getValue($dbObj, 'TOTAL_DISPLAYABLE_PUBLICATIONS') ? trim(strip_tags(Setting::getValue($dbObj, 'TOTAL_DISPLAYABLE_PUBLICATIONS'))) : 100;
 $pageNum = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) : 1;
+$categoryParam = filter_input(INPUT_GET, 'category', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'category', FILTER_VALIDATE_INT) : 0;
 
-$condParam = " status=1 ";
+$classVal = ''; $classLink = ''; $activePar = '';
+
+//Handler for category based search
+switch($categoryParam){
+    default     :   if($categoryParam>0){
+                        $classVal = " AND category = $categoryParam "; $classLink = filter_input(INPUT_GET, 'catSlugName') ? "category/$categoryParam/".filter_input(INPUT_GET, 'catSlugName')."/" : '';
+                        $thisPage->title = PublicationCategory::getName($dbObj, $categoryParam).' - '.WEBSITE_AUTHOR;
+                        $activePar = PublicationCategory::getName($dbObj, $categoryParam);
+                    }
+                    break;
+}
+
 $offset = ($pageNum - 1) * $recordPerPage; 
-$transactTotal = Publication::getRawCount($dbObj, " $condParam ");//NUM_ROWS($transactQuery)
+$transactTotal = Publication::getRawCount($dbObj, " status=1 $classVal ");//NUM_ROWS($transactQuery)
 $totalPages = intval($transactTotal/$recordPerPage);
 if(($transactTotal%$recordPerPage)>0){$totalPages +=1;}
 ?>
@@ -51,48 +63,83 @@ if(($transactTotal%$recordPerPage)>0){$totalPages +=1;}
 <section class="service style-2 sec-padd2 four-column">
     <div class="container"> 
         <div class="row">
-            <?php 
-            foreach($publicationObj->fetchRaw("*", " $condParam ", " date_published DESC LIMIT $recordPerPage OFFSET $offset ")as $publication) { 
-                $dateParam = explode('-', $publication['date_published']);
-                $dateObj   = DateTime::createFromFormat('!m', $dateParam[1]);
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="service-sidebar">
+                    <div class="inner-title">
+                        <h3>Category</h3>
+                    </div>
+                    <ul class="service-catergory">
+                        <li <?php echo $activePar == '' ? 'class="active"':""; ?>><a href="<?php echo SITE_URL.'publications/'; ?>">All Categories</a></li>
+                        <?php 
+                        foreach ($categoryObj->fetchRaw("*", " 1=1 ", " name ASC LIMIT 10") as $category) {
+                        $categoryData = array('id' => 'id', 'name' => 'name', 'image' => 'image', 'description' => 'description');
+                        foreach ($categoryData as $key => $value){
+                            switch ($key) { 
+                                //case 'image': $categoryObj->$key = MEDIA_FILES_PATH1.'category/'.$category[$value];break;
+                                default     :   $categoryObj->$key = $category[$value]; break; 
+                            }
+                        }
+                        $activeParam = StringManipulator::slugify($activePar) == StringManipulator::slugify($categoryObj->name) ? 'class="active"' : "";
+                        
+                        ?>
+                        <li <?php echo $activeParam; ?>><a href="<?php echo SITE_URL.'publications/category/'.$categoryObj->id.'/'.StringManipulator::slugify($categoryObj->name).'/'; ?>"><?php echo $categoryObj->name; ?></a></li>
+                        <?php } ?>
+<!--                        <li class="active"><a href="service-2.html">Sustainability</a></li>
+                        <li><a href="service-3.html">Performance</a></li>
+                        <li><a href="service-4.html">Advanced Analytics</a></li>
+                        <li><a href="service-5.html">Organization</a></li>
+                        <li><a href="service-6.html">Customer Insights</a></li>-->
 
-                if($publication['image']=="") { 
-                    $publication['image'] = PublicationCategory::getSingle($dbObj, "image", $publication['category']);
-                    $thumb = new ThumbNail("media/category/".$publication['image'], 260, 160); 
-                }else{
-                    $thumb = new ThumbNail("media/publication-image/".$publication['image'], 260, 160); 
-                }
-                $pubLink = SITE_URL."publication/". $publication['id']."/".StringManipulator::slugify($publication['name'])."/";
-            ?>
-            <article class="column col-md-3 col-sm-6 col-xs-12">
-                <div class="item">
-                    <figure class="img-box">
-                        <img src="<?php echo SITE_URL.$thumb; ?>" style="width:260px; height: 160px;" alt="<?php echo $publication['name']; ?>">
-                        <figcaption class="default-overlay-outer">
-                            <div class="inner">
-                                <div class="content-layer">
-                                    <a href="<?php echo $pubLink; ?>" class="thm-btn thm-tran-bg">read more</a>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="row">
+                    <?php 
+                    foreach($publicationObj->fetchRaw("*", " status=1 $classVal ", " date_published DESC LIMIT $recordPerPage OFFSET $offset ")as $publication) { 
+                        $dateParam = explode('-', $publication['date_published']);
+                        $dateObj   = DateTime::createFromFormat('!m', $dateParam[1]);
+
+                        if($publication['image']=="") { 
+                            $publication['image'] = PublicationCategory::getSingle($dbObj, "image", $publication['category']);
+                            $thumb = new ThumbNail("media/category/".$publication['image'], 260, 160); 
+                        }else{
+                            $thumb = new ThumbNail("media/publication-image/".$publication['image'], 260, 160); 
+                        }
+                        $pubLink = SITE_URL."publication/". $publication['id']."/".StringManipulator::slugify($publication['name'])."/";
+                    ?>
+                    <article class="column col-md-4 col-sm-6 col-xs-12">
+                        <div class="item">
+                            <figure class="img-box">
+                                <img src="<?php echo SITE_URL.$thumb; ?>" style="width:260px; height: 160px;" alt="<?php echo $publication['name']; ?>">
+                                <figcaption class="default-overlay-outer">
+                                    <div class="inner">
+                                        <div class="content-layer">
+                                            <a href="<?php echo $pubLink; ?>" class="thm-btn thm-tran-bg">read more</a>
+                                        </div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <div class="content center">
+                                <h5><?php echo PublicationCategory::getName($dbObj, $publication['category']); ?></h5>
+                                <a href="<?php echo $pubLink; ?>"  title="<?php echo $publication['name']; ?>"><h4><?php echo StringManipulator::trimStringToFullWord(50,$publication['name']); ?> ..</h4></a>
+                                <div class="text">
+                                    <p><?php echo StringManipulator::trimStringToFullWord(80, trim(strip_tags($publication['description']))); ?> . . .</p>
                                 </div>
                             </div>
-                        </figcaption>
-                    </figure>
-                    <div class="content center">
-                        <h5><?php echo PublicationCategory::getName($dbObj, $publication['category']); ?></h5>
-                        <a href="<?php echo $pubLink; ?>"  title="<?php echo $publication['name']; ?>"><h4><?php echo StringManipulator::trimStringToFullWord(80,$publication['name']); ?>..</h4></a>
-                        <div class="text">
-                            <p><?php echo StringManipulator::trimStringToFullWord(120, trim(strip_tags($publication['description']))); ?> . . .</p>
                         </div>
-                    </div>
+                    </article>
+                    <?php } ?>
                 </div>
-            </article>
-            <?php } ?>
+            </div>
         </div>
         
         <ul class="page_pagination center">
-            <li><a href="<?php echo ($pageNum>1) ? SITE_URL.'publications/page/'.($pageNum-1).'/' : 'javascript:;'; ?>" class="tran3s <?php echo ($pageNum>1) ? '' : 'inactive'; ?>"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-            <li><a href="<?php echo SITE_URL.'publications/page/'.($pageNum); ?>" class="active tran3s"><?php echo ($pageNum); ?></a></li>
-            <li><a href="<?php echo SITE_URL.'publications/page/'.($pageNum+1); ?>" class="tran3s <?php echo ($pageNum+1 <= $totalPages) ? '' : 'inactive'; ?>"><?php echo ($pageNum+1); ?></a></li>
-            <li><a href="<?php echo ($pageNum < $totalPages) ? SITE_URL.'publications/page/'.($pageNum+1).'/' : 'javascript:;'; ?>" class="tran3s <?php echo ($pageNum < $totalPages) ? '' : 'inactive'; ?>"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+            <li><a href="<?php echo ($pageNum>1) ? SITE_URL.'publications/'.$classLink.'page/'.($pageNum-1).'/' : 'javascript:;'; ?>" class="tran3s <?php echo ($pageNum>1) ? '' : 'inactive'; ?>"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+            <li><a href="<?php echo SITE_URL.'publications/'.$classLink.'page/'.($pageNum); ?>" class="active tran3s"><?php echo ($pageNum); ?></a></li>
+            <li><a href="<?php echo SITE_URL.'publications/'.$classLink.'page/'.($pageNum+1); ?>" class="tran3s <?php echo ($pageNum+1 <= $totalPages) ? '' : 'inactive'; ?>"><?php echo ($pageNum+1); ?></a></li>
+            <li><a href="<?php echo ($pageNum < $totalPages) ? SITE_URL.'publications/'.$classLink.'page/'.($pageNum+1).'/' : 'javascript:;'; ?>" class="tran3s <?php echo ($pageNum < $totalPages) ? '' : 'inactive'; ?>"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
         </ul>
     </div>
 </section>

@@ -62,7 +62,7 @@
 
                         <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], 'gallery', 'active'); ?>"><a href="<?php echo SITE_URL; ?>contact/">Contact</a></li>
                         
-                        <?php $linkArray = array('gallery', 'presentation', 'patent', 'about', 'video', 'sponsor', 'new', 'faq'); ?>
+                        <?php $linkArray = array('gallery', 'presentation', 'patent', 'about', 'video', 'sponsor', 'news', 'faq'); ?>
                         <li class="<?php echo $thisPage->active($_SERVER['REQUEST_URI'], $linkArray, 'active'); ?>"><a href="#">More</a>
                         <ul class="dropdown">
                             <li><a href="<?php echo SITE_URL; ?>presentations/">Presentations</a></li>
